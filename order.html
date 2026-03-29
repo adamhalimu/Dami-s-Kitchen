@@ -73,10 +73,10 @@
     function sendOrder() {
       let total = cart.reduce((sum, item) => sum + item.price * item.qty, 0);
       let orderSummary = cart.map(item => `${item.name} x${item.qty} - ₦${item.price * item.qty}`).join('\n');
-      let message = `Hello Dami's Kitchen! I would like to order:\n${orderSummary}\nTotal: ₦${total}`;
+      let message = `Hello Vera's Kitchen! I would like to order:\n${orderSummary}\nTotal: ₦${total}`;
 
     
-      let phoneNumber = "+2348034117124"; 
+      let phoneNumber = "+2347026456760"; 
       let url = `https://wa.me/${phoneNumber}?text=${encodeURIComponent(message)}`;
 
       window.open(url, "_blank");
