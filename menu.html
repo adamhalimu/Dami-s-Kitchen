@@ -10,136 +10,481 @@
 
   gtag('config', 'G-Y616GQ8EGZ');
 </script>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Vera's Kitchen | Menu</title>
-  <link rel="stylesheet" href="styles.css" />
-</head>
+   <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Dami's Kitchen | Menu</title>
+  <meta name="description" content="Dami's Kitchen menu — order, watch behind the scenes, and read reviews. Responsive and mobile-first.">
 
+
+  <style>
+    :root{
+      --accent:#d35400;
+      --cta:#27ae60;
+      --muted:#6b6b6b;
+      --bg:#fffaf8;
+      --card:#ffffff;
+      --gold:#f5c542;
+      --shadow:0 12px 30px rgba(0,0,0,.08);
+      --radius:12px;
+      --max-width:1200px;
+      --page-pad:16px;
+      --font-sans:Inter,system-ui,Arial,sans-serif;
+    }
+    *{box-sizing:border-box}
+    html,body{margin:0;padding:0;font-family:var(--font-sans);background:var(--bg);color:#222;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+    a{color:inherit;text-decoration:none}
+    button{font-family:inherit;cursor:pointer}
+
+    /* NAV */
+    header.site-nav{position:sticky;top:0;background:#fff;border-bottom:1px solid #f0e6e3;z-index:1000}
+    .nav-inner{max-width:var(--max-width);margin:0 auto;display:flex;align-items:center;justify-content:space-between;padding:12px var(--page-pad);gap:12px}
+    .brand{display:flex;align-items:center;gap:12px}
+    .logo{width:48px;height:48px;border-radius:10px;background:linear-gradient(135deg,var(--accent),#f39c12);display:flex;align-items:center;justify-content:center;color:#fff;font-weight:800}
+    .brand h1{margin:0;font-size:18px;color:var(--accent)}
+    .nav-links{display:flex;gap:12px;align-items:center}
+    .nav-links a{padding:8px 12px;border-radius:8px;font-weight:600;color:#333}
+    .cta-order{background:var(--cta);color:#fff;padding:8px 12px;border-radius:8px;font-weight:800}
+    .hamburger{display:none;width:44px;height:44px;border-radius:8px;border:1px solid #f0e6e3;background:#fff;align-items:center;justify-content:center}
+
+    .mobile-menu{display:none;flex-direction:column;gap:8px;padding:12px var(--page-pad);border-top:1px solid #f0e6e3;background:#fff}
+
+    /* HERO */
+    .hero{max-width:var(--max-width);margin:18px auto;padding:0 var(--page-pad);display:grid;grid-template-columns:1fr 420px;gap:20px;align-items:center}
+    .hero-left{background:linear-gradient(180deg,#fff,#fffaf8);border-radius:var(--radius);padding:28px;box-shadow:var(--shadow)}
+    .hero-left h2{margin:0;color:var(--accent);font-size:clamp(22px,4vw,34px)}
+    .hero-left p{margin:10px 0;color:var(--muted);font-size:15px}
+    .hero-ctas{margin-top:14px;display:flex;gap:12px;flex-wrap:wrap}
+    .btn{display:inline-block;padding:10px 14px;border-radius:10px;font-weight:800}
+    .btn.primary{background:var(--cta);color:#fff}
+    .btn.ghost{background:transparent;border:1px solid rgba(0,0,0,.06);color:var(--accent)}
+
+    .hero-media{border-radius:var(--radius);overflow:hidden;box-shadow:var(--shadow);background:#000;display:flex;flex-direction:column}
+    .hero-media video{width:100%;height:auto;display:block;object-fit:cover}
+    .hero-media .poster{padding:12px;background:#fff;display:flex;justify-content:space-between;align-items:center}
+
+    /* MENU GRID */
+    .container{max-width:var(--max-width);margin:20px auto;padding:0 var(--page-pad)}
+    .menu-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
+    .menu-card{background:var(--card);border-radius:12px;overflow:hidden;box-shadow:var(--shadow);display:flex;flex-direction:column}
+    .menu-card img{width:100%;height:180px;object-fit:cover;display:block}
+    .menu-body{padding:12px;display:flex;flex-direction:column;gap:8px}
+    .menu-title{display:flex;justify-content:space-between;align-items:center}
+    .price{color:var(--accent);font-weight:800}
+    .menu-actions{display:flex;gap:8px;margin-top:8px;flex-wrap:wrap}
+
+    /* FILTERS */
+    .filters{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:12px}
+    .filter-btn{padding:8px 10px;border-radius:8px;border:1px solid #eee;background:#fff;cursor:pointer}
+
+    /* REVIEWS */
+    .reviews{margin-top:22px}
+    .review-list{display:flex;gap:12px;flex-wrap:wrap}
+    .review-card{background:var(--card);border-radius:12px;padding:12px;box-shadow:var(--shadow);flex:1 1 220px;min-width:220px}
+    .stars{color:var(--gold);font-weight:800}
+
+    /* BEHIND THE SCENES VIDEO ROW */
+    .bts{margin-top:22px;display:grid;grid-template-columns:1fr 360px;gap:18px;align-items:start}
+    .bts .bts-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:12px}
+    .bts video{width:100%;height:auto;border-radius:10px;display:block;object-fit:cover}
+    .bts .about{background:var(--card);padding:12px;border-radius:10px;box-shadow:var(--shadow)}
+
+    /* ICONS */
+    .icon{width:18px;height:18px;display:inline-block;vertical-align:middle}
+
+    /* STICKY ORDER BAR */
+    .sticky-order{position:fixed;left:12px;right:12px;bottom:12px;background:var(--cta);color:#fff;padding:12px;border-radius:12px;display:flex;justify-content:space-between;align-items:center;gap:12px;z-index:999;box-shadow:0 10px 30px rgba(0,0,0,.12)}
+    .sticky-order .btn{padding:10px 12px;border-radius:10px}
+
+    /* FOOTER */
+    footer{max-width:var(--max-width);margin:28px auto;padding:18px var(--page-pad);text-align:center;color:var(--muted);font-size:13px}
+
+    /* RESPONSIVE */
+    @media(max-width:1024px){ .menu-grid{grid-template-columns:repeat(2,1fr)} .bts{grid-template-columns:1fr 320px} }
+    @media(max-width:720px){
+      .nav-links{display:none}
+      .hamburger{display:flex}
+      .mobile-menu{display:none}
+      .hero{grid-template-columns:1fr;gap:12px;padding:0 var(--page-pad)}
+      .hero-ctas{flex-direction:column}
+      .hero-ctas .btn{width:100%}
+      .menu-grid{grid-template-columns:1fr}
+      .bts{grid-template-columns:1fr;gap:12px}
+      .sticky-order{flex-direction:column;align-items:stretch;padding-bottom:calc(12px + env(safe-area-inset-bottom))}
+      .sticky-order .btn{width:100%}
+    }
+    @media(max-width:480px){
+      .menu-card img{height:160px}
+    }
+
+    /* Focus */
+    a:focus, button:focus, input:focus, textarea:focus{outline:3px solid rgba(39,174,96,.12);outline-offset:2px}
+  </style>
 </head>
 <body>
   <header>
-    <nav>
-      <h1>Vera's Kitchen</h1>
-      <ul>
-        <li><a href="index.html">Home</a></li>
-        <li><a href="order.html">Order</a></li>
-        <li><a href="contact.html">Contact Us</a></li>
-        <li><a href="menu.html" class="active">Menu</a></li>
-        <li><a href="socials.html">Socials</a></li>
-      </ul>
-    </nav>
-  </header>
+   <!-- NAV -->
+  <header class="site-nav" role="banner">
+    <div class="nav-inner">
+      <div class="brand">
+        <div class="logo" aria-hidden="true">DK</div>
+        <div>
+          <h1>Dami's Kitchen</h1>
+          <div style="font-size:12px;color:var(--muted)">Fresh meals • Abuja</div>
+        </div>
+      </div>
 
-  <section class="menu-section">
-    <h2>Our Menu</h2>
-    <p>Browse by category and discover your favorites.</p>
+      <nav class="nav-links" aria-label="Primary">
+        <a href="index.html">Home</a>
+        <a href="menu.html" class="active" aria-current="page">Menu</a>
+        <a href="order.html">Order</a>
+        <a href="contact.html">Contact</a>
+        <a class="cta-order" href="order.html">Order Now</a>
+      </nav>
 
-    <!-- Filter Buttons -->
-    <div class="filter-buttons">
-      <button data-filter="all" class="active">All</button>
-      <button data-filter="breakfast">Breakfast</button>
-      <button data-filter="lunch">Lunch</button>
-      <button data-filter="dinner">Dinner</button>
-      <button data-filter="drinks">Drinks</button>
+      <button id="hamburger" class="hamburger" aria-expanded="false" aria-controls="mobileMenu" aria-label="Open menu">☰</button>
     </div>
 
-    <!-- Menu Grid -->
-    <div class="menu-grid">
-      <div class="menu-card" data-category="breakfast">
-        <a href="order.html"><img src="pancakes.jpg" alt="Pancakes" /></a>
-        <h3>Pancakes</h3>
-        <p>Fluffy pancakes served with syrup.</p>
-        <span class="price">₦1500</span>
+    <div id="mobileMenu" class="mobile-menu" aria-hidden="true">
+      <a href="index.html">Home</a>
+      <a href="menu.html" class="active">Menu</a>
+      <a href="order.html">Order</a>
+      <a href="contact.html">Contact</a>
+      <a href="order.html" class="cta-order" style="display:inline-block;text-align:center">Order Now</a>
+    </div>
+  </header>
+
+  <!-- HERO -->
+  <section class="hero" aria-label="Menu hero">
+    <div class="hero-left">
+      <h2>Our Menu</h2>
+      <p>Handmade, home-style meals prepared fresh daily. Tap any dish to order or watch a short clip.</p>
+      <div class="hero-ctas">
+        <button class="btn primary" id="viewOrder">Order Now</button>
+        <button class="btn ghost" id="viewContact">Contact</button>
       </div>
 
-      <div class="menu-card" data-category="lunch">
-         <a href="order.html"> <img src="jollof.jpg" alt="Jollof Rice" /></a>
-        <h3>Jollof Rice</h3>
-        <p>Classic Nigerian jollof rice with chicken.</p>
-        <span class="price">₦2500</span>
+      <div style="margin-top:14px" class="filters" aria-label="Menu filters">
+        <button class="filter-btn" data-filter="all">All</button>
+        <button class="filter-btn" data-filter="rice">Rice</button>
+        <button class="filter-btn" data-filter="fish">Fish</button>
+        <button class="filter-btn" data-filter="drinks">Drinks</button>
       </div>
+    </div>
 
-      <div class="menu-card" data-category="dinner">
-         <a href="order.html"> <img src="grilled.jpg" alt="Grilled Fish" /></a>
-        <h3>Grilled Fish</h3>
-        <p>Perfectly seasoned fish with sides.</p>
-        <span class="price">₦3500</span>
-      </div>
-
-      <div class="menu-card" data-category="drinks">
-        <a href="order.html"> <img src="coca-cola.jpg" alt="Coca-cola" /></a>
-        <h3>Coca-cola</h3>
-        <p>Refreshing carbonated drink.</p>
-        <span class="price">₦1000</span>
-      </div>
-
-      <div class="menu-card" data-category="breakfast">
-        <a href="order.html"> <img src="coffee.jpg" alt="Coffee" /></a>
-        <h3>Coffee</h3>
-        <p>Rich and aromatic coffee.</p>
-        <span class="price">₦1000</span>
-      </div>
-
-      <div class="menu-card" data-category="drinks">
-        <a href="order.html"> <img src="sprite.jpg" alt="Sprite" /></a>
-        <h3>Sprite</h3>
-        <p>Refreshing lemon-lime soda.</p>
-        <span class="price">₦1000</span>
-      </div>
-
-      <div class="menu-card" data-category="dinner">
-         <a href="order.html"> <img src="white-rice.jpg" alt="White Rice" /> </a>
-        <h3>White Rice</h3>
-        <p>Steamed white rice.</p>
-        <span class="price">₦1000</span>
-      </div>
-
-      <div class="menu-card" data-category="dinner">
-        <a href="order.html"> <img src="chicken.jpg" alt="chicken" /></a>
-        <h3>Grilled Chicken</h3>
-        <p>Seasoned chicken grilled to perfection.</p>
-        <span class="price">₦2500</span>
-      </div>
-
-      <div class="menu-card" data-category="drinks">
-        <a href="order.html"> <img src="pepsi.jpg" alt="Pepsi" /> </a>
-        <h3>Pepsi</h3>
-        <p>Refreshing carbonated drink.</p>
-        <span class="price">₦1000</span>
-      </div>
-
-      
-      <div class="menu-card" data-category="lunch">
-        <a href="order.html"> <img src="salad.jpg" alt="Salad" /></a>
-        <h3>Salad</h3>
-        <p>Fresh and healthy salad.</p>
-        <span class="price">₦1000</span>
-      </div>
-
-      
-      <div class="menu-card" data-category="breakfast">
-        <a href="order.html"> <img src="scrambled-eggs.jpg" alt="Scrambled Eggs" /></a>
-        <h3>Scrambled Eggs</h3>
-        <p>Fluffy scrambled eggs with toast.</p>
-        <span class="price">₦1500</span>
-      </div>
-
-      
-      <div class="menu-card" data-category="drinks">
-        <a href="order.html"> <img src="smoothie.jpg" alt="Smoothie" /></a>
-        <h3>Smoothie</h3>
-        <p>Refreshing fruit smoothie.</p>
-        <span class="price">₦1500</span>
+    <div class="hero-media" aria-hidden="false">
+      <video id="heroClip" poster="images/hero-poster.jpg" playsinline muted loop preload="none" controlsList="nodownload" aria-label="Hero video">
+        <source src="Download.mp4" type="video/mp4">
+        Your browser does not support the video tag.
+      </video>
+      <div class="poster" style="display:flex;justify-content:space-between;align-items:center;padding:12px;background:#fff">
+        <div style="font-weight:700;color:#333">Fresh from the kitchen</div>
+        <div style="font-size:13px;color:var(--muted)"></div>
       </div>
     </div>
   </section>
 
+  <!-- MENU -->
+  <main class="container" id="main">
+    <section aria-label="Menu items">
+      <div class="menu-grid" id="menuGrid">
+        <!-- Cards injected by JS -->
+      </div>
+
+      <!-- Reviews -->
+      <div class="reviews" aria-label="Customer reviews">
+        <h3 style="color:var(--accent);margin:18px 0 8px 0">Customer reviews</h3>
+        <div class="review-list" id="reviewList">
+          <!-- Reviews injected by JS -->
+        </div>
+      </div>
+
+      <!-- Behind the scenes -->
+      <div class="bts" aria-label="Behind the scenes">
+        <div>
+          <h3 style="color:var(--accent);margin:18px 0 8px 0">Behind the scenes</h3>
+          <div class="bts-grid" id="btsGrid">
+            <!-- BTS videos injected by JS -->
+          </div>
+        </div>
+
+        <aside class="about">
+          <div style="background:var(--card);padding:12px;border-radius:10px;box-shadow:var(--shadow)">
+            <h4 style="margin:0 0 8px 0;color:var(--accent)">Meet Dami</h4>
+            <p style="margin:0;color:var(--muted)">Short clips of Dami preparing signature dishes — warm, authentic, and made with care. Watch to learn about ingredients and delivery times.</p>
+            <div style="margin-top:12px;display:flex;gap:8px">
+              <a class="btn primary" href="contact.html" id="btsContact">Message Dami</a>
+              <a class="btn ghost" href="order.html" id="btsOrder">Order</a>
+            </div>
+          </div>
+        </aside>
+      </div>
+    </section>
+  </main>
+
+  <!-- Sticky order bar -->
+  <div class="sticky-order" role="region" aria-label="Quick order">
+    <div style="display:flex;gap:12px;align-items:center">
+      <svg class="icon" viewBox="0 0 24 24" fill="#fff" aria-hidden="true" width="20" height="20"><path d="M7 4h10l1.6 8H5.4L7 4zM6 20a2 2 0 100-4 2 2 0 000 4zm10 0a2 2 0 100-4 2 2 0 000 4z"/></svg>
+      <div style="font-weight:800">Ready to order?</div>
+    </div>
+    <div style="display:flex;gap:8px">
+      <button class="btn primary" id="stickyOrderBtn">Order Now</button>
+      <button class="btn ghost" id="stickyMenuBtn">View Cart</button>
+    </div>
+  </div>
+
   <footer>
-    <p>&copy; 2026 Vera's Kitchen. All rights reserved.</p>
+    © 2026 Dami's Kitchen • Fresh meals delivered in Abuja
   </footer>
 
-  <script src="menu.js"></script>
+  <!-- Video modal (reusable) -->
+  <div id="videoModal" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,.6);align-items:center;justify-content:center;z-index:2000;padding:12px">
+    <div style="width:100%;max-width:900px;background:#000;border-radius:12px;overflow:hidden;max-height:85vh;display:flex;flex-direction:column">
+      <video id="modalVideo" controls style="width:100%;height:auto;max-height:70vh"></video>
+      <div style="padding:10px;text-align:right;background:#fff">
+        <button id="closeModal" style="padding:8px 12px;border-radius:8px;border:none;background:var(--accent);color:#fff;font-weight:700">Close</button>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    /* ---------- Analytics helper ---------- */
+    function pushEvent(name, payload){
+      try{
+        window.dataLayer = window.dataLayer || [];
+        window.dataLayer.push(Object.assign({event: name}, payload || {}));
+        if(window.gtag) gtag('event', name, payload || {});
+      }catch(e){}
+    }
+
+    /* ---------- Mobile menu toggle ---------- */
+    (function(){
+      const hamburger = document.getElementById('hamburger');
+      const mobileMenu = document.getElementById('mobileMenu');
+      if(hamburger && mobileMenu){
+        hamburger.addEventListener('click', () => {
+          const expanded = hamburger.getAttribute('aria-expanded') === 'true';
+          hamburger.setAttribute('aria-expanded', String(!expanded));
+          mobileMenu.style.display = expanded ? 'none' : 'flex';
+          mobileMenu.setAttribute('aria-hidden', String(expanded));
+          if(!expanded) mobileMenu.scrollIntoView({behavior:'smooth', block:'start'});
+        });
+        document.addEventListener('click', (e) => {
+          if(window.innerWidth <= 720 && !mobileMenu.contains(e.target) && !hamburger.contains(e.target)){
+            mobileMenu.style.display = 'none';
+            hamburger.setAttribute('aria-expanded','false');
+            mobileMenu.setAttribute('aria-hidden','true');
+          }
+        });
+      }
+    })();
+
+    /* ---------- Menu data  ---------- */
+    const MENU = [
+      { id:'jollof', name:'Rice & Chicken', price:5000, category:'rice', img:'jollof.jpg', video:'Download (4).mp4', desc:'Classic party jollof with grilled chicken.' },
+      { id:'grilledfish', name:'Friday Special', price:4000, category:'fish', img:'grilled.jpg', video:'Download (3).mp4', desc:'Limited Time Offer.' },
+      { id:'smoothie', name:'Fried Rice And Turkey', price:5000, category:'drinks', img:'fried rice and turkey.jpeg', video:'Download (2).mp4', desc:'Tropical fruit blend.' },
+      { id:'familycombo', name:'Fried Rice And Chicken', price:9000, category:'combo', img:'fried rice wih chicken.jpeg', video:'Download.mp4', desc:'Feeds 4–5, perfect for gatherings.' }
+    ];
+
+    const REVIEWS = [
+      { stars:5, text:'Absolutely delicious. Tastes like home.', author:'Ada, Abuja' },
+      { stars:5, text:'Fast delivery and great portions.', author:'Musa, Lagos' },
+      { stars:4, text:'Fresh ingredients and friendly service.', author:'Chioma, Abuja' },
+      { stars:5, text:'Best jollof in town. Highly recommend.', author:'Emeka, Abuja' },
+      { stars:5, text:'Amazing flavors — will order again.', author:'Fatima, Abuja' },
+      { stars:5, text:'Perfect for family dinners.', author:'Tunde, Abuja' },
+      { stars:4, text:'Great value and tasty sides.', author:'Ngozi, Abuja' }
+    ];
+
+    /* ---------- Render menu cards ---------- */
+    const menuGrid = document.getElementById('menuGrid');
+    function renderMenu(filter='all'){
+      menuGrid.innerHTML = '';
+      const items = MENU.filter(m => filter === 'all' ? true : m.category === filter);
+      items.forEach(m => {
+        const card = document.createElement('article');
+        card.className = 'menu-card';
+        card.innerHTML = `
+          <img src="${m.img}" alt="${m.name}">
+          <div class="menu-body">
+            <div class="menu-title">
+              <strong>${m.name}</strong>
+              <div class="price">₦${m.price.toLocaleString()}</div>
+            </div>
+            <div style="color:var(--muted);font-size:14px">${m.desc}</div>
+            <div class="menu-actions">
+              <button class="btn primary order-btn" data-id="${m.id}">Order</button>
+              <button class="btn ghost watch-btn" data-video="${m.video}">Watch</button>
+            </div>
+          </div>
+        `;
+        menuGrid.appendChild(card);
+      });
+    }
+
+    /* ---------- Filters ---------- */
+    document.querySelectorAll('.filter-btn').forEach(btn => {
+      btn.addEventListener('click', function(){
+        const f = btn.getAttribute('data-filter');
+        renderMenu(f);
+        pushEvent('menu_filter', {filter: f});
+      });
+    });
+
+    /* ---------- Reviews render (gold stars) ---------- */
+    const reviewList = document.getElementById('reviewList');
+    function renderReviews(){
+      reviewList.innerHTML = '';
+      REVIEWS.forEach(r => {
+        const rc = document.createElement('div');
+        rc.className = 'review-card';
+        rc.innerHTML = `<div class="stars" aria-hidden="true">${'★ '.repeat(r.stars).trim()}</div>
+                        <div style="font-weight:700;margin-top:6px">${r.text}</div>
+                        <div style="color:var(--muted);margin-top:6px">— ${r.author}</div>`;
+        reviewList.appendChild(rc);
+      });
+    }
+
+    /* ---------- BTS videos render ---------- */
+    const btsGrid = document.getElementById('btsGrid');
+    function renderBTS(){
+      btsGrid.innerHTML = '';
+      
+      const clips = MENU.slice(0,4);
+      clips.forEach(c => {
+        const vwrap = document.createElement('div');
+        vwrap.innerHTML = `<video data-src="${c.video}" poster="${c.img}" preload="none" controls playsinline aria-label="${c.name} clip"></video>`;
+        btsGrid.appendChild(vwrap);
+      });
+    }
+
+    /* ---------- Video modal helpers ---------- */
+    const videoModal = document.getElementById('videoModal');
+    const modalVideo = document.getElementById('modalVideo');
+    const closeModal = document.getElementById('closeModal');
+    function openModal(src){
+      modalVideo.src = src;
+      videoModal.style.display = 'flex';
+      modalVideo.play().catch(()=>{});
+      pushEvent('video_play', {video: src, context:'modal'});
+    }
+    function closeModalFn(){
+      modalVideo.pause();
+      modalVideo.src = '';
+      videoModal.style.display = 'none';
+      pushEvent('video_close', {});
+    }
+    closeModal.addEventListener('click', closeModalFn);
+
+    /* ---------- Watch buttons and order buttons ---------- */
+    function wireButtons(){
+      document.querySelectorAll('.watch-btn').forEach(b => {
+        b.addEventListener('click', function(e){
+          e.preventDefault();
+          const src = b.getAttribute('data-video');
+          if(!src) return;
+          openModal(src);
+        });
+      });
+      document.querySelectorAll('.order-btn').forEach(b => {
+        b.addEventListener('click', function(){
+          const id = b.getAttribute('data-id');
+          pushEvent('menu_order_click', {item: id});
+          // Add to cart and navigate to order page
+          try{ window.addToCartFromMenu(id); }catch(e){ window.location.href = 'order.html'; }
+        });
+      });
+    }
+
+    /* ---------- Hero and carousel lazy load events ---------- */
+    (function(){
+      const hero = document.getElementById('heroClip');
+      let heroLoaded = false;
+      if('IntersectionObserver' in window){
+        const io = new IntersectionObserver(entries => {
+          entries.forEach(e => {
+            if(e.isIntersecting && !heroLoaded){
+              hero.preload = 'auto';
+              hero.muted = true;
+              hero.play().catch(()=>{});
+              pushEvent('video_impression', {video:'hero'});
+              heroLoaded = true;
+              io.disconnect();
+            }
+          });
+        }, {threshold:0.25});
+        io.observe(hero);
+      } else { hero.preload = 'auto'; }
+      hero.addEventListener('play', ()=> pushEvent('video_play', {video:'hero'}));
+      hero.addEventListener('pause', ()=> pushEvent('video_pause', {video:'hero'}));
+      hero.addEventListener('ended', ()=> pushEvent('video_complete', {video:'hero'}));
+    })();
+
+    /* ---------- Lazy load BTS videos when visible ---------- */
+    (function(){
+      const observer = ('IntersectionObserver' in window) ? new IntersectionObserver(entries => {
+        entries.forEach(entry => {
+          if(entry.isIntersecting){
+            const vids = entry.target.querySelectorAll('video[data-src]');
+            vids.forEach(v => {
+              if(!v.src){
+                v.src = v.getAttribute('data-src');
+                v.load();
+                pushEvent('video_impression', {video: v.getAttribute('data-src')});
+              }
+            });
+            observer.unobserve(entry.target);
+          }
+        });
+      }, {threshold:0.2}) : null;
+
+      // observe btsGrid container
+      if(observer && btsGrid) observer.observe(btsGrid);
+    })();
+
+    /* ---------- Sticky order actions ---------- */
+    document.getElementById('stickyOrderBtn').addEventListener('click', function(){
+      pushEvent('order_cta_click', {location:'sticky_bar'});
+      window.location.href = 'order.html';
+    });
+    document.getElementById('stickyMenuBtn').addEventListener('click', function(){
+      window.location.href = 'order.html';
+    });
+    document.getElementById('viewOrder').addEventListener('click', function(){ window.location.href = 'order.html'; });
+    document.getElementById('viewContact').addEventListener('click', function(){ window.location.href = 'contact.html'; });
+
+    /* ---------- Initial render ---------- */
+    renderMenu('all');
+    renderReviews();
+    renderBTS();
+    wireButtons();
+
+    /* Re-wire buttons after re-render (filters) */
+    document.querySelectorAll('.filter-btn').forEach(btn => {
+      btn.addEventListener('click', () => setTimeout(wireButtons, 250));
+    });
+
+    /* ---------- Accessibility & mobile fixes ---------- */
+    (function(){
+      // Prevent horizontal overflow
+      document.documentElement.style.overflowX = 'hidden';
+      document.body.style.overflowX = 'hidden';
+
+      // Mobile menu behavior
+      const hamburger = document.getElementById('hamburger');
+      const mobileMenu = document.getElementById('mobileMenu');
+      if(hamburger && mobileMenu){
+        hamburger.addEventListener('click', () => {
+          const expanded = hamburger.getAttribute('aria-expanded') === 'true';
+          hamburger.setAttribute('aria-expanded', String(!expanded));
+          mobileMenu.style.display = expanded ? 'none' : 'flex';
+          mobileMenu.setAttribute('aria-hidden', String(expanded));
+        });
+      }
+    })();
+  </script>
 </body>
 </html>
+
 
