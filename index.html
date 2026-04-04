@@ -25,47 +25,513 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
 })(window,document,'script','dataLayer','GTM-5R3454LQ');</script>
 <!-- End Google Tag Manager -->
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Vera's Kitchen | Home</title>
-  <link rel="stylesheet" href="styles.css" />
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Dami's Kitchen | Home</title>
+  <meta name="description" content="Dami's Kitchen - Fresh meals delivered in Abuja. Order now.">
+
+  <style>
+    /* ---------- Design tokens ---------- */
+    :root{
+      --accent:#d35400;
+      --cta:#27ae60;
+      --muted:#6b6b6b;
+      --bg:#fffaf8;
+      --card:#ffffff;
+      --gold:#f5c542;
+      --shadow:0 12px 30px rgba(0,0,0,.08);
+      --radius:12px;
+      --max-width:1200px;
+      --page-padding:16px;
+      --font-sans:Inter,system-ui,Arial,sans-serif;
+    }
+    *{box-sizing:border-box}
+    html,body{margin:0;padding:0;font-family:var(--font-sans);background:var(--bg);color:#222;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+    a{color:inherit;text-decoration:none}
+    button{font-family:inherit}
+
+    /* ---------- NAV ---------- */
+    header.site-nav{position:sticky;top:0;background:#fff;border-bottom:1px solid #f0e6e3;z-index:1000}
+    .nav-inner{max-width:var(--max-width);margin:0 auto;display:flex;align-items:center;justify-content:space-between;padding:12px var(--page-padding);gap:12px}
+    .brand{display:flex;align-items:center;gap:12px}
+    .logo{width:48px;height:48px;border-radius:10px;background:linear-gradient(135deg,var(--accent),#f39c12);display:flex;align-items:center;justify-content:center;color:#fff;font-weight:800}
+    .brand h1{margin:0;font-size:18px;color:var(--accent)}
+    .nav-links{display:flex;gap:12px;align-items:center}
+    .nav-links a{padding:8px 12px;border-radius:8px;font-weight:600;color:#333}
+    .cta-order{background:var(--cta);color:#fff;padding:8px 12px;border-radius:8px;font-weight:800}
+    .hamburger{display:none;width:44px;height:44px;border-radius:8px;border:1px solid #f0e6e3;background:#fff;align-items:center;justify-content:center;cursor:pointer}
+
+    /* Mobile menu */
+    .mobile-menu{display:none;flex-direction:column;gap:8px;padding:12px var(--page-padding);border-top:1px solid #f0e6e3;background:#fff}
+
+    /* ---------- HERO ---------- */
+    .hero{max-width:var(--max-width);margin:18px auto;padding:0 var(--page-padding);display:grid;grid-template-columns:1fr 420px;gap:20px;align-items:center}
+    .hero-left{background:linear-gradient(180deg,#fff,#fffaf8);border-radius:var(--radius);padding:28px;box-shadow:var(--shadow)}
+    .hero-left h2{margin:0;color:var(--accent);font-size:clamp(22px,4vw,36px)}
+    .hero-left p{margin:10px 0;color:var(--muted);font-size:16px}
+    .hero-ctas{margin-top:14px;display:flex;gap:12px;flex-wrap:wrap}
+    .btn{display:inline-block;padding:10px 14px;border-radius:10px;font-weight:800}
+    .btn.primary{background:var(--cta);color:#fff}
+    .btn.ghost{background:transparent;border:1px solid rgba(0,0,0,.06);color:var(--accent)}
+
+    .hero-media{border-radius:var(--radius);overflow:hidden;box-shadow:var(--shadow);background:#000;display:flex;flex-direction:column}
+    .hero-media video{width:100%;height:auto;display:block;object-fit:cover}
+    .hero-media .poster{padding:12px;background:#fff;display:flex;justify-content:space-between;align-items:center}
+
+    /* ---------- VIDEO CAROUSEL ---------- */
+    .carousel{max-width:var(--max-width);margin:20px auto;padding:0 var(--page-padding)}
+    .carousel-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:8px}
+    .carousel-track{display:flex;gap:14px;overflow:auto;scroll-snap-type:x mandatory;padding-bottom:8px;-webkit-overflow-scrolling:touch}
+    .carousel-item{min-width:320px;flex:0 0 320px;border-radius:12px;overflow:hidden;background:var(--card);box-shadow:var(--shadow);scroll-snap-align:center}
+    .carousel-item video{width:100%;height:200px;object-fit:cover;display:block}
+    .carousel-controls{display:flex;justify-content:center;gap:8px;margin-top:10px}
+    .carousel-btn{padding:8px 10px;border-radius:8px;border:1px solid #eee;background:#fff;cursor:pointer}
+
+    /* ---------- FEATURED DISHES ---------- */
+    .featured{max-width:var(--max-width);margin:20px auto;padding:0 var(--page-padding)}
+    .featured h3{color:var(--accent);margin:0 0 12px}
+    .cards{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+    .card{background:var(--card);border-radius:12px;overflow:hidden;box-shadow:var(--shadow);display:flex;flex-direction:column}
+    .card img{width:100%;height:180px;object-fit:cover;display:block}
+    .card-body{padding:12px;display:flex;flex-direction:column;gap:8px}
+    .price{color:var(--accent);font-weight:800}
+
+    /* ---------- REVIEWS ---------- */
+    .reviews{max-width:var(--max-width);margin:20px auto;padding:0 var(--page-padding)}
+    .reviews h3{color:var(--accent);margin:0 0 12px}
+    .review-list{display:flex;gap:12px;flex-wrap:wrap}
+    .review-card{background:var(--card);border-radius:12px;padding:12px;box-shadow:var(--shadow);flex:1 1 220px;min-width:220px}
+    .stars{color:var(--gold);font-weight:800}
+
+    /* ---------- STICKY ORDER BAR ---------- */
+    .sticky-order{position:fixed;left:12px;right:12px;bottom:12px;background:var(--cta);color:#fff;padding:12px;border-radius:12px;display:flex;justify-content:space-between;align-items:center;gap:12px;z-index:999;box-shadow:0 10px 30px rgba(0,0,0,.12)}
+    .sticky-order .btn{padding:10px 14px;border-radius:10px}
+
+    /* ---------- FOOTER ---------- */
+    footer{max-width:var(--max-width);margin:28px auto;padding:18px var(--page-padding);text-align:center;color:var(--muted);font-size:13px}
+
+    /* ---------- MOBILE FIXES ---------- */
+    @media(max-width:1024px){
+      .hero{grid-template-columns:1fr 360px}
+      .cards{grid-template-columns:repeat(2,1fr)}
+    }
+    @media(max-width:720px){
+      .nav-links{display:none}
+      .hamburger{display:flex}
+      .mobile-menu{display:none}
+      .hero{grid-template-columns:1fr;gap:12px;padding:0 var(--page-padding)}
+      .hero-left{padding:18px}
+      .hero-ctas{flex-direction:column;gap:10px}
+      .hero-ctas .btn{width:100%;text-align:center}
+      .hero-media{width:100%;max-width:100%}
+      .hero-media video{height:auto;max-height:45vh;object-fit:cover}
+      .carousel-item{min-width:260px;flex:0 0 260px}
+      .cards{grid-template-columns:1fr}
+      .card img{height:220px;object-fit:cover}
+      .review-card{min-width:unset;width:100%}
+      .sticky-order{flex-direction:column;gap:10px;align-items:stretch;padding-bottom:calc(12px + env(safe-area-inset-bottom))}
+      .sticky-order .btn{width:100%;display:block}
+    }
+    @media(max-width:480px){
+      .carousel-item{min-width:220px;flex:0 0 220px}
+    }
+
+    /* Focus states */
+    a:focus, button:focus, input:focus, textarea:focus{outline:3px solid rgba(39,174,96,.12);outline-offset:2px}
+  </style>
 </head>
 <body>
   <!-- Google Tag Manager (noscript) -->
 <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-5R3454LQ"
 height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 <!-- End Google Tag Manager (noscript) -->
-  <header>
-    <nav>
-      <h1>Vera's Kitchen</h1>
-      <ul>
-        <li><a href="#">Home</a></li>
-        <li><a href="order.html">Order</a></li>
-        <li><a href="contact.html">Contact Us</a></li>
-        <li><a href="menu.html">Menu</a></li>
-        <li><a href="socials.html">Socials</a></li>
-      </ul>
-    </nav>
+  <!-- NAV -->
+  <header class="site-nav" role="banner">
+    <div class="nav-inner">
+      <div class="brand">
+        <div class="logo" aria-hidden="true">DK</div>
+        <div>
+          <h1>Dami's Kitchen</h1>
+          <div style="font-size:12px;color:var(--muted)">Fresh meals • Abuja</div>
+        </div>
+      </div>
+
+      <nav class="nav-links" aria-label="Primary">
+        <a href="index.html">Home</a>
+        <a href="menu.html">Menu</a>
+        <a href="order.html">Order</a>
+        <a href="contact.html">Contact</a>
+        <a class="cta-order" href="order.html">Order Now</a>
+      </nav>
+
+      <button id="hamburger" class="hamburger" aria-expanded="false" aria-controls="mobileMenu" aria-label="Open menu">☰</button>
+    </div>
+
+    <div id="mobileMenu" class="mobile-menu" aria-hidden="true">
+      <a href="index.html">Home</a>
+      <a href="menu.html">Menu</a>
+      <a href="order.html">Order</a>
+      <a href="contact.html">Contact</a>
+      <a href="order.html" class="cta-order" style="display:inline-block;text-align:center">Order Now</a>
+    </div>
   </header>
 
-  <section class="hero">
-    <div class="carousel">
-      <img src="jollof.jpg" class="slide active" alt="Delicious meal 1" />
-      <img src="smoothie.jpg" class="slide" alt="Delicious meal 2" />
-      <img src="salad.jpg" class="slide" alt="Delicious meal 3" />
+  <!-- HERO -->
+  <section class="hero" aria-label="Hero">
+    <div class="hero-left">
+      <h2>Fresh meals delivered in Abuja</h2>
+      <p>Home-style cooking, plated with care. Watch our chef in action and order in seconds.</p>
+      <div class="hero-ctas">
+        <a class="btn primary" href="order.html" id="heroOrder">Order Now</a>
+        <a class="btn ghost" href="menu.html">View Menu</a>
+      </div>
     </div>
-    <div class="hero-text">
-      <h2>Freshly Made Just For You</h2>
-      <p>Welcome to Vera’s Kitchen — where flavor meets comfort.</p>
-      <a href="menu.html" class="cta-button">Explore Menu</a>
+
+    <div class="hero-media" aria-hidden="false">
+      <video id="heroClip" poster="images/hero-poster.jpg" playsinline muted loop preload="none" controlsList="nodownload" aria-label="Hero video">
+        <source src="Download (9).mp4" type="video/mp4">
+        Your browser does not support the video tag.
+      </video>
+      <div class="poster" style="display:flex;justify-content:space-between;align-items:center">
+        <div style="font-weight:700;color:#333">Watch the chef</div>
+        <div style="font-size:13px;color:var(--muted)">Muted loop</div>
+      </div>
     </div>
   </section>
 
+  <!-- VIDEO CAROUSEL -->
+  <section class="carousel" aria-label="Video carousel">
+    <div class="carousel-header">
+      <h3 style="margin:0;color:var(--accent)">Behind the scenes</h3>
+      <div style="font-size:13px;color:var(--muted)">Tap a clip to play</div>
+    </div>
+
+    <div id="carouselTrack" class="carousel-track" tabindex="0" aria-roledescription="carousel">
+      <div class="carousel-item" data-index="0">
+        <video data-src="Download (5).mp4" poster="images/chef1.jpg" preload="none" controls playsinline aria-label="Chef clip 1"></video>
+      </div>
+      <div class="carousel-item" data-index="1">
+        <video data-src="Download (6).mp4" poster="images/food1.jpg" preload="none" controls playsinline aria-label="Food clip 1"></video>
+      </div>
+      <div class="carousel-item" data-index="2">
+        <video data-src="Download (7).mp4" poster="images/food2.jpg" preload="none" controls playsinline aria-label="Food clip 2"></video>
+      </div>
+      <div class="carousel-item" data-index="3">
+        <video data-src="Download (8).mp4" poster="images/chef2.jpg" preload="none" controls playsinline aria-label="Chef clip 2"></video>
+      </div>
+    </div>
+
+    <div class="carousel-controls" role="group" aria-label="Carousel controls">
+      <button class="carousel-btn" id="prevBtn" aria-label="Previous">‹ Prev</button>
+      <button class="carousel-btn" id="nextBtn" aria-label="Next">Next ›</button>
+    </div>
+  </section>
+
+  <!-- FEATURED DISHES -->
+  <section class="featured" aria-label="Featured dishes">
+    <h3>Featured dishes</h3>
+    <div class="cards" role="list">
+      <div class="card" role="listitem">
+        <img src="fried rice and turkey.jpeg" alt="Fried Rice with Turkey">
+        <div class="card-body">
+          <div style="display:flex;justify-content:space-between;align-items:center">
+            <strong>Fried Rice with Turkey</strong>
+            <div class="price">₦5000</div>
+          </div>
+          <div style="color:var(--muted);font-size:14px">Delicious fried rice with succulent turkey</div>
+          <div style="margin-top:10px;display:flex;gap:8px">
+            <button class="btn primary order-btn" data-item="jollof">Order</button>
+            <button class="btn ghost" data-video="Download (5).mp4">Watch</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="card" role="listitem">
+        <img src="fried rice wih chicken.jpeg" alt="Grilled Fish">
+        <div class="card-body">
+          <div style="display:flex;justify-content:space-between;align-items:center">
+            <strong>Fried Rice with Chicken</strong>
+            <div class="price">₦5,000</div>
+          </div>
+          <div style="color:var(--muted);font-size:14px">Delicious fried rice with succulent chicken</div>
+          <div style="margin-top:10px;display:flex;gap:8px">
+            <button class="btn primary order-btn" data-item="grilledfish">Order</button>
+            <button class="btn ghost" data-video="Download (4).mp4">Watch</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="card" role="listitem">
+        <img src="Noodles.jpeg" alt="Noodles With Platian">
+        <div class="card-body">
+          <div style="display:flex;justify-content:space-between;align-items:center">
+            <strong>Noodles With Platian</strong>
+            <div class="price">₦5,000</div>
+          </div>
+          <div style="color:var(--muted);font-size:14px">Delicious noodles with fresh platian</div>
+          <div style="margin-top:10px;display:flex;gap:8px">
+            <button class="btn primary order-btn" data-item="smoothie">Order</button>
+            <button class="btn ghost" data-video="Download (8).mp4">Watch</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- REVIEWS -->
+  <section class="reviews" aria-label="Customer reviews">
+    <h3>What customers say</h3>
+    <div class="review-list" role="list">
+      <div class="review-card" role="listitem">
+        <div class="stars" aria-hidden="true">★ ★ ★ ★ ★</div>
+        <div style="font-weight:700;margin-top:6px">“Absolutely delicious. Tastes like home.”</div>
+        <div style="color:var(--muted);margin-top:6px">— Ada, Abuja</div>
+      </div>
+
+      <div class="review-card" role="listitem">
+        <div class="stars" aria-hidden="true">★ ★ ★ ★ ★</div>
+        <div style="font-weight:700;margin-top:6px">“Fast delivery and great portions.”</div>
+        <div style="color:var(--muted);margin-top:6px">— Musa, Abuja</div>
+      </div>
+
+      <div class="review-card" role="listitem">
+        <div class="stars" aria-hidden="true">★ ★ ★ ★ ☆</div>
+        <div style="font-weight:700;margin-top:6px">“Fresh ingredients and friendly service.”</div>
+        <div style="color:var(--muted);margin-top:6px">— Chioma, Abuja</div>
+      </div>
+
+      <div class="review-card" role="listitem">
+        <div class="stars" aria-hidden="true">★ ★ ★ ★ ★</div>
+        <div style="font-weight:700;margin-top:6px">“Best jollof in town. Highly recommend.”</div>
+        <div style="color:var(--muted);margin-top:6px">— Emeka, Abuja</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- STICKY ORDER BAR -->
+  <div class="sticky-order" role="region" aria-label="Order now">
+    <div style="font-weight:800">Ready to eat? Place your order</div>
+    <div style="display:flex;gap:8px;flex-wrap:wrap">
+      <button class="btn primary" id="stickyOrderBtn">Order Now</button>
+      <button class="btn ghost" id="viewMenuBtn">Menu</button>
+    </div>
+  </div>
+
   <footer>
-    <p>&copy; 2026 Vera's Kitchen. All rights reserved.</p>
+    © 2026 Dami's Kitchen • Follow us on social media
   </footer>
 
-  <script src="script.js"></script>
+  <!-- VIDEO MODAL -->
+  <div id="videoModal" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,.6);align-items:center;justify-content:center;z-index:2000;padding:12px">
+    <div style="width:100%;max-width:900px;background:#000;border-radius:12px;overflow:hidden;max-height:85vh;display:flex;flex-direction:column">
+      <video id="modalVideo" controls style="width:100%;height:auto;max-height:70vh"></video>
+      <div style="padding:10px;text-align:right;background:#fff">
+        <button id="closeModalBtn" style="padding:8px 12px;border-radius:8px;border:none;background:var(--accent);color:#fff;font-weight:700">Close</button>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    /* ---------- Analytics helper ---------- */
+    function pushEvent(name, payload){
+      try{
+        window.dataLayer = window.dataLayer || [];
+        window.dataLayer.push(Object.assign({event: name}, payload || {}));
+        if(window.gtag) gtag('event', name, payload || {});
+      }catch(e){}
+    }
+
+    /* ---------- Mobile menu toggle ---------- */
+    (function(){
+      const hamburger = document.getElementById('hamburger');
+      const mobileMenu = document.getElementById('mobileMenu');
+      if(hamburger && mobileMenu){
+        hamburger.addEventListener('click', () => {
+          const expanded = hamburger.getAttribute('aria-expanded') === 'true';
+          hamburger.setAttribute('aria-expanded', String(!expanded));
+          mobileMenu.style.display = expanded ? 'none' : 'flex';
+          mobileMenu.setAttribute('aria-hidden', String(expanded));
+          if(!expanded) mobileMenu.scrollIntoView({behavior:'smooth', block:'start'});
+        });
+        document.addEventListener('click', (e) => {
+          if(window.innerWidth <= 720 && !mobileMenu.contains(e.target) && !hamburger.contains(e.target)){
+            mobileMenu.style.display = 'none';
+            hamburger.setAttribute('aria-expanded','false');
+            mobileMenu.setAttribute('aria-hidden','true');
+          }
+        });
+      }
+    })();
+
+    /* ---------- HERO video lazy load & events ---------- */
+    (function(){
+      const hero = document.getElementById('heroClip');
+      let heroLoaded = false;
+      if('IntersectionObserver' in window){
+        const io = new IntersectionObserver(entries => {
+          entries.forEach(e => {
+            if(e.isIntersecting && !heroLoaded){
+              hero.preload = 'auto';
+              hero.muted = true;
+              hero.play().catch(()=>{});
+              pushEvent('video_impression', {video:'hero'});
+              heroLoaded = true;
+              io.disconnect();
+            }
+          });
+        }, {threshold:0.25});
+        io.observe(hero);
+      } else {
+        hero.preload = 'auto';
+      }
+      hero.addEventListener('play', ()=> pushEvent('video_play', {video:'hero'}));
+      hero.addEventListener('pause', ()=> pushEvent('video_pause', {video:'hero'}));
+      hero.addEventListener('ended', ()=> pushEvent('video_complete', {video:'hero'}));
+      hero.addEventListener('volumechange', ()=> { if(!hero.muted) pushEvent('video_unmute', {video:'hero'}); });
+    })();
+
+    /* ---------- CAROUSEL logic (lazy load videos, slide controls) ---------- */
+    (function(){
+      const track = document.getElementById('carouselTrack');
+      const items = Array.from(track.querySelectorAll('.carousel-item'));
+      const prev = document.getElementById('prevBtn');
+      const next = document.getElementById('nextBtn');
+      let index = 0;
+
+      function loadVideo(item){
+        const vid = item.querySelector('video');
+        if(!vid) return;
+        if(!vid.src){
+          const src = vid.getAttribute('data-src');
+          if(src){ vid.src = src; vid.load(); pushEvent('video_impression', {video: src}); }
+        }
+      }
+
+      function goTo(i){
+        index = (i + items.length) % items.length;
+        const item = items[index];
+        track.scrollTo({left: item.offsetLeft - track.offsetLeft, behavior:'smooth'});
+        pushEvent('carousel_slide', {index: index});
+        loadVideo(item);
+      }
+
+      if(prev && next){
+        prev.addEventListener('click', ()=> goTo(index-1));
+        next.addEventListener('click', ()=> goTo(index+1));
+      }
+
+      // keyboard navigation
+      track.addEventListener('keydown', function(e){
+        if(e.key === 'ArrowRight') goTo(index+1);
+        if(e.key === 'ArrowLeft') goTo(index-1);
+      });
+
+      // click to play and track play events
+      items.forEach(it => {
+        it.addEventListener('click', function(e){
+          // avoid triggering when clicking controls
+          if(e.target.tagName.toLowerCase() === 'button') return;
+          const v = it.querySelector('video');
+          if(!v) return;
+          if(!v.src) loadVideo(it);
+          v.play().catch(()=>{});
+          pushEvent('carousel_item_click', {index: it.getAttribute('data-index')});
+        });
+        const v = it.querySelector('video');
+        if(v){
+          v.addEventListener('play', ()=> pushEvent('video_play', {video: v.getAttribute('data-src')}));
+          v.addEventListener('pause', ()=> pushEvent('video_pause', {video: v.getAttribute('data-src')}));
+          v.addEventListener('ended', ()=> pushEvent('video_complete', {video: v.getAttribute('data-src')}));
+        }
+      });
+
+      // initial load first item
+      if(items[0]) loadVideo(items[0]);
+    })();
+
+    /* ---------- Order buttons & sticky actions ---------- */
+    document.querySelectorAll('.order-btn').forEach(btn => {
+      btn.addEventListener('click', function(e){
+        const item = btn.getAttribute('data-item');
+        pushEvent('order_cta_click', {item: item, location: 'home_featured'});
+        // On mobile ensure button visible then navigate
+        if(window.innerWidth <= 720){
+          e.preventDefault();
+          btn.scrollIntoView({behavior:'smooth', block:'center'});
+          setTimeout(()=> window.location.href = 'order.html', 300);
+        } else {
+          window.location.href = 'order.html';
+        }
+      });
+    });
+
+    document.getElementById('stickyOrderBtn').addEventListener('click', function(){
+      pushEvent('order_cta_click', {item: 'sticky', location: 'sticky_bar'});
+      window.location.href = 'order.html';
+    });
+    document.getElementById('viewMenuBtn').addEventListener('click', function(){
+      window.location.href = 'menu.html';
+    });
+    document.getElementById('heroOrder').addEventListener('click', function(){ pushEvent('order_cta_click', {item:'hero', location:'hero'}); });
+
+    /* ---------- Reviews click tracking ---------- */
+    document.querySelectorAll('.review-card').forEach((r, i) => {
+      r.addEventListener('click', ()=> pushEvent('review_click', {index: i}));
+    });
+
+    /* ---------- Video modal helpers ---------- */
+    const videoModal = document.getElementById('videoModal');
+    const modalVideo = document.getElementById('modalVideo');
+    const closeModalBtn = document.getElementById('closeModalBtn');
+
+    function openVideoModal(src){
+      modalVideo.src = src;
+      videoModal.style.display = 'flex';
+      modalVideo.play().catch(()=>{});
+      pushEvent('video_play', {video: src, context: 'modal'});
+    }
+    function closeVideoModal(){
+      modalVideo.pause();
+      modalVideo.src = '';
+      videoModal.style.display = 'none';
+      pushEvent('video_close', {});
+    }
+    window.openVideoModal = openVideoModal;
+    window.closeVideoModal = closeVideoModal;
+    closeModalBtn.addEventListener('click', closeVideoModal);
+
+    // Wire "Watch" buttons on cards to open modal
+    document.querySelectorAll('.card .btn.ghost[data-video]').forEach(btn => {
+      btn.addEventListener('click', function(e){
+        e.preventDefault();
+        const src = btn.getAttribute('data-video');
+        if(src) openVideoModal(src);
+      });
+    });
+
+    /* ---------- Mobile sticky adjustments ---------- */
+    (function(){
+      const sticky = document.querySelector('.sticky-order');
+      if(!sticky) return;
+      function adjustSticky(){
+        if(window.innerHeight < 600){
+          sticky.style.padding = '10px';
+          sticky.style.fontSize = '14px';
+        } else {
+          sticky.style.padding = '';
+          sticky.style.fontSize = '';
+        }
+      }
+      window.addEventListener('resize', adjustSticky);
+      adjustSticky();
+    })();
+
+    /* ---------- Prevent accidental horizontal scroll on small devices ---------- */
+    (function(){
+      document.documentElement.style.overflowX = 'hidden';
+      document.body.style.overflowX = 'hidden';
+    })();
+  </script>
 </body>
 </html>
 
