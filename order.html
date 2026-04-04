@@ -10,87 +10,577 @@
 
   gtag('config', 'G-Y616GQ8EGZ');
 </script>
-  <meta charset="UTF-8">
-  <title>Vera's Kitchen | Order</title>
-  <style>
-    body { font-family: Arial, sans-serif; margin: 20px; background: #fafafa; }
-    h1 { color: #333; }
-    .menu button { margin: 5px; padding: 8px 12px; background: #ff6600; color: #fff; border: none; cursor: pointer; }
-    .menu button:hover { background: #e65c00; }
-    #cart { margin-top: 20px; padding: 15px; border: 1px solid #ccc; background: #fff; }
-    #checkout-modal { display: none; border: 1px solid #ccc; padding: 20px; background: #fff; }
-    button.checkout { background: #25D366; color: #fff; border: none; padding: 10px 15px; cursor: pointer; }
-    button.checkout:hover { background: #1EBE57; }
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Dami's Kitchen | Order</title>
+  <meta name="description" content="Dami's Kitchen — place your order, checkout via WhatsApp, watch the chef, and track your cart.">
+ <style>
+    :root{
+      --accent:#d35400;
+      --cta:#27ae60;
+      --muted:#6b6b6b;
+      --bg:#fffaf8;
+      --card:#ffffff;
+      --shadow: 0 10px 30px rgba(0,0,0,.08);
+      --radius:12px;
+      --max-width:1100px;
+      --page-padding:16px;
+      --gold:#f5c542;
+      --font-sans:Inter,system-ui,Arial,sans-serif;
+    }
+    *{box-sizing:border-box}
+    html,body{margin:0;padding:0;font-family:var(--font-sans);background:var(--bg);color:#222;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+    a{color:inherit;text-decoration:none}
+    button{font-family:inherit;cursor:pointer}
+
+    /* NAV */
+    .nav-wrap{background:#fff;border-bottom:1px solid #f0e6e3;position:sticky;top:0;z-index:1000}
+    .nav{max-width:var(--max-width);margin:0 auto;display:flex;align-items:center;justify-content:space-between;padding:12px var(--page-padding);gap:12px}
+    .brand{display:flex;align-items:center;gap:12px}
+    .logo{width:48px;height:48px;border-radius:10px;background:linear-gradient(135deg,var(--accent),#f39c12);display:flex;align-items:center;justify-content:center;color:#fff;font-weight:800}
+    .brand h1{margin:0;font-size:18px;color:var(--accent)}
+    .nav-links{display:flex;gap:12px;align-items:center}
+    .nav-links a{padding:8px 12px;border-radius:8px;font-weight:600;color:#333}
+    .cta-order{background:var(--cta);color:#fff;padding:8px 12px;border-radius:8px;font-weight:800}
+    .hamburger{display:none;width:44px;height:44px;border-radius:8px;border:1px solid #f0e6e3;background:#fff;align-items:center;justify-content:center}
+
+    .mobile-menu{display:none;flex-direction:column;gap:8px;padding:12px var(--page-padding);border-top:1px solid #f0e6e3;background:#fff}
+
+    /* PAGE LAYOUT */
+    .container{max-width:var(--max-width);margin:18px auto;padding:0 var(--page-padding)}
+    .layout{display:grid;grid-template-columns:1fr 380px;gap:20px;align-items:start}
+    .panel{background:var(--card);border-radius:var(--radius);padding:14px;box-shadow:var(--shadow)}
+    .section-title{display:flex;justify-content:space-between;align-items:center;margin-bottom:12px}
+    .section-title h2{margin:0;font-size:18px;color:var(--accent)}
+
+    /* ITEMS */
+    .items-list{display:flex;flex-direction:column;gap:12px}
+    .item{display:flex;gap:12px;align-items:center;padding:10px;border-radius:10px;background:linear-gradient(180deg,#fff,#fff);border:1px solid #f0e9e6}
+    .item img{width:88px;height:68px;object-fit:cover;border-radius:8px;flex-shrink:0}
+    .item-info{flex:1}
+    .item-info h3{margin:0;font-size:16px}
+    .item-info p{margin:6px 0 0;color:var(--muted);font-size:13px}
+    .controls{display:flex;flex-direction:column;align-items:flex-end;gap:8px}
+    .qty{display:flex;align-items:center;gap:8px}
+    .qty button{width:34px;height:34px;border-radius:8px;border:1px solid #eee;background:#fff;cursor:pointer;font-weight:700}
+    .qty .count{min-width:28px;text-align:center}
+    .remove{background:transparent;border:none;color:#999;cursor:pointer;font-size:13px}
+
+    /* SUMMARY */
+    .summary h3{margin:0 0 8px 0;color:var(--accent)}
+    .summary-row{display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px dashed #eee}
+    .total{font-size:20px;font-weight:800;padding-top:8px}
+    .checkout-btn{display:inline-block;width:100%;text-align:center;padding:12px;border-radius:10px;background:var(--cta);color:#fff;border:none;font-weight:800}
+    .checkout-btn:disabled{opacity:.6;cursor:not-allowed}
+
+    /* PAYMENT / FORM */
+    .field{display:flex;flex-direction:column;gap:6px;margin-top:8px}
+    input[type="text"], input[type="tel"], input[type="email"], textarea, select{padding:10px;border-radius:8px;border:1px solid #e6e0dd;font-size:14px}
+    textarea{min-height:72px;resize:vertical}
+
+    /* PROMO */
+    .promo{display:flex;gap:8px;margin-top:12px}
+    .promo input{flex:1}
+    .promo button{padding:10px 12px;border-radius:8px;border:none;background:var(--accent);color:#fff;cursor:pointer}
+
+    /* EMPTY */
+    .empty{padding:40px;text-align:center;color:var(--muted)}
+
+    /* CHEF VIDEO SECTION */
+    .chef-video{margin-top:16px;border-radius:12px;overflow:hidden;box-shadow:var(--shadow);background:var(--card)}
+    .chef-video video{width:100%;height:auto;display:block;object-fit:cover}
+    .chef-caption{padding:10px;background:#fff;display:flex;justify-content:space-between;align-items:center}
+
+    /* ICONS */
+    .icon{width:18px;height:18px;display:inline-block;vertical-align:middle}
+
+    /* STICKY ORDER BAR */
+    .sticky-order{position:fixed;left:12px;right:12px;bottom:12px;background:var(--cta);color:#fff;padding:12px;border-radius:12px;display:flex;justify-content:space-between;align-items:center;gap:12px;z-index:999;box-shadow:0 10px 30px rgba(0,0,0,.12)}
+    .sticky-inner{display:flex;gap:12px;align-items:center}
+    .sticky-btn{background:#fff;color:var(--cta);padding:8px 12px;border-radius:8px;text-decoration:none;font-weight:800}
+
+    /* FOOTER */
+    footer{padding:18px;text-align:center;background:#f7f3ef;color:#333;margin-top:18px}
+
+    /* RESPONSIVE FIXES */
+    @media(max-width:980px){ .layout{grid-template-columns:1fr 320px} .item img{height:60px} }
+    @media(max-width:720px){
+      .nav-links{display:none}
+      .hamburger{display:flex}
+      .mobile-menu{display:none}
+      .layout{grid-template-columns:1fr;gap:14px}
+      .panel{padding:12px}
+      .checkout-btn{padding:14px;font-size:16px}
+      .sticky-order{flex-direction:column;gap:10px;align-items:stretch;padding-bottom:calc(12px + env(safe-area-inset-bottom))}
+      .sticky-btn{width:100%;display:block}
+      .items-list .item{padding:8px}
+      .item img{width:84px;height:64px}
+      .chef-caption{flex-direction:column;align-items:flex-start;gap:8px}
+    }
+    @media(max-width:480px){
+      .item img{width:72px;height:56px}
+    }
+
+    /* Accessibility focus */
+    a:focus, button:focus, input:focus, textarea:focus{outline:3px solid rgba(39,174,96,.12);outline-offset:2px}
   </style>
 </head>
 <body>
-  <h1>Welcome to Vera's Kitchen</h1>
+ 
+  <!-- NAV -->
+  <div class="nav-wrap" role="navigation" aria-label="Main navigation">
+    <div class="nav">
+      <div class="brand">
+        <div class="logo" aria-hidden="true">DK</div>
+        <div>
+          <h1>Dami's Kitchen</h1>
+          <div style="font-size:12px;color:var(--muted)">Fresh meals • Abuja</div>
+        </div>
+      </div>
 
-  <!-- Menu -->
-  <div class="menu">
-    <button onclick="addToCart({name:'Jollof Rice', qty:1, price:1500})">Add Jollof Rice ₦1500</button>
-    <button onclick="addToCart({name:'Chicken', qty:1, price:2000})">Add Chicken ₦2000</button>
-    <button onclick="addToCart({name:'efo-riro and semo', qty:1, price:800})">Add Efo-Riro and Semo ₦3000</button>
-    <button onclick="addToCart({name:'Jollof Rice with Beef', qty:1, price:1500})">Add Jollof Rice with Beef ₦1500</button>
-    <button onclick="addToCart({name:'Pepper Soup', qty:1, price:2000})">Add Pepper Soup ₦2000</button>
-    <button onclick="addToCart({name:'Plantain', qty:1, price:800})">Add Plantain ₦800</button>
-    <button onclick="addToCart({name:'Jollof Rice with Turkey', qty:1, price:10000})">Add Jollof Rice with Turkey ₦10000</button>
-    <button onclick="addToCart({name:'Chicken Soup', qty:1, price:2000})">Add Chicken Soup ₦2000</button>
-    <button onclick="addToCart({name:'Beans with Plantain', qty:1, price:800})">Add Beans with Plantain ₦7000</button>
+      <nav class="nav-links" aria-label="Primary">
+        <a href="index.html">Home</a>
+        <a href="menu.html">Menu</a>
+        <a href="order.html" class="active" aria-current="page">Order</a>
+        <a href="contact.html">Contact</a>
+        <a href="order.html" class="cta-order">Order Now</a>
+      </nav>
+
+      <button id="hamburger" class="hamburger" aria-expanded="false" aria-controls="mobileMenu" aria-label="Open menu">☰</button>
+    </div>
+
+    <div id="mobileMenu" class="mobile-menu" aria-hidden="true">
+      <a href="index.html">Home</a>
+      <a href="menu.html">Menu</a>
+      <a href="order.html">Order</a>
+      <a href="contact.html">Contact</a>
+      <a href="order.html" class="cta-order" style="display:inline-block;text-align:center">Order Now</a>
+    </div>
   </div>
 
-  <!-- Cart -->
-  <div id="cart">
-    <h2>Your Cart</h2>
-    <ul id="cart-items"></ul>
-    <p id="cart-total">Total: ₦0</p>
-    <button class="checkout" onclick="sendOrder()" id="orderBtn">Confirm Order on WhatsApp</button>
+  <!-- MAIN -->
+  <main class="container" id="main">
+    <div class="layout" role="main">
+      <!-- Left: Items and delivery form -->
+      <section class="panel" aria-labelledby="cartHeading">
+        <div class="section-title">
+          <h2 id="cartHeading">Your Cart</h2>
+          <div style="font-size:13px;color:var(--muted)">Items saved locally</div>
+        </div>
+
+        <div id="itemsContainer" class="items-list" aria-live="polite"></div>
+        <div id="emptyState" class="empty" style="display:none">
+          <p>Your cart is empty. Browse the <a href="menu.html">menu</a> to add delicious meals.</p>
+        </div>
+
+        <div style="margin-top:16px">
+          <h3 style="margin:0 0 8px 0;color:var(--accent)">Delivery details</h3>
+          <div class="field">
+            <label for="customerName">Full name</label>
+            <input id="customerName" type="text" placeholder="Ada Example" />
+          </div>
+          <div class="field">
+            <label for="customerPhone">Phone number</label>
+            <input id="customerPhone" type="tel" placeholder="+234 80 0000 0000" />
+          </div>
+          <div class="field">
+            <label for="customerAddress">Delivery address</label>
+            <input id="customerAddress" type="text" placeholder="House number, street, area" />
+          </div>
+        </div>
+
+        <div style="margin-top:12px">
+          <label for="promo">Promo code</label>
+          <div class="promo">
+            <input id="promo" type="text" placeholder="Enter code" />
+            <button id="applyPromo">Apply</button>
+          </div>
+          <div id="promoMsg" style="margin-top:8px;color:var(--muted);font-size:13px"></div>
+        </div>
+
+        <!-- Chef video section -->
+        <div class="chef-video" aria-labelledby="chefTitle" style="margin-top:14px">
+          <div class="chef-caption" id="chefTitle">
+            <div style="font-weight:700">Meet the Chef</div>
+            <div style="font-size:13px;color:var(--muted)">Watch Dami prepare a signature dish</div>
+          </div>
+          <video id="chefVideo" poster="images/chef-poster.jpg" controls preload="none" playsinline>
+            <source src="Download (1).mp4" type="video/mp4">
+            Your browser does not support the video tag.
+          </video>
+        </div>
+      </section>
+
+      <!-- Right: Summary -->
+      <aside class="panel summary" aria-labelledby="summaryHeading">
+        <h3 id="summaryHeading">Order Summary</h3>
+
+        <div id="summaryItems" aria-hidden="false"></div>
+
+        <div class="summary-row" style="border:none;padding-top:8px">
+          <div style="font-weight:700">Subtotal</div>
+          <div id="subtotal" class="price">₦0</div>
+        </div>
+
+        <div class="summary-row">
+          <div>Delivery</div>
+          <div id="deliveryFee">₦1,000</div>
+        </div>
+
+        <div class="summary-row">
+          <div>Discount</div>
+          <div id="discount">₦0</div>
+        </div>
+
+        <div class="total">
+          <div style="display:flex;justify-content:space-between;align-items:center">
+            <div>Total</div>
+            <div id="totalAmount">₦0</div>
+          </div>
+        </div>
+
+        <div style="margin-top:12px">
+          <button id="checkoutBtn" class="checkout-btn" aria-label="Checkout via WhatsApp">Checkout via WhatsApp</button>
+        </div>
+
+        <div style="margin-top:12px;font-size:13px;color:var(--muted)">
+          <div>Secure WhatsApp checkout • Confirm payment in chat</div>
+        </div>
+      </aside>
+    </div>
+  </main>
+
+  <!-- Sticky Order Bar -->
+  <div class="sticky-order" role="region" aria-label="Place order">
+    <div class="sticky-inner">
+      <svg class="icon" viewBox="0 0 24 24" fill="#fff" aria-hidden="true"><path d="M7 4h10l1.6 8H5.4L7 4zM6 20a2 2 0 100-4 2 2 0 000 4zm10 0a2 2 0 100-4 2 2 0 000 4z"/></svg>
+      <div style="font-weight:800">Ready to eat? Place your order</div>
+    </div>
+    <div style="display:flex;gap:8px">
+      <button class="sticky-btn" id="stickyOrder">Order Now</button>
+      <a class="sticky-btn" id="stickyMenu" href="menu.html">Menu</a>
+    </div>
   </div>
+
+  <footer>
+    © 2026 Dami's Kitchen • Delivery across Abuja
+  </footer>
 
   <script>
-    let cart = [];
-
-    function addToCart(item) {
-      cart.push(item);
-      renderCart();
+    /* ---------- Analytics helper ---------- */
+    function pushEvent(name, payload){
+      try{
+        window.dataLayer = window.dataLayer || [];
+        window.dataLayer.push(Object.assign({event: name}, payload || {}));
+        if(window.gtag) gtag('event', name, payload || {});
+      }catch(e){}
     }
 
-    function renderCart() {
-      const cartItems = document.getElementById('cart-items');
-      cartItems.innerHTML = '';
-      let total = 0;
+    /* ---------- Mobile menu toggle ---------- */
+    (function(){
+      const hamburger = document.getElementById('hamburger');
+      const mobileMenu = document.getElementById('mobileMenu');
+      if(hamburger && mobileMenu){
+        hamburger.addEventListener('click', () => {
+          const expanded = hamburger.getAttribute('aria-expanded') === 'true';
+          hamburger.setAttribute('aria-expanded', String(!expanded));
+          mobileMenu.style.display = expanded ? 'none' : 'flex';
+          mobileMenu.setAttribute('aria-hidden', String(expanded));
+          if(!expanded) mobileMenu.scrollIntoView({behavior:'smooth', block:'start'});
+        });
+        document.addEventListener('click', (e) => {
+          if(window.innerWidth <= 720 && !mobileMenu.contains(e.target) && !hamburger.contains(e.target)){
+            mobileMenu.style.display = 'none';
+            hamburger.setAttribute('aria-expanded','false');
+            mobileMenu.setAttribute('aria-hidden','true');
+          }
+        });
+      }
+    })();
 
-      cart.forEach(item => {
-        const li = document.createElement('li');
-        li.textContent = `${item.name} x${item.qty} - ₦${item.price * item.qty}`;
-        cartItems.appendChild(li);
-        total += item.price * item.qty;
+    /* ---------- Cart management (localStorage) ---------- */
+    const CART_KEY = 'dami_cart_v1';
+    const PRODUCTS = [
+      { id: 'jollof', name: 'Fried Rice & Chicken', price: 3500, img: 'fried rice wih chicken.jpeg' },
+      { id: 'grilledfish', name: 'Fried Rice With Turkey', price: 4000, img: 'fried rice and turkey.jpeg' },
+      { id: 'smoothie', name: 'Fruit Smoothie', price: 1800, img: 'smoothie.jpg' },
+      { id: 'familycombo', name: 'Family Combo', price: 12000, img: 'images/family_combo.jpg' }
+    ];
+
+    function loadCart(){ try{ return JSON.parse(localStorage.getItem(CART_KEY)) || {}; }catch(e){ return {}; } }
+    function saveCart(cart){ localStorage.setItem(CART_KEY, JSON.stringify(cart)); renderCart(); }
+
+    function addToCart(productId, qty=1){
+      const cart = loadCart();
+      cart[productId] = (cart[productId] || 0) + qty;
+      saveCart(cart);
+      pushEvent('cart_add', {item: productId, quantity: qty});
+      showToast('Added to cart');
+    }
+    function updateCart(productId, qty){
+      const cart = loadCart();
+      if(qty <= 0){ delete cart[productId]; pushEvent('cart_remove', {item: productId}); }
+      else { cart[productId] = qty; pushEvent('cart_update', {item: productId, quantity: qty}); }
+      saveCart(cart);
+    }
+
+    /* ---------- Render cart & summary ---------- */
+    const itemsContainer = document.getElementById('itemsContainer');
+    const summaryItems = document.getElementById('summaryItems');
+    const emptyState = document.getElementById('emptyState');
+    const subtotalEl = document.getElementById('subtotal');
+    const deliveryFeeEl = document.getElementById('deliveryFee');
+    const discountEl = document.getElementById('discount');
+    const totalAmountEl = document.getElementById('totalAmount');
+    const checkoutBtn = document.getElementById('checkoutBtn');
+
+    const DELIVERY_FEE = 1000;
+    let appliedDiscount = 0;
+
+    function renderCart(){
+      const cart = loadCart();
+      const keys = Object.keys(cart);
+      itemsContainer.innerHTML = '';
+      summaryItems.innerHTML = '';
+      if(keys.length === 0){
+        emptyState.style.display = '';
+        checkoutBtn.disabled = true;
+        subtotalEl.textContent = '₦0';
+        totalAmountEl.textContent = '₦0';
+        discountEl.textContent = '₦0';
+        return;
+      } else {
+        emptyState.style.display = 'none';
+        checkoutBtn.disabled = false;
+      }
+
+      let subtotal = 0;
+      keys.forEach(id => {
+        const qty = cart[id];
+        const product = PRODUCTS.find(p => p.id === id);
+        if(!product) return;
+        subtotal += product.price * qty;
+
+        // Item row
+        const itemEl = document.createElement('div');
+        itemEl.className = 'item';
+        itemEl.innerHTML = `
+          <img src="${product.img}" alt="${product.name}">
+          <div class="item-info">
+            <h3>${product.name}</h3>
+            <p class="desc">₦${product.price.toLocaleString()}</p>
+            <div style="margin-top:8px;color:var(--muted);font-size:13px">Qty: ${qty}</div>
+          </div>
+          <div class="controls">
+            <div class="qty" role="group" aria-label="Quantity controls for ${product.name}">
+              <button class="dec" data-id="${id}" aria-label="Decrease">−</button>
+              <div class="count">${qty}</div>
+              <button class="inc" data-id="${id}" aria-label="Increase">+</button>
+            </div>
+            <button class="remove" data-id="${id}" aria-label="Remove item">Remove</button>
+          </div>
+        `;
+        itemsContainer.appendChild(itemEl);
+
+        // Summary row
+        const row = document.createElement('div');
+        row.className = 'summary-row';
+        row.innerHTML = `<div>${product.name} × ${qty}</div><div class="price">₦${(product.price * qty).toLocaleString()}</div>`;
+        summaryItems.appendChild(row);
       });
 
-      document.getElementById('cart-total').textContent = `Total: ₦${total}`;
+      subtotalEl.textContent = `₦${subtotal.toLocaleString()}`;
+      deliveryFeeEl.textContent = `₦${DELIVERY_FEE.toLocaleString()}`;
+      discountEl.textContent = `₦${appliedDiscount.toLocaleString()}`;
+      totalAmountEl.textContent = `₦${(subtotal + DELIVERY_FEE - appliedDiscount).toLocaleString()}`;
+
+      // Attach handlers
+      itemsContainer.querySelectorAll('.inc').forEach(btn => {
+        btn.onclick = () => {
+          const id = btn.getAttribute('data-id');
+          const cart = loadCart();
+          updateCart(id, (cart[id] || 0) + 1);
+        };
+      });
+      itemsContainer.querySelectorAll('.dec').forEach(btn => {
+        btn.onclick = () => {
+          const id = btn.getAttribute('data-id');
+          const cart = loadCart();
+          updateCart(id, (cart[id] || 0) - 1);
+        };
+      });
+      itemsContainer.querySelectorAll('.remove').forEach(btn => {
+        btn.onclick = () => {
+          const id = btn.getAttribute('data-id');
+          updateCart(id, 0);
+        };
+      });
     }
 
-    function sendOrder() {
-      let total = cart.reduce((sum, item) => sum + item.price * item.qty, 0);
-      let orderSummary = cart.map(item => `${item.name} x${item.qty} - ₦${item.price * item.qty}`).join('\n');
-      let message = `Hello Vera's Kitchen! I would like to order:\n${orderSummary}\nTotal: ₦${total}`;
-
-    
-      let phoneNumber = "+2347026456760"; 
-      let url = `https://wa.me/${phoneNumber}?text=${encodeURIComponent(message)}`;
-
-      window.open(url, "_blank");
-    }
-  </script>
-  <script>
-  document.getElementById('orderBtn').addEventListener('click', function() {
-    gtag('event', 'order_button_click', {
-      'event_category': 'engagement',
-      'event_label': 'Order Now Button'
+    /* ---------- Promo handling ---------- */
+    document.getElementById('applyPromo').addEventListener('click', function(){
+      const code = document.getElementById('promo').value.trim().toUpperCase();
+      if(!code){ document.getElementById('promoMsg').textContent = 'Enter a promo code.'; return; }
+      if(code === 'SAVE10'){ appliedDiscount = 1000; document.getElementById('promoMsg').textContent = 'Promo applied: ₦1,000 off'; }
+      else { appliedDiscount = 0; document.getElementById('promoMsg').textContent = 'Invalid code'; }
+      pushEvent('promo_applied', {code: code, discount: appliedDiscount});
+      renderCart();
     });
-  });
-</script>
 
+    /* ---------- WhatsApp checkout (click-to-chat) ---------- */
+    const CHEF_PHONE = '2348034117124'; 
+
+    function formatNaira(n){ return '₦' + Number(n).toLocaleString(); }
+
+    function buildWhatsAppMessage(cart, customer){
+      const PRODUCTS_MAP = {};
+      PRODUCTS.forEach(p => PRODUCTS_MAP[p.id] = p);
+      const orderId = 'DK' + Date.now().toString().slice(-8);
+      const lines = [];
+      lines.push(`Order ID: ${orderId}`);
+      lines.push(`Customer: ${customer.name || '—'}`);
+      lines.push(`Phone: ${customer.phone || '—'}`);
+      lines.push(`Address: ${customer.address || 'Pickup / Not provided'}`);
+      lines.push('');
+      lines.push('Items:');
+
+      let subtotal = 0;
+      for(const id in cart){
+        const qty = cart[id];
+        const p = PRODUCTS_MAP[id];
+        if(!p) continue;
+        const lineTotal = p.price * qty;
+        subtotal += lineTotal;
+        lines.push(`- ${p.name} x${qty} — ${formatNaira(lineTotal)}`);
+      }
+
+      const total = subtotal + DELIVERY_FEE - appliedDiscount;
+      lines.push('');
+      lines.push(`Subtotal: ${formatNaira(subtotal)}`);
+      lines.push(`Delivery: ${formatNaira(DELIVERY_FEE)}`);
+      lines.push(`Discount: ${formatNaira(appliedDiscount)}`);
+      lines.push(`Total: ${formatNaira(total)}`);
+      lines.push('');
+      lines.push('Payment method: Arrange via WhatsApp (confirm payment in chat)');
+      lines.push('');
+      lines.push('Please confirm availability and expected delivery time. Thank you!');
+      return { text: lines.join('\n'), orderId, subtotal, total };
+    }
+
+    function openWhatsAppCheckout(){
+      const cart = loadCart();
+      if(Object.keys(cart).length === 0){ alert('Your cart is empty. Add items before checkout.'); return; }
+      const customer = {
+        name: document.getElementById('customerName').value.trim(),
+        phone: document.getElementById('customerPhone').value.trim(),
+        address: document.getElementById('customerAddress').value.trim()
+      };
+      if(!customer.name || !customer.phone){ alert('Please enter your name and phone number.'); return; }
+
+      const payload = buildWhatsAppMessage(cart, customer);
+      const encoded = encodeURIComponent(payload.text);
+      const waUrl = `https://wa.me/${CHEF_PHONE}?text=${encoded}`;
+
+      pushEvent('begin_whatsapp_checkout', {order_id: payload.orderId, subtotal: payload.subtotal, total: payload.total});
+      window.open(waUrl, '_blank');
+      pushEvent('whatsapp_message_sent', {order_id: payload.orderId, total: payload.total});
+      showToast('WhatsApp opened. Send the message to confirm your order. Order ID: ' + payload.orderId);
+    }
+
+    checkoutBtn.addEventListener('click', openWhatsAppCheckout);
+    document.getElementById('stickyOrder').addEventListener('click', function(){ pushEvent('order_cta_click', {location:'sticky_bar'}); window.location.href='order.html'; });
+    document.getElementById('stickyMenu').addEventListener('click', function(e){ e.preventDefault(); window.location.href='menu.html'; });
+
+    /* ---------- Chef video analytics ---------- */
+    (function(){
+      const chef = document.getElementById('chefVideo');
+      if(!chef) return;
+      chef.addEventListener('play', ()=> pushEvent('video_play', {video:'chef_story'}));
+      chef.addEventListener('pause', ()=> pushEvent('video_pause', {video:'chef_story'}));
+      chef.addEventListener('ended', ()=> pushEvent('video_complete', {video:'chef_story'}));
+      // lazy load when visible
+      if('IntersectionObserver' in window){
+        const io = new IntersectionObserver(entries => {
+          entries.forEach(e => {
+            if(e.isIntersecting){
+              chef.preload = 'auto';
+              io.disconnect();
+            }
+          });
+        }, {threshold:0.25});
+        io.observe(chef);
+      } else {
+        chef.preload = 'auto';
+      }
+    })();
+
+    /* ---------- Toast helper ---------- */
+    function showToast(msg, ms=3000){
+      let t = document.getElementById('dk_toast');
+      if(!t){
+        t = document.createElement('div');
+        t.id = 'dk_toast';
+        t.style.position = 'fixed';
+        t.style.left = '50%';
+        t.style.transform = 'translateX(-50%)';
+        t.style.bottom = '110px';
+        t.style.background = '#111';
+        t.style.color = '#fff';
+        t.style.padding = '10px 14px';
+        t.style.borderRadius = '8px';
+        t.style.zIndex = '1200';
+        t.style.opacity = '0';
+        t.style.transition = 'opacity .25s';
+        document.body.appendChild(t);
+      }
+      t.textContent = msg;
+      t.style.opacity = '1';
+      setTimeout(()=> t.style.opacity = '0', ms);
+    }
+
+    /* ---------- Demo prefill (remove in production) ---------- */
+    (function prefillDemo(){
+      const cart = loadCart();
+      if(Object.keys(cart).length === 0){
+        const demo = {};
+        demo['jollof'] = 1;
+        demo['grilledfish'] = 1;
+        localStorage.setItem(CART_KEY, JSON.stringify(demo));
+      }
+      renderCart();
+    })();
+
+    /* ---------- Expose addToCart for menu pages ---------- */
+    window.addToCartFromMenu = function(productId){
+      addToCart(productId, 1);
+      showToast('Added to cart');
+    };
+
+    /* ---------- Initial render ---------- */
+    renderCart();
+
+    /* ---------- Mobile JS (prevent overflow, ensure CTAs visible) ---------- */
+    (function(){
+      // Ensure sticky bar adjusts on small heights
+      const sticky = document.querySelector('.sticky-order');
+      function adjustSticky(){
+        if(!sticky) return;
+        if(window.innerHeight < 600){
+          sticky.style.padding = '10px';
+          sticky.style.fontSize = '14px';
+        } else {
+          sticky.style.padding = '';
+          sticky.style.fontSize = '';
+        }
+      }
+      window.addEventListener('resize', adjustSticky);
+      adjustSticky();
+
+      // Prevent horizontal scroll
+      document.documentElement.style.overflowX = 'hidden';
+      document.body.style.overflowX = 'hidden';
+    })();
+  </script>
 </body>
 </html>
 
