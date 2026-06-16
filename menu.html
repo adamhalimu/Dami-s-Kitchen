@@ -15,476 +15,1305 @@
   <title>Dami's Kitchen | Menu</title>
   <meta name="description" content="Dami's Kitchen menu — order, watch behind the scenes, and read reviews. Responsive and mobile-first.">
 
+ <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=DM+Sans:ital,wght@0,400;0,500;0,700;1,400&display=swap"
+    rel="stylesheet" />
 
   <style>
-    :root{
-      --accent:#d35400;
-      --cta:#27ae60;
-      --muted:#6b6b6b;
-      --bg:#fffaf8;
-      --card:#ffffff;
-      --gold:#f5c542;
-      --shadow:0 12px 30px rgba(0,0,0,.08);
-      --radius:12px;
-      --max-width:1200px;
-      --page-pad:16px;
-      --font-sans:Inter,system-ui,Arial,sans-serif;
-    }
-    *{box-sizing:border-box}
-    html,body{margin:0;padding:0;font-family:var(--font-sans);background:var(--bg);color:#222;-webkit-font-smoothing:antialiased;overflow-x:hidden}
-    a{color:inherit;text-decoration:none}
-    button{font-family:inherit;cursor:pointer}
-
-    /* NAV */
-    header.site-nav{position:sticky;top:0;background:#fff;border-bottom:1px solid #f0e6e3;z-index:1000}
-    .nav-inner{max-width:var(--max-width);margin:0 auto;display:flex;align-items:center;justify-content:space-between;padding:12px var(--page-pad);gap:12px}
-    .brand{display:flex;align-items:center;gap:12px}
-    .logo{width:48px;height:48px;border-radius:10px;background:linear-gradient(135deg,var(--accent),#f39c12);display:flex;align-items:center;justify-content:center;color:#fff;font-weight:800}
-    .brand h1{margin:0;font-size:18px;color:var(--accent)}
-    .nav-links{display:flex;gap:12px;align-items:center}
-    .nav-links a{padding:8px 12px;border-radius:8px;font-weight:600;color:#333}
-    .cta-order{background:var(--cta);color:#fff;padding:8px 12px;border-radius:8px;font-weight:800}
-    .hamburger{display:none;width:44px;height:44px;border-radius:8px;border:1px solid #f0e6e3;background:#fff;align-items:center;justify-content:center}
-
-    .mobile-menu{display:none;flex-direction:column;gap:8px;padding:12px var(--page-pad);border-top:1px solid #f0e6e3;background:#fff}
-
-    /* HERO */
-    .hero{max-width:var(--max-width);margin:18px auto;padding:0 var(--page-pad);display:grid;grid-template-columns:1fr 420px;gap:20px;align-items:center}
-    .hero-left{background:linear-gradient(180deg,#fff,#fffaf8);border-radius:var(--radius);padding:28px;box-shadow:var(--shadow)}
-    .hero-left h2{margin:0;color:var(--accent);font-size:clamp(22px,4vw,34px)}
-    .hero-left p{margin:10px 0;color:var(--muted);font-size:15px}
-    .hero-ctas{margin-top:14px;display:flex;gap:12px;flex-wrap:wrap}
-    .btn{display:inline-block;padding:10px 14px;border-radius:10px;font-weight:800}
-    .btn.primary{background:var(--cta);color:#fff}
-    .btn.ghost{background:transparent;border:1px solid rgba(0,0,0,.06);color:var(--accent)}
-
-    .hero-media{border-radius:var(--radius);overflow:hidden;box-shadow:var(--shadow);background:#000;display:flex;flex-direction:column}
-    .hero-media video{width:100%;height:auto;display:block;object-fit:cover}
-    .hero-media .poster{padding:12px;background:#fff;display:flex;justify-content:space-between;align-items:center}
-
-    /* MENU GRID */
-    .container{max-width:var(--max-width);margin:20px auto;padding:0 var(--page-pad)}
-    .menu-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
-    .menu-card{background:var(--card);border-radius:12px;overflow:hidden;box-shadow:var(--shadow);display:flex;flex-direction:column}
-    .menu-card img{width:100%;height:180px;object-fit:cover;display:block}
-    .menu-body{padding:12px;display:flex;flex-direction:column;gap:8px}
-    .menu-title{display:flex;justify-content:space-between;align-items:center}
-    .price{color:var(--accent);font-weight:800}
-    .menu-actions{display:flex;gap:8px;margin-top:8px;flex-wrap:wrap}
-
-    /* FILTERS */
-    .filters{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:12px}
-    .filter-btn{padding:8px 10px;border-radius:8px;border:1px solid #eee;background:#fff;cursor:pointer}
-
-    /* REVIEWS */
-    .reviews{margin-top:22px}
-    .review-list{display:flex;gap:12px;flex-wrap:wrap}
-    .review-card{background:var(--card);border-radius:12px;padding:12px;box-shadow:var(--shadow);flex:1 1 220px;min-width:220px}
-    .stars{color:var(--gold);font-weight:800}
-
-    /* BEHIND THE SCENES VIDEO ROW */
-    .bts{margin-top:22px;display:grid;grid-template-columns:1fr 360px;gap:18px;align-items:start}
-    .bts .bts-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:12px}
-    .bts video{width:100%;height:auto;border-radius:10px;display:block;object-fit:cover}
-    .bts .about{background:var(--card);padding:12px;border-radius:10px;box-shadow:var(--shadow)}
-
-    /* ICONS */
-    .icon{width:18px;height:18px;display:inline-block;vertical-align:middle}
-
-    /* STICKY ORDER BAR */
-    .sticky-order{position:fixed;left:12px;right:12px;bottom:12px;background:var(--cta);color:#fff;padding:12px;border-radius:12px;display:flex;justify-content:space-between;align-items:center;gap:12px;z-index:999;box-shadow:0 10px 30px rgba(0,0,0,.12)}
-    .sticky-order .btn{padding:10px 12px;border-radius:10px}
-
-    /* FOOTER */
-    footer{max-width:var(--max-width);margin:28px auto;padding:18px var(--page-pad);text-align:center;color:var(--muted);font-size:13px}
-
-    /* RESPONSIVE */
-    @media(max-width:1024px){ .menu-grid{grid-template-columns:repeat(2,1fr)} .bts{grid-template-columns:1fr 320px} }
-    @media(max-width:720px){
-      .nav-links{display:none}
-      .hamburger{display:flex}
-      .mobile-menu{display:none}
-      .hero{grid-template-columns:1fr;gap:12px;padding:0 var(--page-pad)}
-      .hero-ctas{flex-direction:column}
-      .hero-ctas .btn{width:100%}
-      .menu-grid{grid-template-columns:1fr}
-      .bts{grid-template-columns:1fr;gap:12px}
-      .sticky-order{flex-direction:column;align-items:stretch;padding-bottom:calc(12px + env(safe-area-inset-bottom))}
-      .sticky-order .btn{width:100%}
-    }
-    @media(max-width:480px){
-      .menu-card img{height:160px}
+    /* ===== TOKENS ===== */
+    :root {
+      --accent: #bf4e0f;
+      --accent-dark: #922f06;
+      --accent-lite: #fff4ee;
+      --cta: #27ae60;
+      --cta-dark: #1e8449;
+      --cta-lite: #e8f8ef;
+      --gold: #e8a820;
+      --bg: #faf7f4;
+      --surface: #fff;
+      --muted: #7a6e68;
+      --text: #1a1007;
+      --border: #ede7e3;
+      --r-sm: 8px;
+      --r-md: 14px;
+      --r-lg: 20px;
+      --sh-sm: 0 2px 10px rgba(0, 0, 0, .06);
+      --sh-md: 0 8px 28px rgba(0, 0, 0, .09);
+      --sh-lg: 0 18px 52px rgba(0, 0, 0, .13);
+      --max: 1200px;
+      --pad: clamp(16px, 5vw, 40px);
+      --fd: 'Playfair Display', Georgia, serif;
+      --fb: 'DM Sans', system-ui, sans-serif;
+      --ease: .22s cubic-bezier(.4, 0, .2, 1);
     }
 
-    /* Focus */
-    a:focus, button:focus, input:focus, textarea:focus{outline:3px solid rgba(39,174,96,.12);outline-offset:2px}
+    *,
+    *::before,
+    *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0
+    }
+
+    html {
+      scroll-behavior: smooth;
+      overflow-x: hidden
+    }
+
+    body {
+      font-family: var(--fb);
+      background: var(--bg);
+      color: var(--text);
+      -webkit-font-smoothing: antialiased;
+      overflow-x: hidden
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none
+    }
+
+    button {
+      font-family: inherit;
+      cursor: pointer;
+      border: none;
+      background: none
+    }
+
+    /* ===== SKIP ===== */
+    .skip {
+      position: absolute;
+      top: -50px;
+      left: 16px;
+      background: var(--accent);
+      color: #fff;
+      padding: 10px 18px;
+      border-radius: var(--r-sm);
+      z-index: 9999;
+      font-weight: 700;
+      transition: top var(--ease)
+    }
+
+    .skip:focus {
+      top: 10px
+    }
+
+    /* ===== NAV ===== */
+    .site-nav {
+      position: sticky;
+      top: 0;
+      background: rgba(250, 247, 244, .94);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border-bottom: 1px solid var(--border);
+      z-index: 1000
+    }
+
+    .nav-inner {
+      max-width: var(--max);
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 14px var(--pad);
+      gap: 16px
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 12px
+    }
+
+    .logo-mark {
+      width: 44px;
+      height: 44px;
+      border-radius: var(--r-sm);
+      background: linear-gradient(135deg, var(--accent), #f39c12);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #fff;
+      font-family: var(--fd);
+      font-size: 16px;
+      flex-shrink: 0
+    }
+
+    .brand-name {
+      font-family: var(--fd);
+      font-size: 19px;
+      color: var(--accent);
+      line-height: 1.1
+    }
+
+    .brand-sub {
+      font-size: 11px;
+      color: var(--muted);
+      margin-top: 2px
+    }
+
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 4px
+    }
+
+    .nav-links a {
+      padding: 8px 14px;
+      border-radius: var(--r-sm);
+      font-size: 15px;
+      font-weight: 500;
+      color: var(--text);
+      transition: background var(--ease)
+    }
+
+    .nav-links a:hover {
+      background: var(--border)
+    }
+
+    .nav-links a.active {
+      background: var(--accent-lite);
+      color: var(--accent);
+      font-weight: 700
+    }
+
+    .nav-cta {
+      background: var(--cta) !important;
+      color: #fff !important;
+      font-weight: 700 !important;
+      padding: 8px 18px !important;
+      transition: background var(--ease) !important;
+      border-radius: var(--r-sm) !important
+    }
+
+    .nav-cta:hover {
+      background: var(--cta-dark) !important
+    }
+
+    .hamburger {
+      display: none;
+      width: 40px;
+      height: 40px;
+      border-radius: var(--r-sm);
+      border: 1px solid var(--border);
+      background: var(--surface);
+      align-items: center;
+      justify-content: center;
+      font-size: 18px;
+      transition: background var(--ease)
+    }
+
+    .hamburger:hover {
+      background: var(--border)
+    }
+
+    .mobile-menu {
+      display: none;
+      flex-direction: column;
+      gap: 4px;
+      padding: 12px var(--pad) 16px;
+      border-top: 1px solid var(--border);
+      background: var(--bg)
+    }
+
+    .mobile-menu a {
+      padding: 12px 14px;
+      border-radius: var(--r-sm);
+      font-size: 16px;
+      font-weight: 500;
+      transition: background var(--ease)
+    }
+
+    .mobile-menu a:hover {
+      background: var(--border)
+    }
+
+    .mobile-menu .nav-cta {
+      background: var(--cta);
+      color: #fff;
+      text-align: center;
+      margin-top: 8px;
+      display: block;
+      border-radius: var(--r-sm)
+    }
+
+    /* ===== PAGE BANNER ===== */
+    .page-banner {
+      max-width: var(--max);
+      margin: 28px auto 0;
+      padding: 0 var(--pad)
+    }
+
+    .banner-inner {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--r-lg);
+      padding: 32px 36px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 28px;
+      flex-wrap: wrap
+    }
+
+    .banner-text h1 {
+      font-family: var(--fd);
+      font-size: clamp(28px, 4vw, 44px);
+      line-height: 1.12
+    }
+
+    .banner-text h1 span {
+      color: var(--accent)
+    }
+
+    .banner-text p {
+      font-size: 16px;
+      color: var(--muted);
+      margin-top: 8px;
+      line-height: 1.65;
+      max-width: 500px
+    }
+
+    .banner-stats {
+      display: flex;
+      gap: 28px;
+      flex-wrap: wrap;
+      flex-shrink: 0
+    }
+
+    .stat {
+      text-align: center
+    }
+
+    .stat-num {
+      font-family: var(--fd);
+      font-size: 32px;
+      color: var(--accent);
+      line-height: 1
+    }
+
+    .stat-lbl {
+      font-size: 11px;
+      color: var(--muted);
+      margin-top: 3px;
+      text-transform: uppercase;
+      letter-spacing: .07em
+    }
+
+    /* ===== CONTROLS ===== */
+    .controls {
+      max-width: var(--max);
+      margin: 20px auto 0;
+      padding: 0 var(--pad);
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      flex-wrap: wrap
+    }
+
+    .search-wrap {
+      position: relative;
+      flex: 1;
+      min-width: 200px;
+      max-width: 300px
+    }
+
+    .search-ico {
+      position: absolute;
+      left: 14px;
+      top: 50%;
+      transform: translateY(-50%);
+      color: var(--muted);
+      font-size: 14px;
+      pointer-events: none
+    }
+
+    .search-input {
+      width: 100%;
+      padding: 11px 16px 11px 40px;
+      border-radius: 100px;
+      border: 1.5px solid var(--border);
+      background: var(--surface);
+      font-family: var(--fb);
+      font-size: 14px;
+      color: var(--text);
+      outline: none;
+      transition: border-color var(--ease), box-shadow var(--ease)
+    }
+
+    .search-input::placeholder {
+      color: var(--muted)
+    }
+
+    .search-input:focus {
+      border-color: var(--accent);
+      box-shadow: 0 0 0 3px rgba(191, 78, 15, .08)
+    }
+
+    .filter-tabs {
+      display: flex;
+      gap: 8px;
+      overflow-x: auto;
+      scrollbar-width: none;
+      -webkit-overflow-scrolling: touch
+    }
+
+    .filter-tabs::-webkit-scrollbar {
+      display: none
+    }
+
+    .filter-tab {
+      flex-shrink: 0;
+      padding: 9px 18px;
+      border-radius: 100px;
+      border: 1.5px solid var(--border);
+      background: var(--surface);
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--muted);
+      cursor: pointer;
+      transition: all var(--ease);
+      white-space: nowrap
+    }
+
+    .filter-tab:hover {
+      border-color: var(--accent);
+      color: var(--accent)
+    }
+
+    .filter-tab.active {
+      background: var(--accent);
+      color: #fff;
+      border-color: var(--accent)
+    }
+
+    /* ===== MENU BODY ===== */
+    .menu-body {
+      max-width: var(--max);
+      margin: 24px auto 0;
+      padding: 0 var(--pad) 120px
+    }
+
+    .cat-heading {
+      font-family: var(--fd);
+      font-size: 22px;
+      color: var(--text);
+      margin: 32px 0 18px;
+      display: flex;
+      align-items: center;
+      gap: 14px
+    }
+
+    .cat-heading::after {
+      content: '';
+      flex: 1;
+      height: 1px;
+      background: var(--border)
+    }
+
+    .dish-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 22px
+    }
+
+    /* ===== DISH CARD ===== */
+    .dish-card {
+      background: var(--surface);
+      border-radius: var(--r-lg);
+      border: 1px solid var(--border);
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      transition: transform var(--ease), box-shadow var(--ease);
+      animation: cardIn .4s ease both;
+    }
+
+    .dish-card:hover {
+      transform: translateY(-5px);
+      box-shadow: var(--sh-lg)
+    }
+
+    @keyframes cardIn {
+      from {
+        opacity: 0;
+        transform: translateY(16px)
+      }
+
+      to {
+        opacity: 1;
+        transform: translateY(0)
+      }
+    }
+
+    /* ===== VIDEO AREA ===== */
+    .card-video-wrap {
+      position: relative;
+      height: 220px;
+      overflow: hidden;
+      background: #111;
+      cursor: pointer;
+      flex-shrink: 0;
+    }
+
+    .card-video {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+      transition: transform .5s ease;
+    }
+
+    .dish-card:hover .card-video {
+      transform: scale(1.03)
+    }
+
+    /* Play overlay */
+    .play-overlay {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      background: rgba(0, 0, 0, .38);
+      transition: opacity var(--ease);
+    }
+
+    .play-overlay.hidden {
+      opacity: 0;
+      pointer-events: none
+    }
+
+    .play-btn {
+      width: 56px;
+      height: 56px;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, .92);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: transform var(--ease), background var(--ease);
+      box-shadow: 0 4px 20px rgba(0, 0, 0, .3);
+    }
+
+    .play-btn svg {
+      width: 22px;
+      height: 22px;
+      fill: var(--accent);
+      margin-left: 3px
+    }
+
+    .play-overlay:hover .play-btn {
+      transform: scale(1.1);
+      background: #fff
+    }
+
+    .play-hint {
+      color: #fff;
+      font-size: 12px;
+      font-weight: 600;
+      letter-spacing: .04em;
+      opacity: .9;
+      text-shadow: 0 1px 3px rgba(0, 0, 0, .5)
+    }
+
+    /* Badges on video */
+    .cat-pill {
+      position: absolute;
+      top: 12px;
+      left: 12px;
+      font-size: 11px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: .05em;
+      padding: 4px 11px;
+      border-radius: 100px;
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
+    }
+
+    .pill-rice {
+      background: rgba(255, 248, 225, .9);
+      color: #e65100
+    }
+
+    .pill-noodles {
+      background: rgba(232, 245, 233, .9);
+      color: #1b5e20
+    }
+
+    .pill-soups {
+      background: rgba(251, 233, 231, .9);
+      color: #b71c1c
+    }
+
+    .pill-sides {
+      background: rgba(243, 229, 245, .9);
+      color: #4a148c
+    }
+
+    .price-pill {
+      position: absolute;
+      top: 12px;
+      right: 12px;
+      background: var(--accent);
+      color: #fff;
+      font-size: 13px;
+      font-weight: 700;
+      padding: 5px 12px;
+      border-radius: 100px;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, .2);
+    }
+
+    /* Duration badge */
+    .video-dur {
+      position: absolute;
+      bottom: 10px;
+      right: 10px;
+      background: rgba(0, 0, 0, .55);
+      color: #fff;
+      font-size: 11px;
+      font-weight: 600;
+      padding: 3px 8px;
+      border-radius: 6px;
+      backdrop-filter: blur(4px);
+    }
+
+    /* ===== CARD BODY ===== */
+    .card-body {
+      padding: 16px 18px 18px;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+      flex: 1
+    }
+
+    .dish-name {
+      font-size: 16px;
+      font-weight: 700;
+      color: var(--text);
+      line-height: 1.3
+    }
+
+    .dish-desc {
+      font-size: 13px;
+      color: var(--muted);
+      line-height: 1.55
+    }
+
+    .card-footer {
+      margin-top: auto;
+      padding-top: 14px;
+      display: flex;
+      gap: 8px
+    }
+
+    .btn-wa {
+      flex: 1;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      background: var(--cta);
+      color: #fff;
+      padding: 11px 16px;
+      border-radius: var(--r-sm);
+      font-size: 14px;
+      font-weight: 700;
+      transition: all var(--ease);
+    }
+
+    .btn-wa:hover {
+      background: var(--cta-dark);
+      transform: translateY(-1px);
+      box-shadow: 0 5px 16px rgba(39, 174, 96, .35)
+    }
+
+    .btn-wa:active {
+      transform: translateY(0)
+    }
+
+    .btn-wa svg {
+      width: 15px;
+      height: 15px;
+      fill: currentColor;
+      flex-shrink: 0
+    }
+
+    .btn-mute {
+      flex: none;
+      width: 42px;
+      height: 42px;
+      border-radius: var(--r-sm);
+      background: var(--bg);
+      border: 1.5px solid var(--border);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 16px;
+      transition: all var(--ease);
+    }
+
+    .btn-mute:hover {
+      border-color: var(--accent);
+      background: var(--accent-lite)
+    }
+
+    /* ===== EMPTY STATE ===== */
+    .empty {
+      text-align: center;
+      padding: 80px 20px;
+      color: var(--muted)
+    }
+
+    .empty-ico {
+      font-size: 56px;
+      margin-bottom: 14px
+    }
+
+    .empty h2 {
+      font-family: var(--fd);
+      font-size: 24px;
+      color: var(--text);
+      margin-bottom: 8px
+    }
+
+    .empty p {
+      font-size: 15px
+    }
+
+    /* ===== STICKY BAR ===== */
+    .sticky-bar {
+      position: fixed;
+      left: 16px;
+      right: 16px;
+      bottom: 16px;
+      background: var(--text);
+      color: #fff;
+      padding: 14px 20px;
+      border-radius: var(--r-md);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 12px;
+      z-index: 900;
+      box-shadow: 0 14px 44px rgba(0, 0, 0, .22);
+    }
+
+    .sticky-left {
+      display: flex;
+      flex-direction: column
+    }
+
+    .sticky-label {
+      font-size: 12px;
+      color: rgba(255, 255, 255, .6)
+    }
+
+    .sticky-title {
+      font-size: 15px;
+      font-weight: 700
+    }
+
+    .sticky-btns {
+      display: flex;
+      gap: 8px;
+      flex-shrink: 0
+    }
+
+    .s-primary {
+      background: var(--cta);
+      color: #fff;
+      padding: 10px 22px;
+      border-radius: var(--r-sm);
+      font-size: 14px;
+      font-weight: 700;
+      transition: background var(--ease)
+    }
+
+    .s-primary:hover {
+      background: var(--cta-dark)
+    }
+
+    .s-ghost {
+      background: rgba(255, 255, 255, .12);
+      color: #fff;
+      border: 1px solid rgba(255, 255, 255, .2);
+      padding: 10px 16px;
+      border-radius: var(--r-sm);
+      font-size: 14px;
+      font-weight: 600;
+      transition: background var(--ease)
+    }
+
+    .s-ghost:hover {
+      background: rgba(255, 255, 255, .22)
+    }
+
+    /* ===== FOOTER ===== */
+    footer {
+      max-width: var(--max);
+      margin: 0 auto;
+      padding: 24px var(--pad) 110px;
+      border-top: 1px solid var(--border);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 12px
+    }
+
+    .foot-brand {
+      font-family: var(--fd);
+      font-size: 16px;
+      color: var(--accent)
+    }
+
+    .foot-copy {
+      font-size: 13px;
+      color: var(--muted)
+    }
+
+    /* ===== FOCUS ===== */
+    a:focus-visible,
+    button:focus-visible,
+    input:focus-visible {
+      outline: 3px solid rgba(191, 78, 15, .25);
+      outline-offset: 2px;
+      border-radius: 4px
+    }
+
+    /* ===== RESPONSIVE ===== */
+    @media(max-width:1024px) {
+      .dish-grid {
+        grid-template-columns: repeat(2, 1fr)
+      }
+    }
+
+    @media(max-width:768px) {
+      .nav-links {
+        display: none
+      }
+
+      .hamburger {
+        display: flex
+      }
+
+      .dish-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 14px
+      }
+
+      .card-video-wrap {
+        height: 190px
+      }
+
+      .banner-inner {
+        flex-direction: column;
+        align-items: flex-start;
+        padding: 24px 20px
+      }
+
+      .controls {
+        gap: 10px
+      }
+
+      .search-wrap {
+        max-width: 100%;
+        flex: 1 1 100%
+      }
+    }
+
+    @media(max-width:500px) {
+      .dish-grid {
+        grid-template-columns: 1fr;
+        gap: 16px
+      }
+
+      .card-video-wrap {
+        height: 240px
+      }
+
+      .sticky-bar {
+        flex-direction: column;
+        align-items: stretch
+      }
+
+      .sticky-btns {
+        flex-direction: column
+      }
+
+      .s-primary,
+      .s-ghost {
+        width: 100%;
+        text-align: center;
+        justify-content: center;
+        display: flex
+      }
+    }
   </style>
 </head>
+
 <body>
-  <header>
-   <!-- NAV -->
+
+  <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-5R3454LQ" height="0" width="0"
+      style="display:none;visibility:hidden"></iframe></noscript>
+  <a href="#menuBody" class="skip">Skip to menu</a>
+
+  <!-- ===== NAV ===== -->
   <header class="site-nav" role="banner">
     <div class="nav-inner">
-      <div class="brand">
-        <div class="logo" aria-hidden="true">DK</div>
+      <a href="index.html" class="brand" aria-label="Dami's Kitchen home">
+        <div class="logo-mark" aria-hidden="true">DK</div>
         <div>
-          <h1>Dami's Kitchen</h1>
-          <div style="font-size:12px;color:var(--muted)">Fresh meals • Abuja</div>
+          <div class="brand-name">Dami's Kitchen</div>
+          <div class="brand-sub">Fresh meals · Abuja</div>
         </div>
-      </div>
-
-      <nav class="nav-links" aria-label="Primary">
+      </a>
+      <nav class="nav-links" aria-label="Primary navigation">
         <a href="index.html">Home</a>
         <a href="menu.html" class="active" aria-current="page">Menu</a>
         <a href="order.html">Order</a>
         <a href="contact.html">Contact</a>
-        <a class="cta-order" href="order.html">Order Now</a>
+        <a href="order.html" class="nav-cta">Order Now</a>
       </nav>
-
-      <button id="hamburger" class="hamburger" aria-expanded="false" aria-controls="mobileMenu" aria-label="Open menu">☰</button>
+      <button id="hamburger" class="hamburger" aria-expanded="false" aria-controls="mobileMenu"
+        aria-label="Open menu">☰</button>
     </div>
-
-    <div id="mobileMenu" class="mobile-menu" aria-hidden="true">
+    <div id="mobileMenu" class="mobile-menu" role="navigation" aria-hidden="true">
       <a href="index.html">Home</a>
-      <a href="menu.html" class="active">Menu</a>
+      <a href="menu.html">Menu</a>
       <a href="order.html">Order</a>
       <a href="contact.html">Contact</a>
-      <a href="order.html" class="cta-order" style="display:inline-block;text-align:center">Order Now</a>
+      <a href="order.html" class="nav-cta">Order Now</a>
     </div>
   </header>
 
-  <!-- HERO -->
-  <section class="hero" aria-label="Menu hero">
-    <div class="hero-left">
-      <h2>Our Menu</h2>
-      <p>Handmade, home-style meals prepared fresh daily. Tap any dish to order or watch a short clip.</p>
-      <div class="hero-ctas">
-        <button class="btn primary" id="viewOrder">Order Now</button>
-        <button class="btn ghost" id="viewContact">Contact</button>
+  <!-- ===== PAGE BANNER ===== -->
+  <div class="page-banner">
+    <div class="banner-inner">
+      <div class="banner-text">
+        <h1>Watch. <span>Crave. Order.</span></h1>
+        <p>Every dish comes with a real video — watch it being made, then order straight to your door in Abuja via
+          WhatsApp.</p>
       </div>
-
-      <div style="margin-top:14px" class="filters" aria-label="Menu filters">
-        <button class="filter-btn" data-filter="all">All</button>
-        <button class="filter-btn" data-filter="rice">Rice</button>
-        <button class="filter-btn" data-filter="fish">Fish</button>
-        <button class="filter-btn" data-filter="drinks">Drinks</button>
-      </div>
-    </div>
-
-    <div class="hero-media" aria-hidden="false">
-      <video id="heroClip" poster="images/hero-poster.jpg" playsinline muted loop preload="none" controlsList="nodownload" aria-label="Hero video">
-        <source src="Download.mp4" type="video/mp4">
-        Your browser does not support the video tag.
-      </video>
-      <div class="poster" style="display:flex;justify-content:space-between;align-items:center;padding:12px;background:#fff">
-        <div style="font-weight:700;color:#333">Fresh from the kitchen</div>
-        <div style="font-size:13px;color:var(--muted)"></div>
-      </div>
-    </div>
-  </section>
-
-  <!-- MENU -->
-  <main class="container" id="main">
-    <section aria-label="Menu items">
-      <div class="menu-grid" id="menuGrid">
-        <!-- Cards injected by JS -->
-      </div>
-
-      <!-- Reviews -->
-      <div class="reviews" aria-label="Customer reviews">
-        <h3 style="color:var(--accent);margin:18px 0 8px 0">Customer reviews</h3>
-        <div class="review-list" id="reviewList">
-          <!-- Reviews injected by JS -->
+      <div class="banner-stats" aria-label="Menu highlights">
+        <div class="stat">
+          <div class="stat-num">10</div>
+          <div class="stat-lbl">Dishes</div>
+        </div>
+        <div class="stat">
+          <div class="stat-num">🎬</div>
+          <div class="stat-lbl">Videos</div>
+        </div>
+        <div class="stat">
+          <div class="stat-num">⚡</div>
+          <div class="stat-lbl">Delivery</div>
         </div>
       </div>
-
-      <!-- Behind the scenes -->
-      <div class="bts" aria-label="Behind the scenes">
-        <div>
-          <h3 style="color:var(--accent);margin:18px 0 8px 0">Behind the scenes</h3>
-          <div class="bts-grid" id="btsGrid">
-            <!-- BTS videos injected by JS -->
-          </div>
-        </div>
-
-        <aside class="about">
-          <div style="background:var(--card);padding:12px;border-radius:10px;box-shadow:var(--shadow)">
-            <h4 style="margin:0 0 8px 0;color:var(--accent)">Meet Dami</h4>
-            <p style="margin:0;color:var(--muted)">Short clips of Dami preparing signature dishes — warm, authentic, and made with care. Watch to learn about ingredients and delivery times.</p>
-            <div style="margin-top:12px;display:flex;gap:8px">
-              <a class="btn primary" href="contact.html" id="btsContact">Message Dami</a>
-              <a class="btn ghost" href="order.html" id="btsOrder">Order</a>
-            </div>
-          </div>
-        </aside>
-      </div>
-    </section>
-  </main>
-
-  <!-- Sticky order bar -->
-  <div class="sticky-order" role="region" aria-label="Quick order">
-    <div style="display:flex;gap:12px;align-items:center">
-      <svg class="icon" viewBox="0 0 24 24" fill="#fff" aria-hidden="true" width="20" height="20"><path d="M7 4h10l1.6 8H5.4L7 4zM6 20a2 2 0 100-4 2 2 0 000 4zm10 0a2 2 0 100-4 2 2 0 000 4z"/></svg>
-      <div style="font-weight:800">Ready to order?</div>
     </div>
-    <div style="display:flex;gap:8px">
-      <button class="btn primary" id="stickyOrderBtn">Order Now</button>
-      <button class="btn ghost" id="stickyMenuBtn">View Cart</button>
+  </div>
+
+  <!-- ===== CONTROLS ===== -->
+  <div class="controls" role="search" aria-label="Filter and search menu">
+    <div class="search-wrap">
+      <span class="search-ico" aria-hidden="true">🔍</span>
+      <input type="search" id="searchInput" class="search-input" placeholder="Search dishes…"
+        aria-label="Search menu items" />
+    </div>
+    <div class="filter-tabs" role="tablist" aria-label="Filter by category">
+      <button class="filter-tab active" data-cat="all" role="tab" aria-selected="true">All (10)</button>
+      <button class="filter-tab" data-cat="rice" role="tab" aria-selected="false">🍚 Rice</button>
+      <button class="filter-tab" data-cat="noodles" role="tab" aria-selected="false">🍜 Noodles</button>
+      <button class="filter-tab" data-cat="soups" role="tab" aria-selected="false">🥣 Soups</button>
+      <button class="filter-tab" data-cat="sides" role="tab" aria-selected="false">🍢 Grills &amp; sides</button>
+    </div>
+  </div>
+
+  <!-- ===== MENU BODY ===== -->
+  <main class="menu-body" id="menuBody" aria-label="Menu items" aria-live="polite"></main>
+
+  <!-- ===== STICKY BAR ===== -->
+  <div class="sticky-bar" role="complementary" aria-label="Quick order">
+    <div class="sticky-left">
+      <span class="sticky-label">Seen something you like?</span>
+      <span class="sticky-title">Order any dish on WhatsApp</span>
+    </div>
+    <div class="sticky-btns">
+      <button class="s-primary" onclick="window.location.href='order.html'">Place Order</button>
+      <button class="s-ghost" onclick="window.location.href='index.html'">Home</button>
     </div>
   </div>
 
   <footer>
-    © 2026 Dami's Kitchen • Fresh meals delivered in Abuja
+    <div class="foot-brand">Dami's Kitchen</div>
+    <div class="foot-copy">© 2026 Dami's Kitchen · Fresh meals, Abuja</div>
   </footer>
 
-  <!-- Video modal (reusable) -->
-  <div id="videoModal" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,.6);align-items:center;justify-content:center;z-index:2000;padding:12px">
-    <div style="width:100%;max-width:900px;background:#000;border-radius:12px;overflow:hidden;max-height:85vh;display:flex;flex-direction:column">
-      <video id="modalVideo" controls style="width:100%;height:auto;max-height:70vh"></video>
-      <div style="padding:10px;text-align:right;background:#fff">
-        <button id="closeModal" style="padding:8px 12px;border-radius:8px;border:none;background:var(--accent);color:#fff;font-weight:700">Close</button>
-      </div>
-    </div>
-  </div>
-
   <script>
-    /* ---------- Analytics helper ---------- */
-    function pushEvent(name, payload){
-      try{
-        window.dataLayer = window.dataLayer || [];
-        window.dataLayer.push(Object.assign({event: name}, payload || {}));
-        if(window.gtag) gtag('event', name, payload || {});
-      }catch(e){}
+    /* ============================================================
+       CONFIG
+    ============================================================ */
+    var PHONE = "2348034117124"; // WhatsApp number — digits only
+
+    /* ============================================================
+       DISH DATA — 10 dishes with video files
+    ============================================================ */
+    var dishes = [
+      /* ── Rice (4) ── */
+      {
+        id: 1, cat: "rice", price: 5000, emoji: "🍚",
+        name: "Jollof Rice + Chicken",
+        desc: "Party-style jollof rice with smoky tomato depth, served with a full seasoned chicken piece.",
+        video: "Download (5).mp4"
+      },
+      {
+        id: 2, cat: "rice", price: 5500, emoji: "🍚",
+        name: "Jollof Rice + Turkey",
+        desc: "Classic smoky jollof rice paired with a generous, tender piece of perfectly seasoned turkey.",
+        video: "Download (6).mp4"
+      },
+      {
+        id: 3, cat: "rice", price: 5000, emoji: "🍳",
+        name: "White Rice + Stew + Plantain",
+        desc: "Colourful fried rice loaded with fresh vegetables and succulent grilled chicken.",
+        video: "Download (4).mp4"
+      },
+      {
+        id: 4, cat: "rice", price: 5500, emoji: "🍳",
+        name: "Fried Rice + Turkey",
+        desc: "Delicious fried rice with mixed vegetables and a tender, well-seasoned turkey piece.",
+        video: "Download (7).mp4"
+      },
+
+      /* ── Noodles (2) ── */
+      {
+        id: 5, cat: "noodles", price: 5000, emoji: "🍜",
+        name: "Noodles + Plantain",
+        desc: "Spiced stir-fried noodles with mixed vegetables, served alongside sweet golden plantain.",
+        video: "Download (9).mp4"
+      },
+      {
+        id: 6, cat: "noodles", price: 5000, emoji: "🍝",
+        name: "Jollof Spaghetti + Chicken",
+        desc: "Smoky jollof-spiced spaghetti cooked Nigerian-style with succulent chicken pieces.",
+        video: "Download (8).mp4"
+      },
+
+      /* ── Soups (2) ── */
+      {
+        id: 7, cat: "soups", price: 4500, emoji: "🥣",
+        name: "Egusi Soup + Eba",
+        desc: "Thick, flavourful egusi soup with assorted meat and smoked fish, served with freshly pounded eba.",
+        video: "Download (12).mp4"
+      },
+      {
+        id: 8, cat: "soups", price: 5500, emoji: "🍲",
+        name: "Delicious Stew",
+        desc: "Deeply aromatic Nigerian pepper soup with tender, well-seasoned goat meat pieces.",
+        video: "Download 20.mp4"
+      },
+
+      /* ── Grills & Sides (2) ── */
+      {
+        id: 9, cat: "sides", price: 6000, emoji: "🐟",
+        name: "Grilled Fish (Whole Tilapia)",
+        desc: "Whole tilapia marinated in aromatic spices and charcoal-grilled to smoky perfection.",
+        video: "Download (10).mp4"
+      },
+      {
+        id: 10, cat: "sides", price: 5000, emoji: "🍢",
+        name: "Amazing Dishes",
+        desc: "Classic Abuja suya — thinly sliced beef skewers coated in yaji spice, served with fresh onions.",
+        video: "Download (13).mp4"
+      },
+    ];
+
+    /* ============================================================
+       CATEGORY META
+    ============================================================ */
+    var CAT = {
+      rice: { label: "Rice dishes", short: "Rice", pill: "pill-rice" },
+      noodles: { label: "Noodles & pasta", short: "Noodles", pill: "pill-noodles" },
+      soups: { label: "Soups & swallows", short: "Soups", pill: "pill-soups" },
+      sides: { label: "Grills & sides", short: "Grills", pill: "pill-sides" },
+    };
+    var CAT_ORDER = ["rice", "noodles", "soups", "sides"];
+
+    /* ============================================================
+       HELPERS
+    ============================================================ */
+    function fmt(n) { return "₦" + n.toLocaleString("en-NG"); }
+
+    function waLink(d) {
+      var msg = encodeURIComponent(
+        "Hello Dami's Kitchen! 👋\n\nI'd like to order:\n\n*" + d.name + "* — " + fmt(d.price) +
+        "\n\nPlease confirm availability and delivery details. Thank you! 🙏"
+      );
+      return "https://wa.me/" + PHONE + "?text=" + msg;
     }
 
-    /* ---------- Mobile menu toggle ---------- */
-    (function(){
-      const hamburger = document.getElementById('hamburger');
-      const mobileMenu = document.getElementById('mobileMenu');
-      if(hamburger && mobileMenu){
-        hamburger.addEventListener('click', () => {
-          const expanded = hamburger.getAttribute('aria-expanded') === 'true';
-          hamburger.setAttribute('aria-expanded', String(!expanded));
-          mobileMenu.style.display = expanded ? 'none' : 'flex';
-          mobileMenu.setAttribute('aria-hidden', String(expanded));
-          if(!expanded) mobileMenu.scrollIntoView({behavior:'smooth', block:'start'});
-        });
-        document.addEventListener('click', (e) => {
-          if(window.innerWidth <= 720 && !mobileMenu.contains(e.target) && !hamburger.contains(e.target)){
-            mobileMenu.style.display = 'none';
-            hamburger.setAttribute('aria-expanded','false');
-            mobileMenu.setAttribute('aria-hidden','true');
-          }
-        });
+    var WA_SVG =
+      '<svg viewBox="0 0 24 24" aria-hidden="true">' +
+      '<path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/>' +
+      '<path d="M12 0C5.373 0 0 5.373 0 12c0 2.124.558 4.115 1.534 5.837L.057 23.797l6.064-1.52A11.94 11.94 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 22c-1.894 0-3.665-.523-5.176-1.434l-.371-.221-3.598.902.917-3.544-.242-.378A9.963 9.963 0 012 12C2 6.477 6.477 2 12 2s10 4.477 10 10-4.477 10-10 10z"/>' +
+      '</svg>';
+
+    var PLAY_SVG =
+      '<svg viewBox="0 0 24 24" aria-hidden="true">' +
+      '<path d="M8 5v14l11-7z"/>' +
+      '</svg>';
+
+    /* ============================================================
+       RENDER
+    ============================================================ */
+    function render(filterCat, rawSearch) {
+      var container = document.getElementById("menuBody");
+      var q = (rawSearch || "").toLowerCase().trim();
+
+      var filtered = dishes.filter(function (d) {
+        var matchCat = filterCat === "all" || d.cat === filterCat;
+        var matchQ = !q || d.name.toLowerCase().includes(q) || d.desc.toLowerCase().includes(q);
+        return matchCat && matchQ;
+      });
+
+      if (!filtered.length) {
+        container.innerHTML =
+          '<div class="empty" role="status">' +
+          '<div class="empty-ico">🎬</div>' +
+          '<h2>No dishes found</h2>' +
+          '<p>Try a different search term or choose another category.</p>' +
+          '</div>';
+        return;
       }
-    })();
 
-    /* ---------- Menu data  ---------- */
-    const MENU = [
-      { id:'jollof', name:'Rice & Chicken', price:5000, category:'rice', img:'jollof.jpg', video:'Download (4).mp4', desc:'Classic party jollof with grilled chicken.' },
-      { id:'grilledfish', name:'Friday Special', price:4000, category:'fish', img:'grilled.jpg', video:'Download (3).mp4', desc:'Limited Time Offer.' },
-      { id:'smoothie', name:'Fried Rice And Turkey', price:5000, category:'drinks', img:'fried rice and turkey.jpeg', video:'Download (2).mp4', desc:'Tropical fruit blend.' },
-      { id:'familycombo', name:'Fried Rice And Chicken', price:9000, category:'combo', img:'fried rice wih chicken.jpeg', video:'Download.mp4', desc:'Feeds 4–5, perfect for gatherings.' }
-    ];
+      var html = "";
+      var activeCats = filterCat === "all" ? CAT_ORDER : [filterCat];
 
-    const REVIEWS = [
-      { stars:5, text:'Absolutely delicious. Tastes like home.', author:'Ada, Abuja' },
-      { stars:5, text:'Fast delivery and great portions.', author:'Musa, Lagos' },
-      { stars:4, text:'Fresh ingredients and friendly service.', author:'Chioma, Abuja' },
-      { stars:5, text:'Best jollof in town. Highly recommend.', author:'Emeka, Abuja' },
-      { stars:5, text:'Amazing flavors — will order again.', author:'Fatima, Abuja' },
-      { stars:5, text:'Perfect for family dinners.', author:'Tunde, Abuja' },
-      { stars:4, text:'Great value and tasty sides.', author:'Ngozi, Abuja' }
-    ];
+      activeCats.forEach(function (cat) {
+        var catDishes = filtered.filter(function (d) { return d.cat === cat; });
+        if (!catDishes.length) return;
+        var m = CAT[cat];
+        html += '<h2 class="cat-heading">' + m.label + '</h2><div class="dish-grid">';
 
-    /* ---------- Render menu cards ---------- */
-    const menuGrid = document.getElementById('menuGrid');
-    function renderMenu(filter='all'){
-      menuGrid.innerHTML = '';
-      const items = MENU.filter(m => filter === 'all' ? true : m.category === filter);
-      items.forEach(m => {
-        const card = document.createElement('article');
-        card.className = 'menu-card';
-        card.innerHTML = `
-          <img src="${m.img}" alt="${m.name}">
-          <div class="menu-body">
-            <div class="menu-title">
-              <strong>${m.name}</strong>
-              <div class="price">₦${m.price.toLocaleString()}</div>
-            </div>
-            <div style="color:var(--muted);font-size:14px">${m.desc}</div>
-            <div class="menu-actions">
-              <button class="btn primary order-btn" data-id="${m.id}">Order</button>
-              <button class="btn ghost watch-btn" data-video="${m.video}">Watch</button>
-            </div>
-          </div>
-        `;
-        menuGrid.appendChild(card);
-      });
-    }
+        catDishes.forEach(function (d, i) {
+          html +=
+            '<article class="dish-card" style="animation-delay:' + (i * 0.07) + 's"' +
+            ' aria-label="' + d.name + ', ' + fmt(d.price) + '">' +
 
-    /* ---------- Filters ---------- */
-    document.querySelectorAll('.filter-btn').forEach(btn => {
-      btn.addEventListener('click', function(){
-        const f = btn.getAttribute('data-filter');
-        renderMenu(f);
-        pushEvent('menu_filter', {filter: f});
-      });
-    });
+            /* VIDEO AREA */
+            '<div class="card-video-wrap" data-id="' + d.id + '">' +
+            '<video class="card-video"' +
+            ' data-src="' + d.video + '"' +
+            ' preload="none"' +
+            ' loop muted playsinline' +
+            ' aria-label="Video of ' + d.name + '">' +
+            '</video>' +
 
-    /* ---------- Reviews render (gold stars) ---------- */
-    const reviewList = document.getElementById('reviewList');
-    function renderReviews(){
-      reviewList.innerHTML = '';
-      REVIEWS.forEach(r => {
-        const rc = document.createElement('div');
-        rc.className = 'review-card';
-        rc.innerHTML = `<div class="stars" aria-hidden="true">${'★ '.repeat(r.stars).trim()}</div>
-                        <div style="font-weight:700;margin-top:6px">${r.text}</div>
-                        <div style="color:var(--muted);margin-top:6px">— ${r.author}</div>`;
-        reviewList.appendChild(rc);
-      });
-    }
+            /* Play overlay */
+            '<div class="play-overlay" role="button" tabindex="0"' +
+            ' aria-label="Play video for ' + d.name + '">' +
+            '<div class="play-btn">' + PLAY_SVG + '</div>' +
+            '<span class="play-hint">Tap to watch</span>' +
+            '</div>' +
 
-    /* ---------- BTS videos render ---------- */
-    const btsGrid = document.getElementById('btsGrid');
-    function renderBTS(){
-      btsGrid.innerHTML = '';
-      
-      const clips = MENU.slice(0,4);
-      clips.forEach(c => {
-        const vwrap = document.createElement('div');
-        vwrap.innerHTML = `<video data-src="${c.video}" poster="${c.img}" preload="none" controls playsinline aria-label="${c.name} clip"></video>`;
-        btsGrid.appendChild(vwrap);
-      });
-    }
+            /* Badges */
+            '<span class="cat-pill ' + m.pill + '">' + m.short + '</span>' +
+            '<span class="price-pill">' + fmt(d.price) + '</span>' +
+            '</div>' +
 
-    /* ---------- Video modal helpers ---------- */
-    const videoModal = document.getElementById('videoModal');
-    const modalVideo = document.getElementById('modalVideo');
-    const closeModal = document.getElementById('closeModal');
-    function openModal(src){
-      modalVideo.src = src;
-      videoModal.style.display = 'flex';
-      modalVideo.play().catch(()=>{});
-      pushEvent('video_play', {video: src, context:'modal'});
-    }
-    function closeModalFn(){
-      modalVideo.pause();
-      modalVideo.src = '';
-      videoModal.style.display = 'none';
-      pushEvent('video_close', {});
-    }
-    closeModal.addEventListener('click', closeModalFn);
+            /* CARD BODY */
+            '<div class="card-body">' +
+            '<div class="dish-name">' + d.name + '</div>' +
+            '<div class="dish-desc">' + d.desc + '</div>' +
+            '<div class="card-footer">' +
+            '<a href="' + waLink(d) + '" target="_blank" rel="noopener noreferrer" class="btn-wa"' +
+            ' onclick="track(\'wa_click\',{dish:\'' + d.name.replace(/'/g, "\\'") + '\',price:' + d.price + '})">' +
+            WA_SVG + ' Order on WhatsApp' +
+            '</a>' +
+            '<button class="btn-mute" data-id="' + d.id + '" aria-label="Toggle mute"' +
+            ' title="Toggle sound">🔇</button>' +
+            '</div>' +
+            '</div>' +
 
-    /* ---------- Watch buttons and order buttons ---------- */
-    function wireButtons(){
-      document.querySelectorAll('.watch-btn').forEach(b => {
-        b.addEventListener('click', function(e){
-          e.preventDefault();
-          const src = b.getAttribute('data-video');
-          if(!src) return;
-          openModal(src);
+            '</article>';
         });
+
+        html += '</div>';
       });
-      document.querySelectorAll('.order-btn').forEach(b => {
-        b.addEventListener('click', function(){
-          const id = b.getAttribute('data-id');
-          pushEvent('menu_order_click', {item: id});
-          // Add to cart and navigate to order page
-          try{ window.addToCartFromMenu(id); }catch(e){ window.location.href = 'order.html'; }
-        });
-      });
+
+      container.innerHTML = html;
+      initVideoCards();
     }
 
-    /* ---------- Hero and carousel lazy load events ---------- */
-    (function(){
-      const hero = document.getElementById('heroClip');
-      let heroLoaded = false;
-      if('IntersectionObserver' in window){
-        const io = new IntersectionObserver(entries => {
-          entries.forEach(e => {
-            if(e.isIntersecting && !heroLoaded){
-              hero.preload = 'auto';
-              hero.muted = true;
-              hero.play().catch(()=>{});
-              pushEvent('video_impression', {video:'hero'});
-              heroLoaded = true;
-              io.disconnect();
+    /* ============================================================
+       VIDEO BEHAVIOUR
+       - Lazy load via IntersectionObserver (load src when near viewport)
+       - Hover → play muted (desktop)
+       - Click/tap overlay → toggle play/pause
+       - Mute button → toggle sound
+    ============================================================ */
+    function initVideoCards() {
+      var cards = document.querySelectorAll(".card-video-wrap");
+
+      /* Lazy load observer */
+      var loaderIO = null;
+      if ("IntersectionObserver" in window) {
+        loaderIO = new IntersectionObserver(function (entries) {
+          entries.forEach(function (entry) {
+            if (entry.isIntersecting) {
+              var wrap = entry.target;
+              var video = wrap.querySelector(".card-video");
+              var src = video.getAttribute("data-src");
+              if (src && !video.src) {
+                video.src = src;
+                video.load();
+              }
+              loaderIO.unobserve(wrap);
             }
           });
-        }, {threshold:0.25});
-        io.observe(hero);
-      } else { hero.preload = 'auto'; }
-      hero.addEventListener('play', ()=> pushEvent('video_play', {video:'hero'}));
-      hero.addEventListener('pause', ()=> pushEvent('video_pause', {video:'hero'}));
-      hero.addEventListener('ended', ()=> pushEvent('video_complete', {video:'hero'}));
-    })();
-
-    /* ---------- Lazy load BTS videos when visible ---------- */
-    (function(){
-      const observer = ('IntersectionObserver' in window) ? new IntersectionObserver(entries => {
-        entries.forEach(entry => {
-          if(entry.isIntersecting){
-            const vids = entry.target.querySelectorAll('video[data-src]');
-            vids.forEach(v => {
-              if(!v.src){
-                v.src = v.getAttribute('data-src');
-                v.load();
-                pushEvent('video_impression', {video: v.getAttribute('data-src')});
-              }
-            });
-            observer.unobserve(entry.target);
-          }
-        });
-      }, {threshold:0.2}) : null;
-
-      // observe btsGrid container
-      if(observer && btsGrid) observer.observe(btsGrid);
-    })();
-
-    /* ---------- Sticky order actions ---------- */
-    document.getElementById('stickyOrderBtn').addEventListener('click', function(){
-      pushEvent('order_cta_click', {location:'sticky_bar'});
-      window.location.href = 'order.html';
-    });
-    document.getElementById('stickyMenuBtn').addEventListener('click', function(){
-      window.location.href = 'order.html';
-    });
-    document.getElementById('viewOrder').addEventListener('click', function(){ window.location.href = 'order.html'; });
-    document.getElementById('viewContact').addEventListener('click', function(){ window.location.href = 'contact.html'; });
-
-    /* ---------- Initial render ---------- */
-    renderMenu('all');
-    renderReviews();
-    renderBTS();
-    wireButtons();
-
-    /* Re-wire buttons after re-render (filters) */
-    document.querySelectorAll('.filter-btn').forEach(btn => {
-      btn.addEventListener('click', () => setTimeout(wireButtons, 250));
-    });
-
-    /* ---------- Accessibility & mobile fixes ---------- */
-    (function(){
-      // Prevent horizontal overflow
-      document.documentElement.style.overflowX = 'hidden';
-      document.body.style.overflowX = 'hidden';
-
-      // Mobile menu behavior
-      const hamburger = document.getElementById('hamburger');
-      const mobileMenu = document.getElementById('mobileMenu');
-      if(hamburger && mobileMenu){
-        hamburger.addEventListener('click', () => {
-          const expanded = hamburger.getAttribute('aria-expanded') === 'true';
-          hamburger.setAttribute('aria-expanded', String(!expanded));
-          mobileMenu.style.display = expanded ? 'none' : 'flex';
-          mobileMenu.setAttribute('aria-hidden', String(expanded));
-        });
+        }, { rootMargin: "200px" });
       }
+
+      cards.forEach(function (wrap) {
+        var video = wrap.querySelector(".card-video");
+        var overlay = wrap.querySelector(".play-overlay");
+        var id = wrap.getAttribute("data-id");
+        var muteBtn = document.querySelector(".btn-mute[data-id='" + id + "']");
+        var playing = false;
+
+        /* Register with lazy loader */
+        if (loaderIO) loaderIO.observe(wrap);
+        else if (!video.src) { video.src = video.getAttribute("data-src"); video.load(); }
+
+        /* Ensure src loaded before play */
+        function ensureLoaded(cb) {
+          if (!video.src) {
+            var src = video.getAttribute("data-src");
+            if (src) { video.src = src; video.load(); }
+          }
+          if (video.readyState >= 2) { cb(); }
+          else { video.addEventListener("canplay", cb, { once: true }); }
+        }
+
+        function showOverlay() { overlay.classList.remove("hidden"); }
+        function hideOverlay() { overlay.classList.add("hidden"); }
+
+        function playVideo() {
+          ensureLoaded(function () {
+            video.play().then(function () { playing = true; hideOverlay(); }).catch(function () { });
+          });
+          track("video_play", { dish: id });
+        }
+        function pauseVideo() { video.pause(); playing = false; showOverlay(); }
+        function togglePlay() { playing ? pauseVideo() : playVideo(); }
+
+        /* Hover to play (desktop) */
+        wrap.addEventListener("mouseenter", function () {
+          if (!playing) playVideo();
+        });
+        wrap.addEventListener("mouseleave", function () {
+          if (playing) { pauseVideo(); }
+        });
+
+        /* Click/tap overlay → toggle */
+        overlay.addEventListener("click", function (e) { e.stopPropagation(); togglePlay(); });
+        overlay.addEventListener("keydown", function (e) {
+          if (e.key === "Enter" || e.key === " ") { e.preventDefault(); togglePlay(); }
+        });
+
+        /* Click on video area (not overlay) → toggle */
+        video.addEventListener("click", function () { togglePlay(); });
+
+        /* Mute button */
+        if (muteBtn) {
+          muteBtn.addEventListener("click", function (e) {
+            e.stopPropagation();
+            video.muted = !video.muted;
+            muteBtn.textContent = video.muted ? "🔇" : "🔊";
+            track("video_mute_toggle", { muted: video.muted, dish: id });
+          });
+        }
+
+        /* Video ended → show overlay again */
+        video.addEventListener("ended", function () {
+          playing = false;
+          showOverlay();
+          track("video_complete", { dish: id });
+        });
+
+        /* Pause event (browser-triggered) */
+        video.addEventListener("pause", function () {
+          if (playing) { playing = false; showOverlay(); }
+        });
+      });
+    }
+
+    /* ============================================================
+       FILTER + SEARCH STATE
+    ============================================================ */
+    var activeCat = "all";
+    var searchTerm = "";
+
+    document.querySelectorAll(".filter-tab").forEach(function (tab) {
+      tab.addEventListener("click", function () {
+        document.querySelectorAll(".filter-tab").forEach(function (t) {
+          t.classList.remove("active");
+          t.setAttribute("aria-selected", "false");
+        });
+        this.classList.add("active");
+        this.setAttribute("aria-selected", "true");
+        activeCat = this.dataset.cat;
+        render(activeCat, searchTerm);
+      });
+    });
+
+    document.getElementById("searchInput").addEventListener("input", function () {
+      searchTerm = this.value;
+      render(activeCat, searchTerm);
+    });
+
+    /* ============================================================
+       MOBILE MENU
+    ============================================================ */
+    (function () {
+      var btn = document.getElementById("hamburger");
+      var menu = document.getElementById("mobileMenu");
+      if (!btn || !menu) return;
+      btn.addEventListener("click", function () {
+        var open = btn.getAttribute("aria-expanded") === "true";
+        btn.setAttribute("aria-expanded", String(!open));
+        menu.style.display = open ? "none" : "flex";
+        menu.setAttribute("aria-hidden", String(open));
+      });
+      document.addEventListener("click", function (e) {
+        if (!menu.contains(e.target) && !btn.contains(e.target)) {
+          menu.style.display = "none";
+          btn.setAttribute("aria-expanded", "false");
+          menu.setAttribute("aria-hidden", "true");
+        }
+      });
     })();
+
+    /* ============================================================
+       ANALYTICS
+    ============================================================ */
+    function track(name, payload) {
+      try {
+        window.dataLayer = window.dataLayer || [];
+        window.dataLayer.push(Object.assign({ event: name }, payload || {}));
+      } catch (e) { }
+    }
+
+    /* ============================================================
+       INIT
+    ============================================================ */
+    render("all", "");
   </script>
 </body>
+
 </html>
-
-
