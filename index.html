@@ -31,510 +31,359 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>Dami's Kitchen | Home</title>
   <meta name="description" content="Dami's Kitchen - Fresh meals delivered in Abuja. Order now.">
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,600;0,700;1,600&family=Outfit:wght@400;500;600;700&display=swap" rel="stylesheet"/>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
+<!-- Meta Pixel -->
+<script>!function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0;t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}(window,document,'script','https://connect.facebook.net/en_US/fbevents.js');fbq('init','1958734425012276');fbq('track','PageView');</script>
+<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src='https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);})(window,document,'script','dataLayer','GTM-5R3454LQ');</script>
+<style>
+/* ── RESET & TOKENS ─────────────────────────────── */
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --ink:#1a1008;--cream:#fdf6ee;
+  --orange:#c8400a;--oh:#a83308;--ol:#f5ede6;
+  --green:#1a6b3a;--gh:#135a2e;--gl:#e4f0e9;
+  --gold:#d4920e;--muted:#7a6b5e;
+  --border:rgba(26,16,8,.1);
+  --serif:'Cormorant Garamond',Georgia,serif;
+  --sans:'Outfit',system-ui,sans-serif;
+  --max:1160px;--r:14px;
+}
+html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
+body{font-family:var(--sans);background:var(--cream);color:var(--ink);-webkit-font-smoothing:antialiased;overflow-x:hidden;line-height:1.5}
+img,video{display:block;max-width:100%}
+a{color:inherit;text-decoration:none}
+button{font-family:inherit;cursor:pointer;border:none;background:none}
+input,textarea,select{font-family:inherit}
+.wrap{width:100%;max-width:var(--max);margin:0 auto;padding:0 clamp(16px,5vw,48px)}
 
-  <style>
-    /* ---------- Design tokens ---------- */
-    :root{
-      --accent:#d35400;
-      --cta:#27ae60;
-      --muted:#6b6b6b;
-      --bg:#fffaf8;
-      --card:#ffffff;
-      --gold:#f5c542;
-      --shadow:0 12px 30px rgba(0,0,0,.08);
-      --radius:12px;
-      --max-width:1200px;
-      --page-padding:16px;
-      --font-sans:Inter,system-ui,Arial,sans-serif;
-    }
-    *{box-sizing:border-box}
-    html,body{margin:0;padding:0;font-family:var(--font-sans);background:var(--bg);color:#222;-webkit-font-smoothing:antialiased;overflow-x:hidden}
-    a{color:inherit;text-decoration:none}
-    button{font-family:inherit}
+/* ── NAV ───────────────────────────────────────── */
+.nav{position:sticky;top:0;z-index:900;background:rgba(253,246,238,.96);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);border-bottom:1px solid var(--border)}
+.nav-inner{display:flex;align-items:center;justify-content:space-between;height:62px;gap:12px}
+.brand{display:flex;align-items:center;gap:10px;flex-shrink:0}
+.brand-mark{width:40px;height:40px;min-width:40px;border-radius:10px;background:var(--orange);display:flex;align-items:center;justify-content:center;font-family:var(--serif);font-size:16px;font-weight:700;color:#fff}
+.brand-name{font-family:var(--serif);font-size:18px;font-weight:700;color:var(--orange);line-height:1.15;white-space:nowrap}
+.brand-tag{font-size:10px;color:var(--muted);letter-spacing:.3px;text-transform:uppercase;font-weight:500;white-space:nowrap}
+.nav-links{display:flex;align-items:center;gap:2px}
+.nav-links a{padding:7px 12px;border-radius:8px;font-size:13px;font-weight:500;color:var(--muted);transition:color .15s,background .15s;white-space:nowrap}
+.nav-links a:hover,.nav-links a.active{color:var(--ink);background:rgba(26,16,8,.05)}
+.nav-links a.active{color:var(--orange);font-weight:700}
+.nav-cta{margin-left:4px;background:var(--orange);color:#fff;padding:8px 16px;border-radius:100px;font-weight:700;font-size:13px;transition:background .15s;white-space:nowrap}
+.nav-cta:hover{background:var(--oh)}
+.hamburger{display:none;width:40px;height:40px;min-width:40px;border-radius:10px;border:1px solid var(--border);align-items:center;justify-content:center;color:var(--ink);background:transparent;transition:background .15s;font-size:17px}
+.hamburger:hover{background:var(--ol)}
+.mobile-nav{display:none;flex-direction:column;background:rgba(253,246,238,.98);border-top:1px solid var(--border);padding:8px clamp(16px,5vw,48px) 14px;gap:2px}
+.mobile-nav a{display:block;padding:11px 12px;border-radius:10px;font-size:15px;font-weight:500;color:var(--ink);transition:background .15s}
+.mobile-nav a:hover{background:var(--ol)}
+.m-cta{margin-top:6px;background:var(--orange);color:#fff;text-align:center;border-radius:100px;font-weight:700}
 
-    /* ---------- NAV ---------- */
-    header.site-nav{position:sticky;top:0;background:#fff;border-bottom:1px solid #f0e6e3;z-index:1000}
-    .nav-inner{max-width:var(--max-width);margin:0 auto;display:flex;align-items:center;justify-content:space-between;padding:12px var(--page-padding);gap:12px}
-    .brand{display:flex;align-items:center;gap:12px}
-    .logo{width:48px;height:48px;border-radius:10px;background:linear-gradient(135deg,var(--accent),#f39c12);display:flex;align-items:center;justify-content:center;color:#fff;font-weight:800}
-    .brand h1{margin:0;font-size:18px;color:var(--accent)}
-    .nav-links{display:flex;gap:12px;align-items:center}
-    .nav-links a{padding:8px 12px;border-radius:8px;font-weight:600;color:#333}
-    .cta-order{background:var(--cta);color:#fff;padding:8px 12px;border-radius:8px;font-weight:800}
-    .hamburger{display:none;width:44px;height:44px;border-radius:8px;border:1px solid #f0e6e3;background:#fff;align-items:center;justify-content:center;cursor:pointer}
+/* ── HERO ───────────────────────────────────────── */
+.hero{background:var(--ink);padding:clamp(40px,7vw,88px) 0 0;overflow:hidden}
+.hero-grid{display:grid;grid-template-columns:1fr 380px;gap:40px;align-items:end}
+.live-badge{display:inline-flex;align-items:center;gap:8px;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.12);border-radius:100px;padding:5px 14px;font-size:11px;font-weight:600;color:rgba(255,255,255,.65);letter-spacing:.5px;text-transform:uppercase;margin-bottom:18px}
+.live-dot{width:6px;height:6px;border-radius:50%;background:#4ade80;flex-shrink:0;animation:blink 2s ease-in-out infinite}
+@keyframes blink{0%,100%{opacity:1}50%{opacity:.3}}
+.hero-h1{font-family:var(--serif);font-size:clamp(40px,7vw,84px);font-weight:700;line-height:.95;color:#fff;margin-bottom:20px;letter-spacing:-.5px}
+.hero-h1 em{color:#f97316;font-style:italic}
+.hero-p{font-size:clamp(15px,2vw,17px);line-height:1.65;color:rgba(255,255,255,.55);max-width:420px;margin-bottom:32px}
+.hero-btns{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:44px}
+.btn-primary{display:inline-flex;align-items:center;gap:8px;background:var(--orange);color:#fff;padding:13px 22px;border-radius:100px;font-weight:700;font-size:15px;transition:background .15s,transform .15s;white-space:nowrap}
+.btn-primary:hover{background:var(--oh);transform:translateY(-2px)}
+.btn-ghost{display:inline-flex;align-items:center;gap:8px;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.15);color:rgba(255,255,255,.85);padding:13px 20px;border-radius:100px;font-weight:600;font-size:15px;transition:background .15s;white-space:nowrap}
+.btn-ghost:hover{background:rgba(255,255,255,.14)}
+.hero-stats{display:flex;gap:28px;padding-top:28px;border-top:1px solid rgba(255,255,255,.07);flex-wrap:wrap}
+.stat-val{font-family:var(--serif);font-size:30px;font-weight:700;color:#fff;line-height:1}
+.stat-lbl{font-size:11px;color:rgba(255,255,255,.4);margin-top:4px;font-weight:500;text-transform:uppercase;letter-spacing:.3px}
+.hero-vid-col{align-self:stretch;display:flex;align-items:flex-end}
+.hero-vid{border-radius:16px 16px 0 0;overflow:hidden;background:#000;box-shadow:0 -20px 60px rgba(0,0,0,.5);position:relative;height:460px;width:100%}
+.hero-vid video{width:100%;height:100%;object-fit:cover;display:block}
+.vid-chip{position:absolute;top:14px;left:14px;background:rgba(0,0,0,.5);backdrop-filter:blur(8px);border:1px solid rgba(255,255,255,.12);border-radius:100px;padding:5px 12px;font-size:11px;font-weight:600;color:#fff;display:flex;align-items:center;gap:6px}
+.rec{width:6px;height:6px;border-radius:50%;background:#f97316;animation:blink 1.5s ease-in-out infinite;flex-shrink:0}
 
-    /* Mobile menu */
-    .mobile-menu{display:none;flex-direction:column;gap:8px;padding:12px var(--page-padding);border-top:1px solid #f0e6e3;background:#fff}
+/* ── PERKS ──────────────────────────────────────── */
+.perks{background:var(--orange);padding:clamp(20px,3vw,28px) clamp(16px,5vw,48px)}
+.perks-inner{max-width:var(--max);margin:0 auto;display:flex;align-items:center;justify-content:center;gap:clamp(16px,4vw,56px);flex-wrap:wrap}
+.perk{display:flex;align-items:center;gap:12px;color:#fff;flex-shrink:0}
+.perk-icon{width:38px;height:38px;border-radius:50%;background:rgba(255,255,255,.15);display:flex;align-items:center;justify-content:center;font-size:15px;flex-shrink:0}
+.perk-lbl{font-weight:700;font-size:14px;line-height:1.2}
+.perk-sub{font-size:11px;opacity:.75;font-weight:500}
+.perk-div{width:1px;height:30px;background:rgba(255,255,255,.2);flex-shrink:0}
 
-    /* ---------- HERO ---------- */
-    .hero{max-width:var(--max-width);margin:18px auto;padding:0 var(--page-padding);display:grid;grid-template-columns:1fr 420px;gap:20px;align-items:center}
-    .hero-left{background:linear-gradient(180deg,#fff,#fffaf8);border-radius:var(--radius);padding:28px;box-shadow:var(--shadow)}
-    .hero-left h2{margin:0;color:var(--accent);font-size:clamp(22px,4vw,36px)}
-    .hero-left p{margin:10px 0;color:var(--muted);font-size:16px}
-    .hero-ctas{margin-top:14px;display:flex;gap:12px;flex-wrap:wrap}
-    .btn{display:inline-block;padding:10px 14px;border-radius:10px;font-weight:800}
-    .btn.primary{background:var(--cta);color:#fff}
-    .btn.ghost{background:transparent;border:1px solid rgba(0,0,0,.06);color:var(--accent)}
+/* ── SECTION ────────────────────────────────────── */
+.section{padding:clamp(44px,6vw,80px) 0}
+.eyebrow{font-size:11px;font-weight:700;letter-spacing:1.2px;text-transform:uppercase;color:var(--orange);margin-bottom:8px}
+.section-h{font-family:var(--serif);font-size:clamp(26px,4vw,44px);font-weight:700;line-height:1.1;color:var(--ink)}
+.section-p{font-size:15px;color:var(--muted);margin-top:8px;line-height:1.6;max-width:480px}
 
-    .hero-media{border-radius:var(--radius);overflow:hidden;box-shadow:var(--shadow);background:#000;display:flex;flex-direction:column}
-    .hero-media video{width:100%;height:auto;display:block;object-fit:cover}
-    .hero-media .poster{padding:12px;background:#fff;display:flex;justify-content:space-between;align-items:center}
+/* ── DISH CARDS ─────────────────────────────────── */
+.dishes-hdr{display:flex;align-items:flex-end;justify-content:space-between;margin-bottom:28px;gap:12px;flex-wrap:wrap}
+.all-link{font-size:13px;font-weight:600;color:var(--orange);display:inline-flex;align-items:center;gap:5px;flex-shrink:0}
+.all-link:hover{opacity:.7}
+.dishes-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
+.dish-card{background:#fff;border-radius:var(--r);overflow:hidden;border:1px solid var(--border);display:flex;flex-direction:column;transition:transform .25s,box-shadow .25s}
+.dish-card:hover{transform:translateY(-4px);box-shadow:0 16px 40px rgba(26,16,8,.1)}
+.d-img-wrap{position:relative;overflow:hidden}
+.d-img{width:100%;height:200px;object-fit:cover;display:block;transition:transform .4s}
+.dish-card:hover .d-img{transform:scale(1.05)}
+.d-badge{position:absolute;top:10px;left:10px;background:var(--orange);color:#fff;font-size:10px;font-weight:700;letter-spacing:.4px;padding:4px 10px;border-radius:100px;text-transform:uppercase}
+.d-body{padding:14px;display:flex;flex-direction:column;flex:1}
+.d-name{font-weight:700;font-size:15px;color:var(--ink);margin-bottom:4px}
+.d-desc{font-size:12px;color:var(--muted);line-height:1.5;flex:1;margin-bottom:12px}
+.d-foot{display:flex;align-items:center;justify-content:space-between;gap:8px}
+.d-price{font-family:var(--serif);font-size:20px;font-weight:700;color:var(--orange)}
+.d-acts{display:flex;gap:6px}
+.btn-order{background:var(--green);color:#fff;padding:8px 14px;border-radius:100px;font-size:12px;font-weight:700;transition:background .15s;white-space:nowrap}
+.btn-order:hover{background:var(--gh)}
+.btn-watch{background:transparent;border:1.5px solid var(--border);color:var(--muted);padding:8px 12px;border-radius:100px;font-size:12px;font-weight:600;transition:border-color .15s,color .15s;white-space:nowrap}
+.btn-watch:hover{border-color:var(--orange);color:var(--orange)}
 
-    /* ---------- VIDEO CAROUSEL ---------- */
-    .carousel{max-width:var(--max-width);margin:20px auto;padding:0 var(--page-padding)}
-    .carousel-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:8px}
-    .carousel-track{display:flex;gap:14px;overflow:auto;scroll-snap-type:x mandatory;padding-bottom:8px;-webkit-overflow-scrolling:touch}
-    .carousel-item{min-width:320px;flex:0 0 320px;border-radius:12px;overflow:hidden;background:var(--card);box-shadow:var(--shadow);scroll-snap-align:center}
-    .carousel-item video{width:100%;height:200px;object-fit:cover;display:block}
-    .carousel-controls{display:flex;justify-content:center;gap:8px;margin-top:10px}
-    .carousel-btn{padding:8px 10px;border-radius:8px;border:1px solid #eee;background:#fff;cursor:pointer}
+/* ── CLIPS ──────────────────────────────────────── */
+.clips-section{background:var(--ink);padding:clamp(44px,6vw,80px) 0}
+.clips-hdr{display:flex;align-items:flex-end;justify-content:space-between;margin-bottom:26px;gap:12px;flex-wrap:wrap}
+.clips-title{font-family:var(--serif);font-size:clamp(26px,4vw,44px);font-weight:700;color:#fff;line-height:1.1}
+.clips-sub{font-size:14px;color:rgba(255,255,255,.4);margin-top:8px}
+.vid-nav{display:flex;gap:8px;flex-shrink:0;align-self:center}
+.vid-btn{width:40px;height:40px;border-radius:50%;border:1px solid rgba(255,255,255,.18);color:#fff;font-size:16px;display:flex;align-items:center;justify-content:center;transition:background .15s,border-color .15s;flex-shrink:0}
+.vid-btn:hover{background:rgba(255,255,255,.1);border-color:rgba(255,255,255,.4)}
+.carousel-track{display:flex;gap:14px;overflow-x:auto;scroll-snap-type:x mandatory;scrollbar-width:none;-webkit-overflow-scrolling:touch;padding-bottom:4px}
+.carousel-track::-webkit-scrollbar{display:none}
+.clip-card{flex:0 0 clamp(220px,70vw,290px);border-radius:12px;overflow:hidden;background:#0d0d0d;scroll-snap-align:start;border:1px solid rgba(255,255,255,.06)}
+.clip-card video{width:100%;height:200px;object-fit:cover;display:block}
+.clip-lbl{padding:10px 12px;font-size:12px;font-weight:500;color:rgba(255,255,255,.45)}
 
-    /* ---------- FEATURED DISHES ---------- */
-    .featured{max-width:var(--max-width);margin:20px auto;padding:0 var(--page-padding)}
-    .featured h3{color:var(--accent);margin:0 0 12px}
-    .cards{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
-    .card{background:var(--card);border-radius:12px;overflow:hidden;box-shadow:var(--shadow);display:flex;flex-direction:column}
-    .card img{width:100%;height:180px;object-fit:cover;display:block}
-    .card-body{padding:12px;display:flex;flex-direction:column;gap:8px}
-    .price{color:var(--accent);font-weight:800}
+/* ── REVIEWS ────────────────────────────────────── */
+.reviews-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:14px}
+.rev-card{background:#fff;border-radius:var(--r);padding:18px;border:1px solid var(--border);transition:transform .2s}
+.rev-card:hover{transform:translateY(-3px)}
+.rev-stars{color:var(--gold);font-size:13px;letter-spacing:2px;margin-bottom:10px}
+.rev-quote{font-family:var(--serif);font-size:16px;font-weight:600;font-style:italic;line-height:1.45;color:var(--ink);margin-bottom:12px}
+.rev-footer{display:flex;align-items:center;gap:8px;border-top:1px solid var(--border);padding-top:10px}
+.rev-avatar{width:30px;height:30px;border-radius:50%;background:var(--ol);display:flex;align-items:center;justify-content:center;font-weight:700;font-size:12px;color:var(--orange);flex-shrink:0}
+.rev-name{font-size:13px;font-weight:600;color:var(--ink)}
+.rev-loc{font-size:11px;color:var(--muted)}
 
-    /* ---------- REVIEWS ---------- */
-    .reviews{max-width:var(--max-width);margin:20px auto;padding:0 var(--page-padding)}
-    .reviews h3{color:var(--accent);margin:0 0 12px}
-    .review-list{display:flex;gap:12px;flex-wrap:wrap}
-    .review-card{background:var(--card);border-radius:12px;padding:12px;box-shadow:var(--shadow);flex:1 1 220px;min-width:220px}
-    .stars{color:var(--gold);font-weight:800}
+/* ── STICKY ─────────────────────────────────────── */
+.sticky{position:fixed;bottom:0;left:0;right:0;background:var(--ink);border-top:1px solid rgba(255,255,255,.07);padding:12px clamp(16px,5vw,48px) calc(12px + env(safe-area-inset-bottom));z-index:800;display:flex;align-items:center;justify-content:space-between;gap:12px;transform:translateY(100%);transition:transform .4s cubic-bezier(.22,1,.36,1)}
+.sticky.on{transform:translateY(0)}
+.sticky-txt{font-size:14px;font-weight:600;color:#fff;min-width:0}
+.sticky-txt span{color:var(--orange)}
+.sticky-acts{display:flex;gap:8px;flex-shrink:0}
+.s-order{background:var(--orange);color:#fff;padding:10px 20px;border-radius:100px;font-weight:700;font-size:13px;transition:background .15s;white-space:nowrap}
+.s-order:hover{background:var(--oh)}
+.s-menu{background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.15);color:rgba(255,255,255,.8);padding:10px 16px;border-radius:100px;font-weight:600;font-size:13px;display:inline-flex;align-items:center;transition:background .15s;white-space:nowrap}
+.s-menu:hover{background:rgba(255,255,255,.14)}
 
-    /* ---------- STICKY ORDER BAR ---------- */
-    .sticky-order{position:fixed;left:12px;right:12px;bottom:12px;background:var(--cta);color:#fff;padding:12px;border-radius:12px;display:flex;justify-content:space-between;align-items:center;gap:12px;z-index:999;box-shadow:0 10px 30px rgba(0,0,0,.12)}
-    .sticky-order .btn{padding:10px 14px;border-radius:10px}
+/* ── MODAL ──────────────────────────────────────── */
+.modal{display:none;position:fixed;inset:0;z-index:2000;background:rgba(0,0,0,.82);align-items:center;justify-content:center;padding:12px;backdrop-filter:blur(6px)}
+.modal.open{display:flex}
+.modal-box{width:100%;max-width:860px;background:#000;border-radius:16px;overflow:hidden;display:flex;flex-direction:column}
+.modal-vid{width:100%;height:auto;display:block;max-height:75vh}
+.modal-foot{background:#111;padding:10px 14px;display:flex;justify-content:space-between;align-items:center}
+.modal-foot span{font-size:13px;color:rgba(255,255,255,.35);font-weight:500}
+.modal-close{background:var(--orange);color:#fff;padding:8px 16px;border-radius:100px;font-size:12px;font-weight:700;transition:background .15s}
+.modal-close:hover{background:var(--oh)}
 
-    /* ---------- FOOTER ---------- */
-    footer{max-width:var(--max-width);margin:28px auto;padding:18px var(--page-padding);text-align:center;color:var(--muted);font-size:13px}
+/* ── FOOTER ─────────────────────────────────────── */
+footer{background:var(--ink);color:rgba(255,255,255,.3);font-size:12px;padding:28px clamp(16px,5vw,48px) calc(72px + env(safe-area-inset-bottom));text-align:center;border-top:1px solid rgba(255,255,255,.05)}
+.foot-links{display:flex;justify-content:center;gap:16px;flex-wrap:wrap;margin-bottom:10px}
+.foot-links a{color:rgba(255,255,255,.5);font-size:12px;font-weight:500;transition:color .15s}
+.foot-links a:hover{color:#fff}
 
-    /* ---------- MOBILE FIXES ---------- */
-    @media(max-width:1024px){
-      .hero{grid-template-columns:1fr 360px}
-      .cards{grid-template-columns:repeat(2,1fr)}
-    }
-    @media(max-width:720px){
-      .nav-links{display:none}
-      .hamburger{display:flex}
-      .mobile-menu{display:none}
-      .hero{grid-template-columns:1fr;gap:12px;padding:0 var(--page-padding)}
-      .hero-left{padding:18px}
-      .hero-ctas{flex-direction:column;gap:10px}
-      .hero-ctas .btn{width:100%;text-align:center}
-      .hero-media{width:100%;max-width:100%}
-      .hero-media video{height:auto;max-height:45vh;object-fit:cover}
-      .carousel-item{min-width:260px;flex:0 0 260px}
-      .cards{grid-template-columns:1fr}
-      .card img{height:220px;object-fit:cover}
-      .review-card{min-width:unset;width:100%}
-      .sticky-order{flex-direction:column;gap:10px;align-items:stretch;padding-bottom:calc(12px + env(safe-area-inset-bottom))}
-      .sticky-order .btn{width:100%;display:block}
-    }
-    @media(max-width:480px){
-      .carousel-item{min-width:220px;flex:0 0 220px}
-    }
-
-    /* Focus states */
-    a:focus, button:focus, input:focus, textarea:focus{outline:3px solid rgba(39,174,96,.12);outline-offset:2px}
-  </style>
+/* ── RESPONSIVE ─────────────────────────────────── */
+@media(max-width:1024px){
+  .hero-grid{grid-template-columns:1fr 320px;gap:28px}
+  .hero-vid{height:380px}
+  .dishes-grid{grid-template-columns:repeat(2,1fr)}
+  .reviews-grid{grid-template-columns:repeat(2,1fr)}
+  .perk-div{display:none}
+}
+@media(max-width:768px){
+  .nav-links{display:none}
+  .hamburger{display:flex}
+  .hero-grid{grid-template-columns:1fr}
+  .hero-vid-col{display:none}
+  .hero-btns{gap:8px}
+  .hero-stats{gap:18px}
+  .dishes-grid{grid-template-columns:repeat(2,1fr)}
+  .reviews-grid{grid-template-columns:repeat(2,1fr)}
+  .perks-inner{gap:16px}
+  .perk{flex-direction:column;text-align:center;gap:6px}
+}
+@media(max-width:520px){
+  .hero-btns{flex-direction:column;gap:8px}
+  .btn-primary,.btn-ghost{width:100%;justify-content:center}
+  .dishes-grid{grid-template-columns:1fr}
+  .reviews-grid{grid-template-columns:1fr}
+  .hero-stats{gap:16px}
+  .sticky{flex-direction:column;align-items:stretch;gap:8px}
+  .sticky-acts{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+  .s-order,.s-menu{justify-content:center;text-align:center}
+}
+@media(max-width:360px){
+  .brand-tag{display:none}
+  .hero-h1{font-size:36px}
+}
+</style>
 </head>
 <body>
-  <!-- Google Tag Manager (noscript) -->
-<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-5R3454LQ"
-height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
-<!-- End Google Tag Manager (noscript) -->
-  <!-- NAV -->
-  <header class="site-nav" role="banner">
-    <div class="nav-inner">
-      <div class="brand">
-        <div class="logo" aria-hidden="true">DK</div>
-        <div>
-          <h1>Dami's Kitchen</h1>
-          <div style="font-size:12px;color:var(--muted)">Fresh meals • Abuja</div>
-        </div>
-      </div>
+<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-5R3454LQ" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
-      <nav class="nav-links" aria-label="Primary">
-        <a href="index.html">Home</a>
-        <a href="menu.html">Menu</a>
-        <a href="order.html">Order</a>
-        <a href="contact.html">Contact</a>
-        <a class="cta-order" href="order.html">Order Now</a>
-      </nav>
-
-      <button id="hamburger" class="hamburger" aria-expanded="false" aria-controls="mobileMenu" aria-label="Open menu">☰</button>
-    </div>
-
-    <div id="mobileMenu" class="mobile-menu" aria-hidden="true">
-      <a href="index.html">Home</a>
+<!-- NAV -->
+<header class="nav" role="banner">
+  <div class="wrap nav-inner">
+    <a href="index.html" class="brand">
+      <div class="brand-mark" aria-hidden="true">DK</div>
+      <div><div class="brand-name">Dami's Kitchen</div><div class="brand-tag">Fresh meals · Abuja</div></div>
+    </a>
+    <nav class="nav-links" aria-label="Primary">
+      <a href="index.html" class="active">Home</a>
       <a href="menu.html">Menu</a>
       <a href="order.html">Order</a>
       <a href="contact.html">Contact</a>
-      <a href="order.html" class="cta-order" style="display:inline-block;text-align:center">Order Now</a>
-    </div>
-  </header>
-
-  <!-- HERO -->
-  <section class="hero" aria-label="Hero">
-    <div class="hero-left">
-      <h2>Fresh meals delivered in Abuja</h2>
-      <p>Home-style cooking, plated with care. Watch our chef in action and order in seconds.</p>
-      <div class="hero-ctas">
-        <a class="btn primary" href="order.html" id="heroOrder">Order Now</a>
-        <a class="btn ghost" href="menu.html">View Menu</a>
-      </div>
-    </div>
-
-    <div class="hero-media" aria-hidden="false">
-      <video id="heroClip" poster="images/hero-poster.jpg" playsinline muted loop preload="none" controlsList="nodownload" aria-label="Hero video">
-        <source src="Download (9).mp4" type="video/mp4">
-        Your browser does not support the video tag.
-      </video>
-      <div class="poster" style="display:flex;justify-content:space-between;align-items:center">
-        <div style="font-weight:700;color:#333">Watch the chef</div>
-        <div style="font-size:13px;color:var(--muted)"></div>
-      </div>
-    </div>
-  </section>
-
-  <!-- VIDEO CAROUSEL -->
-  <section class="carousel" aria-label="Video carousel">
-    <div class="carousel-header">
-      <h3 style="margin:0;color:var(--accent)">Behind the scenes</h3>
-      <div style="font-size:13px;color:var(--muted)">Tap a clip to play</div>
-    </div>
-
-    <div id="carouselTrack" class="carousel-track" tabindex="0" aria-roledescription="carousel">
-      <div class="carousel-item" data-index="0">
-        <video data-src="Download (5).mp4" poster="images/chef1.jpg" preload="none" controls playsinline aria-label="Chef clip 1"></video>
-      </div>
-      <div class="carousel-item" data-index="1">
-        <video data-src="Download (6).mp4" poster="images/food1.jpg" preload="none" controls playsinline aria-label="Food clip 1"></video>
-      </div>
-      <div class="carousel-item" data-index="2">
-        <video data-src="Download (7).mp4" poster="images/food2.jpg" preload="none" controls playsinline aria-label="Food clip 2"></video>
-      </div>
-      <div class="carousel-item" data-index="3">
-        <video data-src="Download (8).mp4" poster="images/chef2.jpg" preload="none" controls playsinline aria-label="Chef clip 2"></video>
-      </div>
-    </div>
-
-    <div class="carousel-controls" role="group" aria-label="Carousel controls">
-      <button class="carousel-btn" id="prevBtn" aria-label="Previous">‹ Prev</button>
-      <button class="carousel-btn" id="nextBtn" aria-label="Next">Next ›</button>
-    </div>
-  </section>
-
-  <!-- FEATURED DISHES -->
-  <section class="featured" aria-label="Featured dishes">
-    <h3>Featured dishes</h3>
-    <div class="cards" role="list">
-      <div class="card" role="listitem">
-        <img src="fried rice and turkey.jpeg" alt="Fried Rice with Turkey">
-        <div class="card-body">
-          <div style="display:flex;justify-content:space-between;align-items:center">
-            <strong>Fried Rice with Turkey</strong>
-            <div class="price">₦5000</div>
-          </div>
-          <div style="color:var(--muted);font-size:14px">Delicious fried rice with succulent turkey</div>
-          <div style="margin-top:10px;display:flex;gap:8px">
-            <button class="btn primary order-btn" data-item="jollof">Order</button>
-            <button class="btn ghost" data-video="Download (5).mp4">Watch</button>
-          </div>
-        </div>
-      </div>
-
-      <div class="card" role="listitem">
-        <img src="fried rice wih chicken.jpeg" alt="Grilled Fish">
-        <div class="card-body">
-          <div style="display:flex;justify-content:space-between;align-items:center">
-            <strong>Fried Rice with Chicken</strong>
-            <div class="price">₦5,000</div>
-          </div>
-          <div style="color:var(--muted);font-size:14px">Delicious fried rice with succulent chicken</div>
-          <div style="margin-top:10px;display:flex;gap:8px">
-            <button class="btn primary order-btn" data-item="grilledfish">Order</button>
-            <button class="btn ghost" data-video="Download (4).mp4">Watch</button>
-          </div>
-        </div>
-      </div>
-
-      <div class="card" role="listitem">
-        <img src="Noodles.jpeg" alt="Noodles With Platian">
-        <div class="card-body">
-          <div style="display:flex;justify-content:space-between;align-items:center">
-            <strong>Noodles With Platian</strong>
-            <div class="price">₦5,000</div>
-          </div>
-          <div style="color:var(--muted);font-size:14px">Delicious noodles with fresh platian</div>
-          <div style="margin-top:10px;display:flex;gap:8px">
-            <button class="btn primary order-btn" data-item="smoothie">Order</button>
-            <button class="btn ghost" data-video="Download (8).mp4">Watch</button>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- REVIEWS -->
-  <section class="reviews" aria-label="Customer reviews">
-    <h3>What customers say</h3>
-    <div class="review-list" role="list">
-      <div class="review-card" role="listitem">
-        <div class="stars" aria-hidden="true">★ ★ ★ ★ ★</div>
-        <div style="font-weight:700;margin-top:6px">“Absolutely delicious. Tastes like home.”</div>
-        <div style="color:var(--muted);margin-top:6px">— Ada, Abuja</div>
-      </div>
-
-      <div class="review-card" role="listitem">
-        <div class="stars" aria-hidden="true">★ ★ ★ ★ ★</div>
-        <div style="font-weight:700;margin-top:6px">“Fast delivery and great portions.”</div>
-        <div style="color:var(--muted);margin-top:6px">— Musa, Abuja</div>
-      </div>
-
-      <div class="review-card" role="listitem">
-        <div class="stars" aria-hidden="true">★ ★ ★ ★ ☆</div>
-        <div style="font-weight:700;margin-top:6px">“Fresh ingredients and friendly service.”</div>
-        <div style="color:var(--muted);margin-top:6px">— Chioma, Abuja</div>
-      </div>
-
-      <div class="review-card" role="listitem">
-        <div class="stars" aria-hidden="true">★ ★ ★ ★ ★</div>
-        <div style="font-weight:700;margin-top:6px">“Best jollof in town. Highly recommend.”</div>
-        <div style="color:var(--muted);margin-top:6px">— Emeka, Abuja</div>
-      </div>
-    </div>
-  </section>
-
-  <!-- STICKY ORDER BAR -->
-  <div class="sticky-order" role="region" aria-label="Order now">
-    <div style="font-weight:800">Ready to eat? Place your order</div>
-    <div style="display:flex;gap:8px;flex-wrap:wrap">
-      <button class="btn primary" id="stickyOrderBtn">Order Now</button>
-      <button class="btn ghost" id="viewMenuBtn">Menu</button>
-    </div>
+      <a href="order.html" class="nav-cta">Order Now</a>
+    </nav>
+    <button id="hamburger" class="hamburger" aria-expanded="false" aria-controls="mobileNav" aria-label="Open menu"><i class="fa-solid fa-bars"></i></button>
   </div>
+  <nav id="mobileNav" class="mobile-nav" aria-hidden="true">
+    <a href="index.html">Home</a><a href="menu.html">Menu</a>
+    <a href="order.html">Order</a><a href="contact.html">Contact</a>
+    <a href="order.html" class="m-cta">Order Now</a>
+  </nav>
+</header>
 
-  <footer>
-    © 2026 Dami's Kitchen • Follow us on social media
-  </footer>
-
-  <!-- VIDEO MODAL -->
-  <div id="videoModal" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,.6);align-items:center;justify-content:center;z-index:2000;padding:12px">
-    <div style="width:100%;max-width:900px;background:#000;border-radius:12px;overflow:hidden;max-height:85vh;display:flex;flex-direction:column">
-      <video id="modalVideo" controls style="width:100%;height:auto;max-height:70vh"></video>
-      <div style="padding:10px;text-align:right;background:#fff">
-        <button id="closeModalBtn" style="padding:8px 12px;border-radius:8px;border:none;background:var(--accent);color:#fff;font-weight:700">Close</button>
+<!-- HERO -->
+<section class="hero" aria-label="Welcome">
+  <div class="wrap">
+    <div class="hero-grid">
+      <div>
+        <div class="live-badge"><span class="live-dot" aria-hidden="true"></span>Now delivering in Abuja</div>
+        <h1 class="hero-h1">Food that<br><em>feels</em> like<br>home</h1>
+        <p class="hero-p">Hand-cooked every day with real ingredients. No shortcuts, no frozen — just honest, flavourful meals at your door.</p>
+        <div class="hero-btns">
+          <a href="order.html" class="btn-primary" id="heroOrderBtn">Order Now <i class="fa-solid fa-arrow-right"></i></a>
+          <a href="menu.html" class="btn-ghost">View Full Menu</a>
+        </div>
+        <div class="hero-stats">
+          <div><div class="stat-val">5.0</div><div class="stat-lbl">Rating</div></div>
+          <div><div class="stat-val">500+</div><div class="stat-lbl">Customers</div></div>
+          <div><div class="stat-val">100%</div><div class="stat-lbl">Homemade</div></div>
+        </div>
+      </div>
+      <div class="hero-vid-col" aria-hidden="true">
+        <div class="hero-vid">
+          <video id="heroClip" poster="images/hero-poster.jpg" playsinline muted loop preload="none" controlsList="nodownload">
+            <source src="Download (9).mp4" type="video/mp4">
+          </video>
+          <div class="vid-chip"><span class="rec" aria-hidden="true"></span>Chef Dami cooking</div>
+        </div>
       </div>
     </div>
   </div>
+</section>
 
-  <script>
-    /* ---------- Analytics helper ---------- */
-    function pushEvent(name, payload){
-      try{
-        window.dataLayer = window.dataLayer || [];
-        window.dataLayer.push(Object.assign({event: name}, payload || {}));
-        if(window.gtag) gtag('event', name, payload || {});
-      }catch(e){}
-    }
+<!-- PERKS -->
+<div class="perks" role="list" aria-label="Our promise">
+  <div class="perks-inner">
+    <div class="perk" role="listitem"><div class="perk-icon"><i class="fa-solid fa-bowl-rice"></i></div><div><div class="perk-lbl">Fresh every day</div><div class="perk-sub">Cooked to order, never frozen</div></div></div>
+    <div class="perk-div" aria-hidden="true"></div>
+    <div class="perk" role="listitem"><div class="perk-icon"><i class="fa-solid fa-motorcycle"></i></div><div><div class="perk-lbl">Fast delivery</div><div class="perk-sub">Hot food straight to you</div></div></div>
+    <div class="perk-div" aria-hidden="true"></div>
+    <div class="perk" role="listitem"><div class="perk-icon"><i class="fa-solid fa-heart"></i></div><div><div class="perk-lbl">Made with love</div><div class="perk-sub">Home-style, every plate</div></div></div>
+  </div>
+</div>
 
-    /* ---------- Mobile menu toggle ---------- */
-    (function(){
-      const hamburger = document.getElementById('hamburger');
-      const mobileMenu = document.getElementById('mobileMenu');
-      if(hamburger && mobileMenu){
-        hamburger.addEventListener('click', () => {
-          const expanded = hamburger.getAttribute('aria-expanded') === 'true';
-          hamburger.setAttribute('aria-expanded', String(!expanded));
-          mobileMenu.style.display = expanded ? 'none' : 'flex';
-          mobileMenu.setAttribute('aria-hidden', String(expanded));
-          if(!expanded) mobileMenu.scrollIntoView({behavior:'smooth', block:'start'});
-        });
-        document.addEventListener('click', (e) => {
-          if(window.innerWidth <= 720 && !mobileMenu.contains(e.target) && !hamburger.contains(e.target)){
-            mobileMenu.style.display = 'none';
-            hamburger.setAttribute('aria-expanded','false');
-            mobileMenu.setAttribute('aria-hidden','true');
-          }
-        });
-      }
-    })();
+<!-- DISHES -->
+<section class="section" aria-label="Featured dishes">
+  <div class="wrap">
+    <div class="dishes-hdr">
+      <div><div class="eyebrow">Today's Menu</div><h2 class="section-h">What's on the plate</h2></div>
+      <a href="menu.html" class="all-link">Full menu <i class="fa-solid fa-arrow-right"></i></a>
+    </div>
+    <div class="dishes-grid" role="list">
+      <article class="dish-card" role="listitem">
+        <div class="d-img-wrap"><img class="d-img" src="fried rice and turkey.jpeg" alt="Fried Rice with Turkey" loading="lazy"/><span class="d-badge">Popular</span></div>
+        <div class="d-body">
+          <div class="d-name">Fried Rice with Turkey</div>
+          <p class="d-desc">Golden rice with vegetables and juicy seasoned turkey.</p>
+          <div class="d-foot"><span class="d-price">&#8358;5,000</span><div class="d-acts"><button class="btn-order" onclick="location.href='order.html'">Order</button><button class="btn-watch watch-btn" data-video="Download (5).mp4">&#9654; Watch</button></div></div>
+        </div>
+      </article>
+      <article class="dish-card" role="listitem">
+        <div class="d-img-wrap"><img class="d-img" src="fried rice wih chicken.jpeg" alt="Fried Rice with Chicken" loading="lazy"/><span class="d-badge" style="background:var(--gold);color:#5c3800">Chef's pick</span></div>
+        <div class="d-body">
+          <div class="d-name">Fried Rice with Chicken</div>
+          <p class="d-desc">Fragrant rice with crispy, perfectly seasoned chicken.</p>
+          <div class="d-foot"><span class="d-price">&#8358;5,000</span><div class="d-acts"><button class="btn-order" onclick="location.href='order.html'">Order</button><button class="btn-watch watch-btn" data-video="Download (4).mp4">&#9654; Watch</button></div></div>
+        </div>
+      </article>
+      <article class="dish-card" role="listitem">
+        <div class="d-img-wrap"><img class="d-img" src="Noodles.jpeg" alt="Noodles with Plantain" loading="lazy"/></div>
+        <div class="d-body">
+          <div class="d-name">Noodles with Plantain</div>
+          <p class="d-desc">Stir-fried noodles with caramelised sweet plantain.</p>
+          <div class="d-foot"><span class="d-price">&#8358;5,000</span><div class="d-acts"><button class="btn-order" onclick="location.href='order.html'">Order</button><button class="btn-watch watch-btn" data-video="Download (8).mp4">&#9654; Watch</button></div></div>
+        </div>
+      </article>
+    </div>
+  </div>
+</section>
 
-    /* ---------- HERO video lazy load & events ---------- */
-    (function(){
-      const hero = document.getElementById('heroClip');
-      let heroLoaded = false;
-      if('IntersectionObserver' in window){
-        const io = new IntersectionObserver(entries => {
-          entries.forEach(e => {
-            if(e.isIntersecting && !heroLoaded){
-              hero.preload = 'auto';
-              hero.muted = true;
-              hero.play().catch(()=>{});
-              pushEvent('video_impression', {video:'hero'});
-              heroLoaded = true;
-              io.disconnect();
-            }
-          });
-        }, {threshold:0.25});
-        io.observe(hero);
-      } else {
-        hero.preload = 'auto';
-      }
-      hero.addEventListener('play', ()=> pushEvent('video_play', {video:'hero'}));
-      hero.addEventListener('pause', ()=> pushEvent('video_pause', {video:'hero'}));
-      hero.addEventListener('ended', ()=> pushEvent('video_complete', {video:'hero'}));
-      hero.addEventListener('volumechange', ()=> { if(!hero.muted) pushEvent('video_unmute', {video:'hero'}); });
-    })();
+<!-- CLIPS -->
+<section class="clips-section" aria-label="Behind the scenes">
+  <div class="wrap">
+    <div class="clips-hdr">
+      <div><div class="eyebrow" style="color:rgba(255,255,255,.35)">Behind the scenes</div><h2 class="clips-title">Watch the kitchen</h2><p class="clips-sub">Every meal starts with the right technique.</p></div>
+      <div class="vid-nav"><button class="vid-btn" id="prevBtn" aria-label="Previous"><i class="fa-solid fa-arrow-left"></i></button><button class="vid-btn" id="nextBtn" aria-label="Next"><i class="fa-solid fa-arrow-right"></i></button></div>
+    </div>
+    <div id="carouselTrack" class="carousel-track" tabindex="0">
+      <div class="clip-card" data-index="0"><video data-src="Download (5).mp4" poster="fried rice and turkey.jpeg" preload="none" controls playsinline aria-label="Prep clip"></video><div class="clip-lbl">Prepping the fried rice</div></div>
+      <div class="clip-card" data-index="1"><video data-src="Download (6).mp4" poster="fried rice wih chicken.jpeg" preload="none" controls playsinline aria-label="Seasoning clip"></video><div class="clip-lbl">Seasoning secrets</div></div>
+      <div class="clip-card" data-index="2"><video data-src="Download (7).mp4" poster="images/food2.jpg" preload="none" controls playsinline aria-label="Plating clip"></video><div class="clip-lbl">The plating process</div></div>
+      <div class="clip-card" data-index="3"><video data-src="Download (8).mp4" poster="images/chef2.jpg" preload="none" controls playsinline aria-label="Chef clip"></video><div class="clip-lbl">Chef Dami at work</div></div>
+    </div>
+  </div>
+</section>
 
-    /* ---------- CAROUSEL logic (lazy load videos, slide controls) ---------- */
-    (function(){
-      const track = document.getElementById('carouselTrack');
-      const items = Array.from(track.querySelectorAll('.carousel-item'));
-      const prev = document.getElementById('prevBtn');
-      const next = document.getElementById('nextBtn');
-      let index = 0;
+<!-- REVIEWS -->
+<section class="section" aria-label="Reviews">
+  <div class="wrap">
+    <div style="margin-bottom:28px"><div class="eyebrow">Reviews</div><h2 class="section-h">What customers say</h2></div>
+    <div class="reviews-grid" role="list">
+      <div class="rev-card" role="listitem"><div class="rev-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div><p class="rev-quote">"Tastes exactly like home cooking."</p><div class="rev-footer"><div class="rev-avatar">A</div><div><div class="rev-name">Ada</div><div class="rev-loc">Abuja</div></div></div></div>
+      <div class="rev-card" role="listitem"><div class="rev-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div><p class="rev-quote">"Fast delivery and amazing portions."</p><div class="rev-footer"><div class="rev-avatar">M</div><div><div class="rev-name">Musa</div><div class="rev-loc">Abuja</div></div></div></div>
+      <div class="rev-card" role="listitem"><div class="rev-stars">&#9733;&#9733;&#9733;&#9733;&#9734;</div><p class="rev-quote">"Freshest ingredients around."</p><div class="rev-footer"><div class="rev-avatar">C</div><div><div class="rev-name">Chioma</div><div class="rev-loc">Abuja</div></div></div></div>
+      <div class="rev-card" role="listitem"><div class="rev-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div><p class="rev-quote">"Best jollof in Abuja — not a debate."</p><div class="rev-footer"><div class="rev-avatar">E</div><div><div class="rev-name">Emeka</div><div class="rev-loc">Abuja</div></div></div></div>
+    </div>
+  </div>
+</section>
 
-      function loadVideo(item){
-        const vid = item.querySelector('video');
-        if(!vid) return;
-        if(!vid.src){
-          const src = vid.getAttribute('data-src');
-          if(src){ vid.src = src; vid.load(); pushEvent('video_impression', {video: src}); }
-        }
-      }
+<footer>
+  <div class="foot-links"><a href="index.html">Home</a><a href="menu.html">Menu</a><a href="order.html">Order</a><a href="socials.html">Socials</a></div>
+  <p>&copy; 2026 Dami&rsquo;s Kitchen. All rights reserved. Owned &amp; operated by Adam.</p>
+</footer>
 
-      function goTo(i){
-        index = (i + items.length) % items.length;
-        const item = items[index];
-        track.scrollTo({left: item.offsetLeft - track.offsetLeft, behavior:'smooth'});
-        pushEvent('carousel_slide', {index: index});
-        loadVideo(item);
-      }
+<div class="sticky" id="stickyBar"><div class="sticky-txt">Ready to eat? <span>Order now.</span></div><div class="sticky-acts"><button class="s-order" onclick="location.href='order.html'">Order Now</button><a href="menu.html" class="s-menu">Menu</a></div></div>
 
-      if(prev && next){
-        prev.addEventListener('click', ()=> goTo(index-1));
-        next.addEventListener('click', ()=> goTo(index+1));
-      }
+<div id="videoModal" class="modal" role="dialog" aria-modal="true">
+  <div class="modal-box">
+    <video id="modalVideo" class="modal-vid" controls playsinline></video>
+    <div class="modal-foot"><span>Dami&rsquo;s Kitchen</span><button class="modal-close" id="closeModalBtn"><i class="fa-solid fa-xmark"></i> Close</button></div>
+  </div>
+</div>
 
-      // keyboard navigation
-      track.addEventListener('keydown', function(e){
-        if(e.key === 'ArrowRight') goTo(index+1);
-        if(e.key === 'ArrowLeft') goTo(index-1);
-      });
-
-      // click to play and track play events
-      items.forEach(it => {
-        it.addEventListener('click', function(e){
-          // avoid triggering when clicking controls
-          if(e.target.tagName.toLowerCase() === 'button') return;
-          const v = it.querySelector('video');
-          if(!v) return;
-          if(!v.src) loadVideo(it);
-          v.play().catch(()=>{});
-          pushEvent('carousel_item_click', {index: it.getAttribute('data-index')});
-        });
-        const v = it.querySelector('video');
-        if(v){
-          v.addEventListener('play', ()=> pushEvent('video_play', {video: v.getAttribute('data-src')}));
-          v.addEventListener('pause', ()=> pushEvent('video_pause', {video: v.getAttribute('data-src')}));
-          v.addEventListener('ended', ()=> pushEvent('video_complete', {video: v.getAttribute('data-src')}));
-        }
-      });
-
-      // initial load first item
-      if(items[0]) loadVideo(items[0]);
-    })();
-
-    /* ---------- Order buttons & sticky actions ---------- */
-    document.querySelectorAll('.order-btn').forEach(btn => {
-      btn.addEventListener('click', function(e){
-        const item = btn.getAttribute('data-item');
-        pushEvent('order_cta_click', {item: item, location: 'home_featured'});
-        // On mobile ensure button visible then navigate
-        if(window.innerWidth <= 720){
-          e.preventDefault();
-          btn.scrollIntoView({behavior:'smooth', block:'center'});
-          setTimeout(()=> window.location.href = 'order.html', 300);
-        } else {
-          window.location.href = 'order.html';
-        }
-      });
-    });
-
-    document.getElementById('stickyOrderBtn').addEventListener('click', function(){
-      pushEvent('order_cta_click', {item: 'sticky', location: 'sticky_bar'});
-      window.location.href = 'order.html';
-    });
-    document.getElementById('viewMenuBtn').addEventListener('click', function(){
-      window.location.href = 'menu.html';
-    });
-    document.getElementById('heroOrder').addEventListener('click', function(){ pushEvent('order_cta_click', {item:'hero', location:'hero'}); });
-
-    /* ---------- Reviews click tracking ---------- */
-    document.querySelectorAll('.review-card').forEach((r, i) => {
-      r.addEventListener('click', ()=> pushEvent('review_click', {index: i}));
-    });
-
-    /* ---------- Video modal helpers ---------- */
-    const videoModal = document.getElementById('videoModal');
-    const modalVideo = document.getElementById('modalVideo');
-    const closeModalBtn = document.getElementById('closeModalBtn');
-
-    function openVideoModal(src){
-      modalVideo.src = src;
-      videoModal.style.display = 'flex';
-      modalVideo.play().catch(()=>{});
-      pushEvent('video_play', {video: src, context: 'modal'});
-    }
-    function closeVideoModal(){
-      modalVideo.pause();
-      modalVideo.src = '';
-      videoModal.style.display = 'none';
-      pushEvent('video_close', {});
-    }
-    window.openVideoModal = openVideoModal;
-    window.closeVideoModal = closeVideoModal;
-    closeModalBtn.addEventListener('click', closeVideoModal);
-
-    // Wire "Watch" buttons on cards to open modal
-    document.querySelectorAll('.card .btn.ghost[data-video]').forEach(btn => {
-      btn.addEventListener('click', function(e){
-        e.preventDefault();
-        const src = btn.getAttribute('data-video');
-        if(src) openVideoModal(src);
-      });
-    });
-
-    /* ---------- Mobile sticky adjustments ---------- */
-    (function(){
-      const sticky = document.querySelector('.sticky-order');
-      if(!sticky) return;
-      function adjustSticky(){
-        if(window.innerHeight < 600){
-          sticky.style.padding = '10px';
-          sticky.style.fontSize = '14px';
-        } else {
-          sticky.style.padding = '';
-          sticky.style.fontSize = '';
-        }
-      }
-      window.addEventListener('resize', adjustSticky);
-      adjustSticky();
-    })();
-
-    /* ---------- Prevent accidental horizontal scroll on small devices ---------- */
-    (function(){
-      document.documentElement.style.overflowX = 'hidden';
-      document.body.style.overflowX = 'hidden';
-    })();
-  </script>
+<script>
+/* Nav */
+(function(){var b=document.getElementById('hamburger'),n=document.getElementById('mobileNav');b.addEventListener('click',function(){var o=b.getAttribute('aria-expanded')==='true';b.setAttribute('aria-expanded',String(!o));n.style.display=o?'none':'flex';n.setAttribute('aria-hidden',String(o));b.querySelector('i').className=o?'fa-solid fa-bars':'fa-solid fa-xmark';});document.addEventListener('click',function(e){if(!n.contains(e.target)&&!b.contains(e.target)){n.style.display='none';b.setAttribute('aria-expanded','false');n.setAttribute('aria-hidden','true');b.querySelector('i').className='fa-solid fa-bars';}});})();
+/* Hero video */
+(function(){var v=document.getElementById('heroClip');if(!v)return;var io=new IntersectionObserver(function(e){if(e[0].isIntersecting){v.preload='auto';v.play().catch(function(){});io.disconnect();}},{threshold:.2});io.observe(v);})();
+/* Carousel */
+(function(){var ct=document.getElementById('carouselTrack');var items=Array.from(ct.querySelectorAll('.clip-card'));var idx=0;function load(item){var v=item.querySelector('video');if(v&&!v.src){var s=v.getAttribute('data-src');if(s){v.src=s;v.load();}}}function go(i){idx=(i+items.length)%items.length;items[idx].scrollIntoView({behavior:'smooth',block:'nearest',inline:'start'});load(items[idx]);}document.getElementById('prevBtn').addEventListener('click',function(){go(idx-1);});document.getElementById('nextBtn').addEventListener('click',function(){go(idx+1);});ct.addEventListener('keydown',function(e){if(e.key==='ArrowRight')go(idx+1);if(e.key==='ArrowLeft')go(idx-1);});load(items[0]);})();
+/* Sticky */
+(function(){var b=document.getElementById('stickyBar'),on=false;window.addEventListener('scroll',function(){var y=window.scrollY;if(y>300&&!on){b.classList.add('on');on=true;}else if(y<80&&on){b.classList.remove('on');on=false;}},{passive:true});})();
+/* Modal */
+(function(){var m=document.getElementById('videoModal'),v=document.getElementById('modalVideo'),c=document.getElementById('closeModalBtn');function open(src){v.src=src;m.classList.add('open');v.play().catch(function(){});document.body.style.overflow='hidden';}function close(){v.pause();v.src='';m.classList.remove('open');document.body.style.overflow='';}c.addEventListener('click',close);m.addEventListener('click',function(e){if(e.target===m)close();});document.addEventListener('keydown',function(e){if(e.key==='Escape')close();});document.querySelectorAll('.watch-btn').forEach(function(b){b.addEventListener('click',function(){open(b.getAttribute('data-video'));});});})();
+</script>
 </body>
 </html>
-
-
