@@ -34,598 +34,723 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-5R3454LQ"
 height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 <!-- End Google Tag Manager (noscript) -->
- <style>
+ <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=DM+Sans:ital,wght@0,400;0,500;0,700;1,400&display=swap" rel="stylesheet"/>
+
+  <style>
+    /* ===== TOKENS ===== */
     :root{
-      --accent:#d35400;
-      --cta:#27ae60;
-      --muted:#6b6b6b;
-      --bg:#fffaf8;
-      --card:#ffffff;
-      --gold:#f5c542;
-      --shadow:0 12px 30px rgba(0,0,0,.08);
-      --radius:12px;
-      --max-width:1100px;
-      --pad:16px;
-      --font-sans:Inter,system-ui,Arial,sans-serif;
+      --accent:#bf4e0f; --accent-dark:#922f06; --accent-lite:#fff4ee;
+      --cta:#27ae60;    --cta-dark:#1e8449;    --cta-lite:#e8f8ef;
+      --gold:#e8a820;
+      --bg:#faf7f4; --surface:#fff;
+      --muted:#7a6e68; --text:#1a1007; --border:#ede7e3;
+      --r-sm:8px; --r-md:14px; --r-lg:20px;
+      --sh-sm:0 2px 8px rgba(0,0,0,.05);
+      --sh-md:0 8px 24px rgba(0,0,0,.08);
+      --sh-lg:0 18px 50px rgba(0,0,0,.11);
+      --max:1200px; --pad:clamp(16px,5vw,40px);
+      --fd:'Playfair Display',Georgia,serif;
+      --fb:'DM Sans',system-ui,sans-serif;
+      --ease:.22s cubic-bezier(.4,0,.2,1);
     }
-    *{box-sizing:border-box}
-    html,body{margin:0;padding:0;font-family:var(--font-sans);background:var(--bg);color:#222;-webkit-font-smoothing:antialiased;overflow-x:hidden}
-    a{color:inherit}
-    button{font-family:inherit;cursor:pointer}
+    *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+    html{scroll-behavior:smooth;overflow-x:hidden}
+    body{font-family:var(--fb);background:var(--bg);color:var(--text);-webkit-font-smoothing:antialiased;overflow-x:hidden}
+    a{color:inherit;text-decoration:none}
+    button{font-family:inherit;cursor:pointer;border:none;background:none}
+    img{display:block;max-width:100%}
 
-    /* NAV */
-    .nav-wrap{position:sticky;top:0;background:#fff;border-bottom:1px solid #f0e6e3;z-index:1000}
-    .nav{max-width:var(--max-width);margin:0 auto;display:flex;align-items:center;justify-content:space-between;padding:12px var(--pad);gap:12px}
+    /* ===== SKIP LINK ===== */
+    .skip{position:absolute;top:-50px;left:16px;background:var(--accent);color:#fff;padding:10px 18px;border-radius:var(--r-sm);z-index:9999;font-weight:700;transition:top var(--ease)}
+    .skip:focus{top:10px}
+
+    /* ===== NAV ===== */
+    .site-nav{position:sticky;top:0;background:rgba(250,247,244,.93);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);border-bottom:1px solid var(--border);z-index:1000}
+    .nav-inner{max-width:var(--max);margin:0 auto;display:flex;align-items:center;justify-content:space-between;padding:14px var(--pad);gap:16px}
     .brand{display:flex;align-items:center;gap:12px}
-    .logo{width:48px;height:48px;border-radius:10px;background:linear-gradient(135deg,var(--accent),#f39c12);display:flex;align-items:center;justify-content:center;color:#fff;font-weight:800}
-    .brand h1{margin:0;font-size:18px;color:var(--accent)}
-    .nav-links{display:flex;gap:12px;align-items:center}
-    .nav-links a{padding:8px 12px;border-radius:8px;font-weight:600;color:#333}
-    .cta-order{background:var(--cta);color:#fff;padding:8px 12px;border-radius:8px;font-weight:800}
-    .hamburger{display:none;width:44px;height:44px;border-radius:8px;border:1px solid #f0e6e3;background:#fff;align-items:center;justify-content:center}
+    .logo-mark{width:44px;height:44px;border-radius:var(--r-sm);background:linear-gradient(135deg,var(--accent),#f39c12);display:flex;align-items:center;justify-content:center;color:#fff;font-family:var(--fd);font-size:16px;flex-shrink:0}
+    .brand-name{font-family:var(--fd);font-size:19px;color:var(--accent);line-height:1.1}
+    .brand-sub{font-size:11px;color:var(--muted);margin-top:2px}
+    .nav-links{display:flex;align-items:center;gap:4px}
+    .nav-links a{padding:8px 14px;border-radius:var(--r-sm);font-size:15px;font-weight:500;color:var(--text);transition:background var(--ease)}
+    .nav-links a:hover{background:var(--border)}
+    .nav-links a.active{background:var(--accent-lite);color:var(--accent);font-weight:700}
+    .nav-cta{background:var(--cta)!important;color:#fff!important;font-weight:700!important;padding:8px 18px!important;transition:background var(--ease)!important}
+    .nav-cta:hover{background:var(--cta-dark)!important}
+    .hamburger{display:none;width:40px;height:40px;border-radius:var(--r-sm);border:1px solid var(--border);background:var(--surface);align-items:center;justify-content:center;font-size:18px;transition:background var(--ease)}
+    .hamburger:hover{background:var(--border)}
+    .mobile-menu{display:none;flex-direction:column;gap:4px;padding:12px var(--pad) 16px;border-top:1px solid var(--border);background:var(--bg)}
+    .mobile-menu a{padding:12px 14px;border-radius:var(--r-sm);font-size:16px;font-weight:500;transition:background var(--ease)}
+    .mobile-menu a:hover{background:var(--border)}
+    .mobile-menu .nav-cta{background:var(--cta);color:#fff;text-align:center;margin-top:8px;display:block}
 
-    /* Mobile menu (hidden by default) */
-    .mobile-menu{display:none;flex-direction:column;gap:8px;padding:12px var(--pad);border-top:1px solid #f0e6e3;background:#fff}
-    .mobile-menu a{padding:10px;border-radius:8px;background:#fff;border:1px solid #f0e6e3}
+    /* ===== PAGE ===== */
+    .page{max-width:var(--max);margin:0 auto;padding:0 var(--pad)}
 
-    /* HERO */
-    .hero{max-width:var(--max-width);margin:18px auto;padding:0 var(--pad);display:grid;grid-template-columns:1fr 420px;gap:20px;align-items:center}
-    .hero-left{background:linear-gradient(180deg,#fff,#fffaf8);border-radius:var(--radius);padding:24px;box-shadow:var(--shadow)}
-    .hero-left h2{margin:0;color:var(--accent);font-size:clamp(20px,3.6vw,28px)}
-    .hero-left p{margin:8px 0;color:var(--muted)}
-    .hero-ctas{margin-top:12px;display:flex;gap:10px;flex-wrap:wrap}
-    .btn{display:inline-block;padding:10px 14px;border-radius:10px;font-weight:800}
-    .btn.primary{background:var(--cta);color:#fff}
-    .btn.ghost{background:transparent;border:1px solid rgba(0,0,0,.06);color:var(--accent)}
+    /* ===== PAGE BANNER ===== */
+    .page-banner{padding:28px 0 0}
+    .banner-inner{background:var(--surface);border:1px solid var(--border);border-radius:var(--r-lg);padding:32px 36px;display:flex;align-items:center;justify-content:space-between;gap:28px;flex-wrap:wrap}
+    .banner-text h1{font-family:var(--fd);font-size:clamp(28px,4vw,42px);line-height:1.15}
+    .banner-text h1 span{color:var(--accent)}
+    .banner-text p{font-size:16px;color:var(--muted);margin-top:7px;line-height:1.65;max-width:520px}
+    .banner-ctas{display:flex;gap:10px;flex-wrap:wrap;margin-top:20px}
+    .btn-primary{display:inline-flex;align-items:center;justify-content:center;gap:8px;background:var(--cta);color:#fff;padding:12px 22px;border-radius:var(--r-sm);font-size:15px;font-weight:700;transition:all var(--ease);border:none;cursor:pointer}
+    .btn-primary:hover{background:var(--cta-dark);transform:translateY(-1px);box-shadow:0 6px 20px rgba(39,174,96,.3)}
+    .btn-ghost{display:inline-flex;align-items:center;justify-content:center;gap:8px;background:transparent;color:var(--accent);border:1.5px solid var(--accent);padding:12px 22px;border-radius:var(--r-sm);font-size:15px;font-weight:700;transition:all var(--ease);cursor:pointer}
+    .btn-ghost:hover{background:var(--accent);color:#fff}
+    .btn-primary:active,.btn-ghost:active{transform:translateY(0)}
+    .banner-quick{display:flex;flex-direction:column;gap:10px;flex-shrink:0}
+    .quick-item{display:flex;align-items:center;gap:12px;background:var(--bg);border:1px solid var(--border);border-radius:var(--r-md);padding:12px 16px;transition:all var(--ease)}
+    .quick-item:hover{border-color:var(--accent);background:var(--accent-lite)}
+    .quick-icon{font-size:22px;flex-shrink:0}
+    .quick-label{font-size:12px;color:var(--muted);font-weight:500}
+    .quick-value{font-size:14px;font-weight:700;color:var(--text)}
 
-    .hero-media{border-radius:var(--radius);overflow:hidden;box-shadow:var(--shadow);background:#000;display:flex;flex-direction:column}
-    .hero-media video{width:100%;height:auto;display:block;object-fit:cover}
-    .hero-media .poster{padding:12px;background:#fff;display:flex;justify-content:space-between;align-items:center}
+    /* ===== MAIN GRID ===== */
+    .main-grid{display:grid;grid-template-columns:1fr 360px;gap:24px;align-items:start;padding:28px 0 0}
 
-    /* LAYOUT */
-    .container{max-width:var(--max-width);margin:20px auto;padding:0 var(--pad)}
-    .grid{display:grid;grid-template-columns:1fr 420px;gap:20px;align-items:start}
-    .card{background:var(--card);border-radius:12px;padding:14px;box-shadow:var(--shadow)}
-    .section-title{display:flex;justify-content:space-between;align-items:center;margin-bottom:12px}
-    .section-title h3{margin:0;color:var(--accent)}
+    /* ===== CARDS ===== */
+    .card{background:var(--surface);border:1px solid var(--border);border-radius:var(--r-lg);overflow:hidden}
+    .card+.card{margin-top:20px}
+    .card-header{padding:20px 24px 16px;border-bottom:1px solid var(--border);display:flex;align-items:flex-start;justify-content:space-between;gap:12px;flex-wrap:wrap}
+    .card-header-left h2{font-size:17px;font-weight:700;color:var(--text)}
+    .card-header-left p{font-size:13px;color:var(--muted);margin-top:3px}
+    .card-header-badge{font-size:12px;font-weight:600;color:var(--cta-dark);background:var(--cta-lite);padding:4px 10px;border-radius:100px;white-space:nowrap;border:1px solid rgba(39,174,96,.2);flex-shrink:0}
+    .card-body{padding:24px}
 
-    /* FORM */
-    form .row{display:flex;gap:12px;flex-wrap:wrap}
-    .field{display:flex;flex-direction:column;margin-bottom:10px}
-    label{font-size:13px;color:var(--muted);margin-bottom:6px}
-    input[type="text"], input[type="email"], textarea{padding:10px;border-radius:8px;border:1px solid #eee;font-size:14px}
-    textarea{min-height:110px;resize:vertical}
-    .form-actions{display:flex;gap:10px;align-items:center;margin-top:8px;flex-wrap:wrap}
-    .note{font-size:13px;color:var(--muted)}
+    /* ===== CONTACT FORM ===== */
+    .form-row{display:flex;gap:14px;flex-wrap:wrap}
+    .form-field{display:flex;flex-direction:column;margin-bottom:14px;flex:1;min-width:0}
+    .form-field.full{flex:1 1 100%}
+    .form-label{font-size:12px;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:.06em;margin-bottom:6px}
+    .form-input,.form-textarea{width:100%;padding:11px 14px;border-radius:var(--r-sm);border:1.5px solid var(--border);background:var(--bg);font-family:var(--fb);font-size:14px;color:var(--text);outline:none;transition:border-color var(--ease),box-shadow var(--ease)}
+    .form-input::placeholder,.form-textarea::placeholder{color:var(--muted)}
+    .form-input:focus,.form-textarea:focus{border-color:var(--accent);box-shadow:0 0 0 3px rgba(191,78,15,.08)}
+    .form-textarea{min-height:120px;resize:vertical;line-height:1.6}
+    .form-err{font-size:12px;color:#e74c3c;margin-top:4px;display:none}
+    .field-invalid .form-input,.field-invalid .form-textarea{border-color:#e74c3c;box-shadow:0 0 0 3px rgba(231,76,60,.08)}
+    .field-invalid .form-err{display:block}
+    .form-actions{display:flex;gap:10px;align-items:center;flex-wrap:wrap;margin-top:4px}
+    .form-note{font-size:13px;color:var(--muted);display:flex;align-items:center;gap:6px;margin-top:8px}
+    .form-success{display:none;background:var(--cta-lite);border:1px solid rgba(39,174,96,.25);border-radius:var(--r-sm);padding:14px 16px;font-size:14px;color:var(--cta-dark);font-weight:600;margin-top:12px;text-align:center}
 
-    /* SOCIALS */
-    .socials{display:flex;gap:12px;flex-wrap:wrap;margin-top:8px}
-    .social-btn{display:inline-flex;align-items:center;gap:8px;padding:10px 12px;border-radius:10px;background:#fff;border:1px solid #f0e9e6;cursor:pointer;text-decoration:none;color:#333}
-    .social-icon{width:20px;height:20px;display:inline-block;flex-shrink:0}
+    /* ===== SOCIAL GRID ===== */
+    .social-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:10px}
+    .social-btn{display:flex;align-items:center;gap:12px;padding:13px 14px;border-radius:var(--r-md);border:1.5px solid var(--border);background:var(--bg);color:var(--text);cursor:pointer;transition:all var(--ease);font-weight:500;font-size:14px}
+    .social-btn:hover{border-color:var(--accent);background:var(--accent-lite);transform:translateY(-2px);box-shadow:var(--sh-sm)}
+    .social-btn:active{transform:translateY(0)}
+    .social-ico{width:36px;height:36px;border-radius:var(--r-sm);display:flex;align-items:center;justify-content:center;flex-shrink:0}
+    .social-ico svg{width:20px;height:20px}
+    .social-info{display:flex;flex-direction:column;min-width:0}
+    .social-name{font-size:14px;font-weight:700;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+    .social-handle{font-size:12px;color:var(--muted);margin-top:1px}
+    /* Platform colours */
+    .ico-fb{background:#e8f0fe}
+    .ico-ig{background:#fce4ec}
+    .ico-tw{background:#e3f2fd}
+    .ico-wa{background:#e8f8ef}
+    .ico-tt{background:#f3e5f5}
+    .ico-dev{background:#fff8e1}
 
-    /* DETAILS */
-    .details{display:flex;flex-direction:column;gap:8px;margin-top:12px}
-    .detail-row{display:flex;gap:10px;align-items:center}
-    .muted{color:var(--muted);font-size:14px}
+    /* Developer section */
+    .dev-divider{display:flex;align-items:center;gap:12px;margin:20px 0 14px;color:var(--muted);font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:.08em}
+    .dev-divider::before,.dev-divider::after{content:'';flex:1;height:1px;background:var(--border)}
 
-    /* MAP */
-    .map-wrap{border-radius:10px;overflow:hidden;border:1px solid #eee;margin-top:12px}
+    /* ===== REVIEWS ===== */
+    .reviews-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+    .review-card{background:var(--bg);border-radius:var(--r-md);padding:16px;border:1px solid var(--border);transition:transform var(--ease),box-shadow var(--ease)}
+    .review-card:hover{transform:translateY(-2px);box-shadow:var(--sh-sm)}
+    .review-stars{color:var(--gold);font-size:13px;letter-spacing:2px;margin-bottom:8px}
+    .review-text{font-size:14px;font-weight:600;color:var(--text);line-height:1.5;margin-bottom:10px}
+    .review-author{display:flex;align-items:center;gap:8px}
+    .review-avatar{width:28px;height:28px;border-radius:50%;background:linear-gradient(135deg,var(--accent),#f39c12);display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;color:#fff;flex-shrink:0}
+    .review-name{font-size:12px;color:var(--muted);font-weight:600}
 
-    /* REVIEWS */
-    .reviews{margin-top:18px}
-    .review-list{display:flex;gap:12px;flex-wrap:wrap}
-    .review-card{background:var(--card);border-radius:12px;padding:12px;box-shadow:var(--shadow);flex:1 1 220px;min-width:220px}
-    .stars{color:var(--gold);font-weight:800}
+    /* ===== SIDEBAR: MAP ===== */
+    .map-embed{border-radius:var(--r-md);overflow:hidden;border:1px solid var(--border);line-height:0;margin-bottom:16px}
+    .map-embed iframe{width:100%;height:240px;border:0;display:block}
+    .detail-list{display:flex;flex-direction:column;gap:12px}
+    .detail-item{display:flex;align-items:flex-start;gap:12px}
+    .detail-icon{width:36px;height:36px;border-radius:var(--r-sm);background:var(--accent-lite);display:flex;align-items:center;justify-content:center;font-size:16px;flex-shrink:0}
+    .detail-content .detail-label{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.06em;color:var(--muted)}
+    .detail-content .detail-value{font-size:14px;font-weight:600;color:var(--text);margin-top:2px}
+    .detail-content a{color:var(--accent);transition:color var(--ease)}
+    .detail-content a:hover{color:var(--accent-dark)}
 
-    /* CHEF VIDEO */
-    .chef-card{margin-top:14px;border-radius:12px;overflow:hidden;box-shadow:var(--shadow)}
-    .chef-card video{width:100%;height:auto;display:block;object-fit:cover}
-    .chef-caption{padding:10px;background:#fff;display:flex;justify-content:space-between;align-items:center}
+    /* ===== SIDEBAR: CHEF VIDEO ===== */
+    .chef-video-wrap{position:relative;border-radius:var(--r-md);overflow:hidden;background:#111;margin-bottom:14px}
+    .chef-video-wrap video{width:100%;height:auto;display:block;max-height:280px;object-fit:cover}
+    .chef-overlay{position:absolute;bottom:0;left:0;right:0;padding:14px;background:linear-gradient(to top,rgba(0,0,0,.7),transparent)}
+    .chef-overlay-text{color:#fff;font-size:13px;font-weight:600}
+    .chef-overlay-sub{color:rgba(255,255,255,.7);font-size:12px;margin-top:2px}
 
-    /* FOOTER */
-    footer{max-width:var(--max-width);margin:28px auto;padding:18px var(--pad);text-align:center;color:var(--muted);font-size:13px}
+    /* ===== HOURS BADGE ===== */
+    .hours-badge{display:inline-flex;align-items:center;gap:6px;background:var(--cta-lite);color:var(--cta-dark);padding:6px 12px;border-radius:100px;font-size:12px;font-weight:700;border:1px solid rgba(39,174,96,.2);margin-top:12px}
+    .hours-dot{width:7px;height:7px;border-radius:50%;background:var(--cta);animation:pulse 1.8s ease-in-out infinite}
+    @keyframes pulse{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.5;transform:scale(.8)}}
 
-    /* RESPONSIVE */
-    @media(max-width:980px){ .grid{grid-template-columns:1fr 360px} }
-    @media(max-width:720px){
+    /* ===== FULL-WIDTH REVIEWS ROW ===== */
+    .reviews-section{padding:28px 0 0}
+    .section-header{display:flex;align-items:flex-end;justify-content:space-between;gap:12px;margin-bottom:18px;flex-wrap:wrap}
+    .section-header-left .section-label{font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:.1em;color:var(--accent)}
+    .section-header-left h2{font-family:var(--fd);font-size:clamp(20px,3vw,28px);color:var(--text);margin-top:3px}
+    .section-header-sub{font-size:14px;color:var(--muted)}
+
+    /* ===== FOOTER ===== */
+    footer{max-width:var(--max);margin:0 auto;padding:28px var(--pad) 36px;border-top:1px solid var(--border);display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px;margin-top:40px}
+    .foot-brand{font-family:var(--fd);font-size:16px;color:var(--accent)}
+    .foot-copy{font-size:13px;color:var(--muted);text-align:right}
+
+    /* ===== FOCUS ===== */
+    a:focus-visible,button:focus-visible,input:focus-visible,textarea:focus-visible{outline:3px solid rgba(191,78,15,.25);outline-offset:2px;border-radius:4px}
+
+    /* ===== RESPONSIVE ===== */
+    @media(max-width:1024px){
+      .main-grid{grid-template-columns:1fr}
+      .banner-quick{flex-direction:row;flex-wrap:wrap}
+      .quick-item{flex:1;min-width:160px}
+      .reviews-grid{grid-template-columns:repeat(2,1fr)}
+    }
+    @media(max-width:768px){
       .nav-links{display:none}
       .hamburger{display:flex}
-      .mobile-menu{display:none}
-      .hero{grid-template-columns:1fr;gap:12px;padding:0 var(--pad)}
-      .hero-ctas{flex-direction:column}
-      .hero-ctas .btn{width:100%}
-      .grid{grid-template-columns:1fr}
-      .map-wrap iframe{height:260px}
-      .socials{justify-content:flex-start}
+      .banner-inner{flex-direction:column;align-items:flex-start;padding:24px 20px}
+      .social-grid{grid-template-columns:1fr}
+      .reviews-grid{grid-template-columns:1fr 1fr}
     }
-    @media(max-width:480px){
-      .social-btn{padding:10px}
-      .review-card{width:100%}
+    @media(max-width:540px){
+      .form-row{flex-direction:column;gap:0}
+      .reviews-grid{grid-template-columns:1fr}
+      .banner-ctas{flex-direction:column}
+      .btn-primary,.btn-ghost{width:100%;justify-content:center}
     }
-
-    /* Focus */
-    a:focus, button:focus, input:focus, textarea:focus{outline:3px solid rgba(39,174,96,.12);outline-offset:2px}
   </style>
 </head>
 <body>
-   <!-- Google Tag Manager (noscript) -->
-<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-5R3454LQ"
-height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
-<!-- End Google Tag Manager (noscript) -->
-  <!-- NAV -->
-  <header class="nav-wrap" role="banner">
-    <div class="nav">
-      <div class="brand">
-        <div class="logo" aria-hidden="true">DK</div>
-        <div>
-          <h1>Dami's Kitchen</h1>
-          <div style="font-size:12px;color:var(--muted)">Fresh meals • Abuja</div>
-        </div>
+
+<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-5R3454LQ" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+<a href="#contactForm" class="skip">Skip to contact form</a>
+
+<!-- ===== NAV ===== -->
+<header class="site-nav" role="banner">
+  <div class="nav-inner">
+    <a href="index.html" class="brand" aria-label="Dami's Kitchen home">
+      <div class="logo-mark" aria-hidden="true">DK</div>
+      <div>
+        <div class="brand-name">Dami's Kitchen</div>
+        <div class="brand-sub">Fresh meals · Abuja</div>
       </div>
-
-      <!-- Desktop links -->
-      <nav class="nav-links" aria-label="Primary navigation" id="navLinks">
-        <a href="index.html">Home</a>
-        <a href="menu.html">Menu</a>
-        <a href="order.html">Order</a>
-        <a href="contact.html" class="active" aria-current="page">Contact</a>
-        <a class="cta-order" href="order.html">Order Now</a>
-      </nav>
-
-      <!-- Hamburger for mobile -->
-      <button id="hamburger" class="hamburger" aria-expanded="false" aria-controls="mobileMenu" aria-label="Open menu">☰</button>
-    </div>
-
-    <!-- Mobile menu (hidden by default) -->
-    <div id="mobileMenu" class="mobile-menu" aria-hidden="true">
+    </a>
+    <nav class="nav-links" aria-label="Primary navigation">
       <a href="index.html">Home</a>
       <a href="menu.html">Menu</a>
       <a href="order.html">Order</a>
-      <a href="contact.html" class="active">Contact</a>
-      <a href="order.html" class="cta-order" style="display:inline-block;text-align:center">Order Now</a>
-      <hr style="border:none;border-top:1px solid #f0e6e3;margin:8px 0">
-      <!-- Developer follow + WhatsApp -->
-      <div style="font-size:13px;color:var(--muted);margin-bottom:6px">Follow the developer</div>
-      <a id="devInstagramMobile" class="social-btn" href="#" aria-label="Developer Instagram">Dev Instagram (gwagwaldada)</a>
-      <a id="devTiktokMobile" class="social-btn" href="#" aria-label="Developer TikTok">Dev TikTok (gwagwaldada)</a>
-      <a id="devWhatsAppMobile" class="social-btn" href="#" aria-label="Developer WhatsApp">Chat Dev (WhatsApp)</a>
-    </div>
-  </header>
+      <a href="contact.html" class="active" aria-current="page">Contact</a>
+      <a href="order.html" class="nav-cta">Order Now</a>
+    </nav>
+    <button id="hamburger" class="hamburger" aria-expanded="false" aria-controls="mobileMenu" aria-label="Open navigation menu">☰</button>
+  </div>
+  <div id="mobileMenu" class="mobile-menu" role="navigation" aria-hidden="true">
+    <a href="index.html">Home</a>
+    <a href="menu.html">Menu</a>
+    <a href="order.html">Order</a>
+    <a href="contact.html">Contact</a>
+    <a href="order.html" class="nav-cta">Order Now</a>
+  </div>
+</header>
 
-  <!-- HERO -->
-  <section class="hero" aria-label="Contact hero">
-    <div class="hero-left">
-      <h2>Get in touch or follow us</h2>
-      <p>Questions, catering requests, or feedback — message us on WhatsApp, email, or visit our showroom in Abuja. Follow Dami’s Kitchen and the developer (gwagwaldada) on socials.</p>
-      <div class="hero-ctas">
-        <a class="btn primary" href="#contactForm">Send a Message</a>
-        <a class="btn ghost" href="#map">Find Us on Map</a>
+<div class="page">
+
+  <!-- ===== PAGE BANNER ===== -->
+  <div class="page-banner">
+    <div class="banner-inner">
+      <div class="banner-text">
+        <h1>Get in <span>Touch</span></h1>
+        <p>Questions, catering requests, or just want to say hello — we're always happy to hear from you. Reach us on WhatsApp for the fastest replies.</p>
+        <div class="banner-ctas">
+          <a href="#contactForm" class="btn-primary">📩 Send a Message</a>
+          <a href="#mapSection" class="btn-ghost">📍 Find Us on Map</a>
+        </div>
       </div>
-    </div>
-
-    <div class="hero-media" aria-hidden="false">
-      <video id="heroVideo" poster="images/hero-poster.jpg" playsinline muted loop preload="none" controlsList="nodownload" aria-label="Hero video">
-        <source src="Download (12).mp4" type="video/mp4">
-        Your browser does not support the video tag.
-      </video>
-      <div class="poster" style="display:flex;justify-content:space-between;align-items:center">
-        <div style="font-weight:700;color:#fff;padding-left:12px">Dami in the kitchen</div>
-        <div style="font-size:13px;color:#fff;padding-right:12px">Muted loop</div>
-      </div>
-    </div>
-  </section>
-
-  <!-- MAIN GRID -->
-  <main class="container" id="main">
-    <div class="grid">
-      <!-- LEFT: Contact form + socials + reviews -->
-      <div>
-        <section id="contactForm" class="card" aria-labelledby="contactTitle">
-          <div class="section-title">
-            <h3 id="contactTitle">Contact Us</h3>
-            <div class="muted">We reply within 24 hours</div>
+      <div class="banner-quick" aria-label="Quick contact options">
+        <a href="tel:+2348034117124" class="quick-item" style="text-decoration:none">
+          <span class="quick-icon">📞</span>
+          <div>
+            <div class="quick-label">Call us</div>
+            <div class="quick-value">+234 803 411 7124</div>
           </div>
+        </a>
+        <a href="https://wa.me/2348034117124" target="_blank" rel="noopener" class="quick-item" style="text-decoration:none">
+          <span class="quick-icon">💬</span>
+          <div>
+            <div class="quick-label">WhatsApp</div>
+            <div class="quick-value">Chat with us now</div>
+          </div>
+        </a>
+        <a href="mailto:hello@damiskitchen.ng" class="quick-item" style="text-decoration:none">
+          <span class="quick-icon">✉️</span>
+          <div>
+            <div class="quick-label">Email</div>
+            <div class="quick-value">hello@damiskitchen.ng</div>
+          </div>
+        </a>
+      </div>
+    </div>
+  </div>
 
-          <form id="contactFormEl" novalidate action="https://formspree.io/f/mlgopybw" method="post">
-            <div class="row">
-              <div class="field" style="flex:1">
-                <label for="name">Full name</label>
-                <input id="name" name="name" type="text" required placeholder="Lola Example">
+  <!-- ===== MAIN GRID ===== -->
+  <div class="main-grid">
+
+    <!-- ===== LEFT COLUMN ===== -->
+    <div>
+
+      <!-- Contact Form -->
+      <div class="card" id="contactForm">
+        <div class="card-header">
+          <div class="card-header-left">
+            <h2>Send us a message</h2>
+            <p>We reply within 24 hours — or message us on WhatsApp for faster support</p>
+          </div>
+          <span class="card-header-badge">⚡ Fast replies</span>
+        </div>
+        <div class="card-body">
+          <form id="contactFormEl" novalidate action="https://formspree.io/f/mlgopybw" method="POST">
+
+            <div class="form-row">
+              <div class="form-field" id="field-name">
+                <label class="form-label" for="fname">Full name *</label>
+                <input class="form-input" type="text" id="fname" name="name" placeholder="e.g. Amaka Okonkwo" autocomplete="name"/>
+                <div class="form-err">Please enter your name</div>
               </div>
-
-              <div class="field" style="flex:1">
-                <label for="email">Email address</label>
-                <input id="email" name="email" type="email" required placeholder="you@example.com">
+              <div class="form-field" id="field-email">
+                <label class="form-label" for="femail">Email address *</label>
+                <input class="form-input" type="email" id="femail" name="email" placeholder="you@example.com" autocomplete="email"/>
+                <div class="form-err">Please enter a valid email address</div>
               </div>
             </div>
 
-            <div class="field">
-              <label for="subject">Subject</label>
-              <input id="subject" name="subject" type="text" placeholder="Catering request / Feedback">
+            <div class="form-field full" id="field-subject">
+              <label class="form-label" for="fsubject">Subject</label>
+              <input class="form-input" type="text" id="fsubject" name="subject" placeholder="e.g. Catering request, Feedback, Bulk order…"/>
             </div>
 
-            <div class="field">
-              <label for="message">Message</label>
-              <textarea id="message" name="message" required placeholder="Tell us how we can help"></textarea>
+            <div class="form-field full" id="field-message">
+              <label class="form-label" for="fmessage">Message *</label>
+              <textarea class="form-textarea" id="fmessage" name="message" placeholder="Tell us how we can help — the more detail the better!"></textarea>
+              <div class="form-err">Please write a message</div>
             </div>
 
             <div class="form-actions">
-              <button type="submit" class="btn primary">Send Message</button>
-              <button type="button" id="mailtoFallback" class="btn ghost">Open Email App</button>
-              <div class="note" id="formNote">Or message us on WhatsApp for faster replies.</div>
+              <button type="submit" class="btn-primary" id="submitBtn">📩 Send Message</button>
+              <button type="button" id="mailtoFallback" class="btn-ghost">Open Email App</button>
             </div>
+            <div class="form-note">💬 Or <a href="https://wa.me/2348034117124" target="_blank" rel="noopener" style="color:var(--cta);font-weight:700">message us on WhatsApp</a> for an instant reply.</div>
+            <div class="form-success" id="formSuccess">🎉 Message sent! We'll be in touch within 24 hours.</div>
           </form>
-        </section>
-
-        <section class="card" style="margin-top:14px" aria-labelledby="socialsTitle">
-          <div class="section-title">
-            <h3 id="socialsTitle">Follow Us</h3>
-            <div class="muted">Stay updated on specials and events</div>
-          </div>
-
-          <div class="socials" role="list">
-            <!-- Business socials -->
-            <a class="social-btn" id="facebookBtn" href="#" role="listitem" aria-label="Facebook">
-              <span class="social-icon" aria-hidden="true">
-                <svg width="20" height="20" viewBox="0 0 24 24" fill="#1877F2" xmlns="http://www.w3.org/2000/svg"><path d="M22 12.07C22 6.48 17.52 2 11.93 2S2 6.48 2 12.07C2 17.09 5.66 21.2 10.44 22v-7.03H7.9v-2.9h2.54V9.41c0-2.5 1.49-3.88 3.77-3.88 1.09 0 2.23.2 2.23.2v2.45h-1.25c-1.23 0-1.61.77-1.61 1.56v1.87h2.74l-.44 2.9h-2.3V22C18.34 21.2 22 17.09 22 12.07z"/></svg>
-              </span>
-              <span>Facebook</span>
-            </a>
-
-            <a class="social-btn" id="instagramBtn" href="#" role="listitem" aria-label="Instagram">
-              <span class="social-icon" aria-hidden="true">
-                <svg width="20" height="20" viewBox="0 0 24 24" fill="#E1306C" xmlns="http://www.w3.org/2000/svg"><path d="M7 2h10a5 5 0 015 5v10a5 5 0 01-5 5H7a5 5 0 01-5-5V7a5 5 0 015-5zm5 6.2A4.8 4.8 0 1016.8 13 4.8 4.8 0 0012 8.2zm6.4-3.6a1.2 1.2 0 11-1.2 1.2 1.2 1.2 0 011.2-1.2z"/></svg>
-              </span>
-              <span>Instagram</span>
-            </a>
-
-            <a class="social-btn" id="twitterBtn" href="#" role="listitem" aria-label="X Twitter">
-              <span class="social-icon" aria-hidden="true">
-                <svg width="20" height="20" viewBox="0 0 24 24" fill="#1DA1F2" xmlns="http://www.w3.org/2000/svg"><path d="M22 5.92c-.63.28-1.3.47-2 .56a3.48 3.48 0 001.53-1.92 6.9 6.9 0 01-2.2.84 3.45 3.45 0 00-5.88 3.14A9.78 9.78 0 013 4.9a3.45 3.45 0 001.07 4.6 3.4 3.4 0 01-1.56-.43v.04a3.45 3.45 0 002.77 3.38 3.5 3.5 0 01-1.55.06 3.46 3.46 0 003.22 2.4A6.92 6.92 0 012 19.54a9.76 9.76 0 005.29 1.55c6.35 0 9.83-5.26 9.83-9.83v-.45A7 7 0 0022 5.92z"/></svg>
-              </span>
-              <span>X</span>
-            </a>
-
-            <a class="social-btn" id="whatsappBtn" href="#" role="listitem" aria-label="WhatsApp">
-              <span class="social-icon" aria-hidden="true">
-                <svg width="20" height="20" viewBox="0 0 24 24" fill="#25D366" xmlns="http://www.w3.org/2000/svg"><path d="M20.52 3.48A11.9 11.9 0 0012 0C5.37 0 .01 5.36.01 12a11.9 11.9 0 001.98 6.6L0 24l5.6-1.46A11.94 11.94 0 0012 24c6.63 0 12-5.36 12-12 0-3.2-1.25-6.18-3.48-8.52zM12 21.6a9.6 9.6 0 01-5.2-1.5l-.37-.22-3.33.87.9-3.25-.24-.36A9.6 9.6 0 1121.6 12 9.6 9.6 0 0112 21.6zM17.1 14.2c-.3-.15-1.78-.88-2.06-.98-.28-.1-.48-.15-.68.15-.2.3-.78.98-.96 1.18-.18.2-.36.22-.66.07-.3-.15-1.26-.46-2.4-1.48-.89-.79-1.48-1.76-1.65-2.06-.17-.3-.02-.46.13-.61.13-.13.3-.36.45-.54.15-.18.2-.3.3-.5.1-.2 0-.37-.05-.52-.05-.15-.68-1.64-.93-2.25-.24-.6-.48-.52-.66-.53l-.56-.01c-.2 0-.52.07-.8.37-.28.3-1.08 1.05-1.08 2.56 0 1.5 1.1 2.95 1.25 3.15.15.2 2.15 3.3 5.2 4.63 3.05 1.33 3.05.89 3.6.83.55-.06 1.78-.72 2.03-1.42.25-.7.25-1.3.18-1.42-.07-.12-.28-.2-.58-.35z"/></svg>
-              </span>
-              <span>WhatsApp</span>
-            </a>
-
-            <!-- Developer follow links (gwagwaldada) -->
-            <a class="social-btn" id="devInstagram" href="#" role="listitem" aria-label="Developer Instagram" title="gwagwaldada">
-              <span class="social-icon" aria-hidden="true">
-                <svg width="20" height="20" viewBox="0 0 24 24" fill="#E1306C" xmlns="http://www.w3.org/2000/svg"><path d="M7 2h10a5 5 0 015 5v10a5 5 0 01-5 5H7a5 5 0 01-5-5V7a5 5 0 015-5zm5 6.2A4.8 4.8 0 1016.8 13 4.8 4.8 0 0012 8.2zm6.4-3.6a1.2 1.2 0 11-1.2 1.2 1.2 1.2 0 011.2-1.2z"/></svg>
-              </span>
-              <span>Dev New Instagram Account (Adam)</span>
-            </a>
-
-            <a class="social-btn" id="devTiktok" href="#" role="listitem" aria-label="Developer TikTok" title="gwagwaldada">
-              <span class="social-icon" aria-hidden="true">
-                <svg width="20" height="20" viewBox="0 0 24 24" fill="#000" xmlns="http://www.w3.org/2000/svg"><path d="M12 2v6.5a3.5 3.5 0 103.5 3.5H18A6 6 0 1112 2z"/></svg>
-              </span>
-              <span>Dev New TikTok Account (Adam)</span>
-            </a>
-
-            <a class="social-btn" id="devWhatsApp" href="#" role="listitem" aria-label="Developer WhatsApp" title="Chat with gwagwaldada">
-              <span class="social-icon" aria-hidden="true">
-                <svg width="20" height="20" viewBox="0 0 24 24" fill="#25D366" xmlns="http://www.w3.org/2000/svg"><path d="M20.52 3.48A11.9 11.9 0 0012 0C5.37 0 .01 5.36.01 12a11.9 11.9 0 001.98 6.6L0 24l5.6-1.46A11.94 11.94 0 0012 24c6.63 0 12-5.36 12-12 0-3.2-1.25-6.18-3.48-8.52zM12 21.6a9.6 9.6 0 01-5.2-1.5l-.37-.22-3.33.87.9-3.25-.24-.36A9.6 9.6 0 1121.6 12 9.6 9.6 0 0112 21.6zM17.1 14.2c-.3-.15-1.78-.88-2.06-.98-.28-.1-.48-.15-.68.15-.2.3-.78.98-.96 1.18-.18.2-.36.22-.66.07-.3-.15-1.26-.46-2.4-1.48-.89-.79-1.48-1.76-1.65-2.06-.17-.3-.02-.46.13-.61.13-.13.3-.36.45-.54.15-.18.2-.3.3-.5.1-.2 0-.37-.05-.52-.05-.15-.68-1.64-.93-2.25-.24-.6-.48-.52-.66-.53l-.56-.01c-.2 0-.52.07-.8.37-.28.3-1.08 1.05-1.08 2.56 0 1.5 1.1 2.95 1.25 3.15.15.2 2.15 3.3 5.2 4.63 3.05 1.33 3.05.89 3.6.83.55-.06 1.78-.72 2.03-1.42.25-.7.25-1.3.18-1.42-.07-.12-.28-.2-.58-.35z"/></svg>
-              </span>
-              <span>Dev WhatsApp (Adam)</span>
-            </a>
-          </div>
-        </section>
-
-        <!-- Reviews -->
-        <section class="card reviews" aria-labelledby="reviewsTitle" style="margin-top:14px">
-          <div class="section-title">
-            <h3 id="reviewsTitle">What customers say</h3>
-            <div class="muted">Real feedback from our guests</div>
-          </div>
-          <div class="review-list" id="reviewList">
-            <!-- injected by JS -->
-          </div>
-        </section>
+        </div>
       </div>
 
-      <!-- RIGHT: Map, details, chef video -->
-      <aside>
-        <section class="card" aria-labelledby="mapTitle">
-          <div class="section-title">
-            <h3 id="mapTitle">Find Us</h3>
-            <div class="muted">Showroom and pickup point</div>
+      <!-- Social Links -->
+      <div class="card" style="margin-top:20px">
+        <div class="card-header">
+          <div class="card-header-left">
+            <h2>Follow Us</h2>
+            <p>Stay updated on specials, new dishes, and events</p>
+          </div>
+        </div>
+        <div class="card-body">
+          <div class="social-grid">
+
+            <a class="social-btn" id="facebookBtn" href="#" target="_blank" rel="noopener" aria-label="Dami's Kitchen on Facebook">
+              <div class="social-ico ico-fb">
+                <svg viewBox="0 0 24 24" fill="#1877F2"><path d="M22 12.07C22 6.48 17.52 2 11.93 2S2 6.48 2 12.07C2 17.09 5.66 21.2 10.44 22v-7.03H7.9v-2.9h2.54V9.41c0-2.5 1.49-3.88 3.77-3.88 1.09 0 2.23.2 2.23.2v2.45h-1.25c-1.23 0-1.61.77-1.61 1.56v1.87h2.74l-.44 2.9h-2.3V22C18.34 21.2 22 17.09 22 12.07z"/></svg>
+              </div>
+              <div class="social-info">
+                <span class="social-name">Facebook</span>
+                <span class="social-handle">Dami's Kitchen</span>
+              </div>
+            </a>
+
+            <a class="social-btn" id="instagramBtn" href="#" target="_blank" rel="noopener" aria-label="Dami's Kitchen on Instagram">
+              <div class="social-ico ico-ig">
+                <svg viewBox="0 0 24 24" fill="#E1306C"><path d="M7 2h10a5 5 0 015 5v10a5 5 0 01-5 5H7a5 5 0 01-5-5V7a5 5 0 015-5zm5 6.2A4.8 4.8 0 1016.8 13 4.8 4.8 0 0012 8.2zm6.4-3.6a1.2 1.2 0 11-1.2 1.2 1.2 1.2 0 011.2-1.2z"/></svg>
+              </div>
+              <div class="social-info">
+                <span class="social-name">Instagram</span>
+                <span class="social-handle">@damiskitchen_abuja</span>
+              </div>
+            </a>
+
+            <a class="social-btn" id="twitterBtn" href="#" target="_blank" rel="noopener" aria-label="Dami's Kitchen on X/Twitter">
+              <div class="social-ico ico-tw">
+                <svg viewBox="0 0 24 24" fill="#1DA1F2"><path d="M22 5.92c-.63.28-1.3.47-2 .56a3.48 3.48 0 001.53-1.92 6.9 6.9 0 01-2.2.84 3.45 3.45 0 00-5.88 3.14A9.78 9.78 0 013 4.9a3.45 3.45 0 001.07 4.6 3.4 3.4 0 01-1.56-.43v.04a3.45 3.45 0 002.77 3.38 3.5 3.5 0 01-1.55.06 3.46 3.46 0 003.22 2.4A6.92 6.92 0 012 19.54a9.76 9.76 0 005.29 1.55c6.35 0 9.83-5.26 9.83-9.83v-.45A7 7 0 0022 5.92z"/></svg>
+              </div>
+              <div class="social-info">
+                <span class="social-name">X (Twitter)</span>
+                <span class="social-handle">@DamisKitchen</span>
+              </div>
+            </a>
+
+            <a class="social-btn" id="whatsappBtn" href="https://wa.me/2348034117124" target="_blank" rel="noopener" aria-label="Chat on WhatsApp">
+              <div class="social-ico ico-wa">
+                <svg viewBox="0 0 24 24" fill="#25D366"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 0C5.373 0 0 5.373 0 12c0 2.124.558 4.115 1.534 5.837L.057 23.797l6.064-1.52A11.94 11.94 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 22c-1.894 0-3.665-.523-5.176-1.434l-.371-.221-3.598.902.917-3.544-.242-.378A9.963 9.963 0 012 12C2 6.477 6.477 2 12 2s10 4.477 10 10-4.477 10-10 10z"/></svg>
+              </div>
+              <div class="social-info">
+                <span class="social-name">WhatsApp</span>
+                <span class="social-handle">+234 803 411 7124</span>
+              </div>
+            </a>
+
           </div>
 
-          <div class="map-wrap" id="map">
+          <!-- Developer socials -->
+          <div class="dev-divider">Developer — Adam (gwagwaldada)</div>
+          <div class="social-grid">
+
+            <a class="social-btn" id="devInstagram" href="#" target="_blank" rel="noopener" aria-label="Developer Instagram">
+              <div class="social-ico ico-ig">
+                <svg viewBox="0 0 24 24" fill="#E1306C"><path d="M7 2h10a5 5 0 015 5v10a5 5 0 01-5 5H7a5 5 0 01-5-5V7a5 5 0 015-5zm5 6.2A4.8 4.8 0 1016.8 13 4.8 4.8 0 0012 8.2zm6.4-3.6a1.2 1.2 0 11-1.2 1.2 1.2 1.2 0 011.2-1.2z"/></svg>
+              </div>
+              <div class="social-info">
+                <span class="social-name">Instagram</span>
+                <span class="social-handle">@adams_abdulhaleem</span>
+              </div>
+            </a>
+
+            <a class="social-btn" id="devTiktok" href="#" target="_blank" rel="noopener" aria-label="Developer TikTok">
+              <div class="social-ico ico-tt">
+                <svg viewBox="0 0 24 24" fill="#010101"><path d="M19.59 6.69a4.83 4.83 0 01-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 01-2.88 2.5 2.89 2.89 0 01-2.89-2.89 2.89 2.89 0 012.89-2.89c.28 0 .54.04.79.1V9.01a6.33 6.33 0 00-.79-.05 6.34 6.34 0 00-6.34 6.34 6.34 6.34 0 006.34 6.34 6.34 6.34 0 006.33-6.34V8.69a8.13 8.13 0 004.74 1.52V6.74a4.85 4.85 0 01-.97-.05z"/></svg>
+              </div>
+              <div class="social-info">
+                <span class="social-name">TikTok</span>
+                <span class="social-handle">@adamshalimu</span>
+              </div>
+            </a>
+
+            <a class="social-btn" id="devWhatsApp" href="https://wa.me/2347026456760" target="_blank" rel="noopener" aria-label="Developer WhatsApp">
+              <div class="social-ico ico-wa">
+                <svg viewBox="0 0 24 24" fill="#25D366"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 0C5.373 0 0 5.373 0 12c0 2.124.558 4.115 1.534 5.837L.057 23.797l6.064-1.52A11.94 11.94 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 22c-1.894 0-3.665-.523-5.176-1.434l-.371-.221-3.598.902.917-3.544-.242-.378A9.963 9.963 0 012 12C2 6.477 6.477 2 12 2s10 4.477 10 10-4.477 10-10 10z"/></svg>
+              </div>
+              <div class="social-info">
+                <span class="social-name">WhatsApp</span>
+                <span class="social-handle">Chat with Adam</span>
+              </div>
+            </a>
+
+          </div>
+        </div>
+      </div>
+
+    </div><!-- /left column -->
+
+    <!-- ===== RIGHT SIDEBAR ===== -->
+    <aside>
+
+      <!-- Map + Details -->
+      <div class="card" id="mapSection">
+        <div class="card-header">
+          <div class="card-header-left">
+            <h2>Find Us</h2>
+            <p>Showroom &amp; pickup · Gwagwalada, Abuja</p>
+          </div>
+        </div>
+        <div class="card-body">
+          <div class="map-embed" aria-label="Map showing Dami's Kitchen location">
             <iframe
-              title="Dami's Kitchen location"
-              width="100%"
-              height="300"
-              frameborder="0"
-              style="border:0"
-              loading="lazy"
+              title="Dami's Kitchen — Gwagwalada, Abuja"
               src="https://www.google.com/maps?q=9.0765,7.3986&z=15&output=embed"
-              aria-hidden="false">
+              allowfullscreen loading="lazy"
+              referrerpolicy="no-referrer-when-downgrade">
             </iframe>
           </div>
 
-          <div style="margin-top:12px" class="details">
-            <div class="detail-row">
-              <strong>Address</strong>
-              <div class="muted">Phase 1, Gwagwalada, Abuja</div>
+          <div class="detail-list">
+            <div class="detail-item">
+              <div class="detail-icon">📍</div>
+              <div class="detail-content">
+                <div class="detail-label">Address</div>
+                <div class="detail-value">Phase 1, Gwagwalada, Abuja, FCT</div>
+              </div>
             </div>
-            <div class="detail-row">
-              <strong>Phone</strong>
-              <div class="muted"><a href="tel:+2348034117124">+234 80341 17124</a></div>
+            <div class="detail-item">
+              <div class="detail-icon">📞</div>
+              <div class="detail-content">
+                <div class="detail-label">Phone</div>
+                <div class="detail-value"><a href="tel:+2348034117124">+234 803 411 7124</a></div>
+              </div>
             </div>
-            <div class="detail-row">
-              <strong>Email</strong>
-              <div class="muted"><a href="mailto:hello@damiskitchen.ng">hello@damiskitchen.ng</a></div>
+            <div class="detail-item">
+              <div class="detail-icon">✉️</div>
+              <div class="detail-content">
+                <div class="detail-label">Email</div>
+                <div class="detail-value"><a href="mailto:hello@damiskitchen.ng">hello@damiskitchen.ng</a></div>
+              </div>
             </div>
-            <div class="detail-row">
-              <strong>Hours</strong>
-              <div class="muted">Mon–Sun 8:00 AM – 9:00 PM</div>
+            <div class="detail-item">
+              <div class="detail-icon">🕐</div>
+              <div class="detail-content">
+                <div class="detail-label">Opening hours</div>
+                <div class="detail-value">Monday – Sunday</div>
+              </div>
             </div>
           </div>
-        </section>
+          <div class="hours-badge">
+            <span class="hours-dot"></span>
+            Open now · 8:00 AM – 9:00 PM daily
+          </div>
+        </div>
+      </div>
 
-        <section class="card chef-card" aria-labelledby="chefTitle" style="margin-top:14px">
-          <div class="section-title">
-            <h3 id="chefTitle">Meet the Chef</h3>
-            <div class="muted">Behind the scenes</div>
+      <!-- Chef video -->
+      <div class="card" style="margin-top:20px">
+        <div class="card-header">
+          <div class="card-header-left">
+            <h2>Meet the Chef</h2>
+            <p>Dami behind the scenes</p>
           </div>
-          <video id="chefVideo" poster="images/chef-poster.jpg" controls preload="none" playsinline aria-label="Chef video">
-            <source src="Download (9).mp4" type="video/mp4">
-            Your browser does not support the video tag.
-          </video>
-          <div class="chef-caption" style="margin-top:0">
-            <div style="font-size:13px;color:var(--muted)">Watch Dami prepare our signature dishes.</div>
-            <a class="btn primary" href="order.html">Order Now</a>
+        </div>
+        <div class="card-body" style="padding-bottom:16px">
+          <div class="chef-video-wrap">
+            <video id="chefVideo" poster="images/chef-poster.jpg" controls preload="none" playsinline
+              aria-label="Chef Dami preparing signature dishes">
+              <source src="Download (9).mp4" type="video/mp4">
+              Your browser does not support the video tag.
+            </video>
+            <div class="chef-overlay" aria-hidden="true">
+              <div class="chef-overlay-text">Dami in the kitchen</div>
+              <div class="chef-overlay-sub">Watch the magic happen</div>
+            </div>
           </div>
-        </section>
-      </aside>
+          <a href="order.html" class="btn-primary" style="width:100%;margin-top:4px">🛵 Order Now</a>
+        </div>
+      </div>
+
+    </aside>
+  </div><!-- /main-grid -->
+
+  <!-- ===== REVIEWS (full width) ===== -->
+  <section class="reviews-section" aria-labelledby="reviews-heading">
+    <div class="section-header">
+      <div class="section-header-left">
+        <div class="section-label">Customer love</div>
+        <h2 id="reviews-heading">What our guests say</h2>
+      </div>
+      <div class="section-header-sub">Real feedback from real customers</div>
     </div>
-  </main>
+    <div class="reviews-grid" id="reviewList" aria-label="Customer reviews"></div>
+  </section>
 
-  <footer>
-    © 2026 Dami's Kitchen • Follow us on social media • Dev: gwagwaldada
-  </footer>
+</div><!-- /page -->
 
-  <script>
-    /* ---------- Analytics helper ---------- */
-    function pushEvent(name, payload){
-      try{
-        window.dataLayer = window.dataLayer || [];
-        window.dataLayer.push(Object.assign({event: name}, payload || {}));
-        if(window.gtag) gtag('event', name, payload || {});
-      }catch(e){ console.warn('Analytics push failed', e) }
+<footer>
+  <div class="foot-brand">Dami's Kitchen</div>
+  <div class="foot-copy">© 2026 Dami's Kitchen · Fresh meals, Gwagwalada, Abuja<br>Built by <a href="https://wa.me/2347026456760" target="_blank" rel="noopener" style="color:var(--accent);font-weight:600">Adam</a></div>
+</footer>
+
+<script>
+/* ============================================================
+   ANALYTICS HELPER
+============================================================ */
+function pushEvent(name, payload){
+  try{
+    window.dataLayer = window.dataLayer || [];
+    window.dataLayer.push(Object.assign({event: name}, payload || {}));
+  }catch(e){}
+}
+
+/* ============================================================
+   MOBILE MENU
+============================================================ */
+(function(){
+  var btn  = document.getElementById("hamburger");
+  var menu = document.getElementById("mobileMenu");
+  if(!btn || !menu) return;
+
+  function openMenu(){
+    menu.style.display = "flex";
+    menu.setAttribute("aria-hidden","false");
+    btn.setAttribute("aria-expanded","true");
+    document.body.style.overflow = "hidden";
+  }
+  function closeMenu(){
+    menu.style.display = "none";
+    menu.setAttribute("aria-hidden","true");
+    btn.setAttribute("aria-expanded","false");
+    document.body.style.overflow = "";
+  }
+
+  btn.addEventListener("click", function(){
+    btn.getAttribute("aria-expanded") === "true" ? closeMenu() : openMenu();
+  });
+  document.addEventListener("click", function(e){
+    if(window.innerWidth <= 768 && !menu.contains(e.target) && !btn.contains(e.target)) closeMenu();
+  });
+  document.addEventListener("keydown", function(e){
+    if(e.key === "Escape") closeMenu();
+  });
+  window.addEventListener("resize", function(){
+    if(window.innerWidth > 768) closeMenu();
+  });
+})();
+
+/* ============================================================
+   CONTACT FORM
+============================================================ */
+(function(){
+  var form       = document.getElementById("contactFormEl");
+  var submitBtn  = document.getElementById("submitBtn");
+  var mailtoBtn  = document.getElementById("mailtoFallback");
+  var successMsg = document.getElementById("formSuccess");
+
+  function setInvalid(fieldId){ document.getElementById(fieldId).classList.add("field-invalid"); }
+  function setValid(fieldId)  { document.getElementById(fieldId).classList.remove("field-invalid"); }
+
+  function validateForm(){
+    var ok = true;
+    var name  = document.getElementById("fname").value.trim();
+    var email = document.getElementById("femail").value.trim();
+    var msg   = document.getElementById("fmessage").value.trim();
+    var emailRe = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+    name.length < 2   ? (setInvalid("field-name"),    ok=false) : setValid("field-name");
+    !emailRe.test(email)? (setInvalid("field-email"),  ok=false) : setValid("field-email");
+    msg.length < 10   ? (setInvalid("field-message"), ok=false) : setValid("field-message");
+
+    return ok;
+  }
+
+  form.addEventListener("submit", async function(e){
+    e.preventDefault();
+    if(!validateForm()){
+      pushEvent("contact_form_error", {reason:"validation"});
+      return;
     }
 
-    /* ---------- Mobile menu toggle (fixed) ----------
-       Behavior:
-       - toggles mobile menu visibility and aria attributes
-       - closes menu when clicking outside on small screens
-       - keeps desktop nav intact
-    */
-    (function(){
-      const hamburger = document.getElementById('hamburger');
-      const mobileMenu = document.getElementById('mobileMenu');
-      const navLinks = document.getElementById('navLinks');
+    submitBtn.textContent = "Sending…";
+    submitBtn.disabled = true;
 
-      function openMobileMenu(){
-        mobileMenu.style.display = 'flex';
-        mobileMenu.setAttribute('aria-hidden', 'false');
-        hamburger.setAttribute('aria-expanded', 'true');
-        // prevent body scroll while menu open on small screens
-        document.body.style.overflow = 'hidden';
-      }
-      function closeMobileMenu(){
-        mobileMenu.style.display = 'none';
-        mobileMenu.setAttribute('aria-hidden', 'true');
-        hamburger.setAttribute('aria-expanded', 'false');
-        document.body.style.overflow = '';
-      }
-
-      if(hamburger && mobileMenu){
-        hamburger.addEventListener('click', function(e){
-          const expanded = hamburger.getAttribute('aria-expanded') === 'true';
-          if(expanded) closeMobileMenu();
-          else openMobileMenu();
-        });
-
-        // Close menu when clicking outside (only on small screens)
-        document.addEventListener('click', function(e){
-          if(window.innerWidth <= 720){
-            const target = e.target;
-            if(!mobileMenu.contains(target) && !hamburger.contains(target)){
-              closeMobileMenu();
-            }
-          }
-        });
-
-        // Close menu on Escape key
-        document.addEventListener('keydown', function(e){
-          if(e.key === 'Escape') closeMobileMenu();
-        });
-
-        // Ensure mobile menu is hidden when resizing to desktop
-        window.addEventListener('resize', function(){
-          if(window.innerWidth > 720){
-            closeMobileMenu();
-            // ensure desktop nav visible
-            if(navLinks) navLinks.style.display = 'flex';
-          } else {
-            // hide desktop nav on small screens (CSS handles this), but keep navLinks display for accessibility
-            if(navLinks) navLinks.style.display = '';
-          }
-        });
-      }
-    })();
-
-    /* ---------- Contact form handling with mailto fallback ---------- */
-    (function(){
-      const form = document.getElementById('contactFormEl');
-      const mailtoBtn = document.getElementById('mailtoFallback');
-
-      form.addEventListener('submit', async function(e){
-        e.preventDefault();
-        const name = form.name.value.trim();
-        const email = form.email.value.trim();
-        const subject = form.subject.value.trim() || 'Contact from website';
-        const message = form.message.value.trim();
-
-        if(!name || !email || !message){
-          pushEvent('contact_form_error', {reason: 'validation'});
-          alert('Please complete name, email and message.');
-          return;
-        }
-
-        const payload = { name, email, subject, message, ts: new Date().toISOString() };
-
-      
-        try{
-          const res = await fetch('/api/contact', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify(payload),
-          });
-          if(res.ok){
-            pushEvent('contact_form_submit', {method: 'api', email: email});
-            alert('Thanks — your message was sent. We will reply within 24 hours.');
-            form.reset();
-            return;
-          }
-        }catch(err){
-          // network/CORS — fallback to mailto
-        }
-
-        // Mailto fallback
-        const mailto = `mailto:hello@damiskitchen.ng?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent('Name: '+name+'\\nEmail: '+email+'\\n\\n'+message)}`;
-        pushEvent('contact_form_submit', {method: 'mailto', email: email});
-        window.location.href = mailto;
+    try{
+      var res = await fetch(form.action, {
+        method: "POST",
+        body: new FormData(form),
+        headers: { "Accept": "application/json" }
       });
 
-      mailtoBtn.addEventListener('click', function(){
-        const subject = encodeURIComponent("Contact Dami\\'s Kitchen");
-        const body = encodeURIComponent('Hello Dami,\\n\\nI would like to get in touch.\\n\\nRegards,');
-        pushEvent('contact_form_mailto_click', {});
-        window.location.href = `mailto:hello@damiskitchen.ng?subject=${subject}&body=${body}`;
-      });
-    })();
-
-    /* ---------- Social buttons tracking and developer links ---------- */
-    (function(){
-      
-      const socialMap = {
-        facebookBtn: 'https://www.facebook.com/share/1E4Kw5N9QN/?mibextid=wwXIfr',
-        instagramBtn: 'https://www.instagram.com/damiskitchen_abuja/profilecard/?igsh=dHgzczhmdWR5MDgw',
-        twitterBtn: 'https://x.com/yourpage',
-        whatsappBtn: 'https://wa.me/2348034117124', // business WhatsApp
-        devInstagram: 'https://www.instagram.com/adams_abdulhaleem?igsh=bjF1cGh3cm16ZG9z&utm_source=qr_code',
-        devTiktok: 'https://www.tiktok.com/@adamshalimu?is_from_webapp=1&sender_device=pc',
-        devWhatsApp: 'https://wa.me/2347026456760' // <-- 
-      };
-
-      Object.keys(socialMap).forEach(id => {
-        const el = document.getElementById(id);
-        if(!el) return;
-        el.addEventListener('click', function(e){
-          e.preventDefault();
-          const url = socialMap[id];
-          pushEvent('social_click', {network: id, url: url});
-          window.open(url, '_blank');
-        });
-      });
-
-      // Mobile menu developer links (if present)
-      const devInstagramMobile = document.getElementById('devInstagramMobile');
-      const devTiktokMobile = document.getElementById('devTiktokMobile');
-      const devWhatsAppMobile = document.getElementById('devWhatsAppMobile');
-      if(devInstagramMobile) devInstagramMobile.addEventListener('click', (e)=>{ e.preventDefault(); window.open(socialMap.devInstagram,'_blank'); pushEvent('social_click',{network:'devInstagram_mobile'}); });
-      if(devTiktokMobile) devTiktokMobile.addEventListener('click', (e)=>{ e.preventDefault(); window.open(socialMap.devTiktok,'_blank'); pushEvent('social_click',{network:'devTiktok_mobile'}); });
-      if(devWhatsAppMobile) devWhatsAppMobile.addEventListener('click', (e)=>{ e.preventDefault(); window.open(socialMap.devWhatsApp,'_blank'); pushEvent('social_click',{network:'devWhatsApp_mobile'}); });
-
-      // Map open tracking
-      const mapEl = document.getElementById('map');
-      if(mapEl){
-        mapEl.addEventListener('click', function(){ pushEvent('map_open', {location: 'Abuja'}); });
+      if(res.ok){
+        pushEvent("contact_form_submit", {method:"formspree"});
+        form.reset();
+        successMsg.style.display = "block";
+        submitBtn.textContent = "📩 Send Message";
+        submitBtn.disabled = false;
+        return;
       }
-    })();
+    }catch(err){}
 
-    /* ---------- Reviews render (gold stars) ---------- */
-    (function(){
-      const REVIEWS = [
-        { stars:5, text:'Absolutely delicious. Tastes like home.', author:'Ada, Abuja' },
-        { stars:5, text:'Fast delivery and great portions.', author:'Musa, Abuja' },
-        { stars:4, text:'Fresh ingredients and friendly service.', author:'Chioma, Abuja' },
-        { stars:5, text:'Best jollof in town. Highly recommend.', author:'Emeka, Abuja' },
-        { stars:5, text:'Amazing flavors — will order again.', author:'Fatima, Abuja' },
-        { stars:5, text:'Perfect for family dinners.', author:'Tunde, Abuja' },
-        { stars:4, text:'Great value and tasty sides.', author:'Ngozi, Abuja' }
-      ];
-      const reviewList = document.getElementById('reviewList');
-      reviewList.innerHTML = '';
-      REVIEWS.forEach(r => {
-        const rc = document.createElement('div');
-        rc.className = 'review-card';
-        rc.innerHTML = `<div class="stars" aria-hidden="true">${'★ '.repeat(r.stars).trim()}</div>
-                        <div style="font-weight:700;margin-top:6px">${r.text}</div>
-                        <div style="color:var(--muted);margin-top:6px">— ${r.author}</div>`;
-        rc.addEventListener('click', ()=> pushEvent('review_click', {author: r.author}));
-        reviewList.appendChild(rc);
+    // Mailto fallback
+    var subject = encodeURIComponent(document.getElementById("fsubject").value || "Contact from website");
+    var body    = encodeURIComponent(
+      "Name: " + document.getElementById("fname").value + "\n" +
+      "Email: " + document.getElementById("femail").value + "\n\n" +
+      document.getElementById("fmessage").value
+    );
+    pushEvent("contact_form_submit", {method:"mailto_fallback"});
+    window.location.href = "mailto:hello@damiskitchen.ng?subject=" + subject + "&body=" + body;
+    submitBtn.textContent = "📩 Send Message";
+    submitBtn.disabled = false;
+  });
+
+  mailtoBtn.addEventListener("click", function(){
+    pushEvent("contact_mailto_click", {});
+    window.location.href = "mailto:hello@damiskitchen.ng?subject=" + encodeURIComponent("Hello Dami's Kitchen") + "&body=" + encodeURIComponent("Hi Dami,\n\nI'd like to get in touch.\n\nRegards,");
+  });
+})();
+
+/* ============================================================
+   SOCIAL LINKS
+============================================================ */
+(function(){
+  var SOCIAL_MAP = {
+    facebookBtn:  "https://www.facebook.com/share/1E4Kw5N9QN/?mibextid=wwXIfr",
+    instagramBtn: "https://www.instagram.com/damiskitchen_abuja/profilecard/?igsh=dHgzczhmdWR5MDgw",
+    twitterBtn:   "https://x.com/yourpage",
+    whatsappBtn:  null, // href already set
+    devInstagram: "https://www.instagram.com/adams_abdulhaleem?igsh=bjF1cGh3cm16ZG9z&utm_source=qr_code",
+    devTiktok:    "https://www.tiktok.com/@adamshalimu?is_from_webapp=1&sender_device=pc",
+    devWhatsApp:  null, // href already set
+  };
+
+  Object.keys(SOCIAL_MAP).forEach(function(id){
+    var el  = document.getElementById(id);
+    var url = SOCIAL_MAP[id];
+    if(!el || !url) return;
+    el.href = url;
+    el.addEventListener("click", function(){
+      pushEvent("social_click", {network: id});
+    });
+  });
+
+  // Map tracking
+  var mapEl = document.getElementById("mapSection");
+  if(mapEl) mapEl.addEventListener("click", function(){ pushEvent("map_click", {}); });
+})();
+
+/* ============================================================
+   REVIEWS
+============================================================ */
+(function(){
+  var REVIEWS = [
+    {stars:5, text:"Absolutely delicious. Tastes exactly like home cooking.", author:"Ada", city:"Abuja"},
+    {stars:5, text:"Fast delivery and amazing portions — worth every naira.", author:"Musa", city:"Abuja"},
+    {stars:4, text:"Fresh ingredients and the most friendly service.",         author:"Chioma", city:"Abuja"},
+    {stars:5, text:"Best jollof in town. I order every weekend now!",          author:"Emeka", city:"Abuja"},
+    {stars:5, text:"Amazing flavors — will definitely order again.",           author:"Fatima", city:"Gwagwalada"},
+    {stars:5, text:"Perfect for family dinners. Everyone loved it.",           author:"Tunde", city:"Abuja"},
+    {stars:4, text:"Great value and the sides are incredible.",                author:"Ngozi", city:"Abuja"},
+  ];
+
+  var container = document.getElementById("reviewList");
+  if(!container) return;
+
+  var starsMap = {5:"★★★★★", 4:"★★★★☆", 3:"★★★☆☆"};
+
+  REVIEWS.forEach(function(r){
+    var initials = r.author.charAt(0).toUpperCase();
+    var card = document.createElement("article");
+    card.className = "review-card";
+    card.setAttribute("aria-label", "Review by " + r.author);
+    card.innerHTML =
+      '<div class="review-stars" aria-label="' + r.stars + ' stars">' + (starsMap[r.stars] || "★★★★★") + '</div>' +
+      '<div class="review-text">"' + r.text + '"</div>' +
+      '<div class="review-author">' +
+        '<div class="review-avatar">' + initials + '</div>' +
+        '<span class="review-name">— ' + r.author + ', ' + r.city + '</span>' +
+      '</div>';
+    card.addEventListener("click", function(){ pushEvent("review_click", {author: r.author}); });
+    container.appendChild(card);
+  });
+})();
+
+/* ============================================================
+   CHEF VIDEO LAZY LOAD + ANALYTICS
+============================================================ */
+(function(){
+  var chef = document.getElementById("chefVideo");
+  if(!chef) return;
+  if("IntersectionObserver" in window){
+    var io = new IntersectionObserver(function(entries){
+      entries.forEach(function(e){
+        if(e.isIntersecting){ chef.preload = "auto"; io.disconnect(); }
       });
-    })();
+    }, {threshold: 0.25});
+    io.observe(chef);
+  } else { chef.preload = "auto"; }
 
-    /* ---------- Chef video analytics & lazy load ---------- */
-    (function(){
-      const chef = document.getElementById('chefVideo');
-      if(!chef) return;
-      chef.addEventListener('play', ()=> pushEvent('video_play', {video:'chef_story'}));
-      chef.addEventListener('pause', ()=> pushEvent('video_pause', {video:'chef_story'}));
-      chef.addEventListener('ended', ()=> pushEvent('video_complete', {video:'chef_story'}));
-      if('IntersectionObserver' in window){
-        const io = new IntersectionObserver(entries => {
-          entries.forEach(e => {
-            if(e.isIntersecting){
-              chef.preload = 'auto';
-              io.disconnect();
-            }
-          });
-        }, {threshold:0.25});
-        io.observe(chef);
-      } else chef.preload = 'auto';
-    })();
-
-    /* ---------- Hero video lazy load & events ---------- */
-    (function(){
-      const hero = document.getElementById('heroVideo');
-      if(!hero) return;
-      let loaded = false;
-      if('IntersectionObserver' in window){
-        const io = new IntersectionObserver(entries => {
-          entries.forEach(e => {
-            if(e.isIntersecting && !loaded){
-              hero.preload = 'auto';
-              hero.muted = true;
-              hero.play().catch(()=>{});
-              pushEvent('video_impression', {video:'hero'});
-              loaded = true;
-              io.disconnect();
-            }
-          });
-        }, {threshold:0.25});
-        io.observe(hero);
-      } else hero.preload = 'auto';
-      hero.addEventListener('play', ()=> pushEvent('video_play', {video:'hero'}));
-      hero.addEventListener('pause', ()=> pushEvent('video_pause', {video:'hero'}));
-      hero.addEventListener('ended', ()=> pushEvent('video_complete', {video:'hero'}));
-    })();
-
-    /* ---------- Prevent horizontal overflow on small devices ---------- */
-    (function(){ document.documentElement.style.overflowX = 'hidden'; document.body.style.overflowX = 'hidden'; })();
-  </script>
+  chef.addEventListener("play",  function(){ pushEvent("video_play",     {video:"chef"}); });
+  chef.addEventListener("pause", function(){ pushEvent("video_pause",    {video:"chef"}); });
+  chef.addEventListener("ended", function(){ pushEvent("video_complete", {video:"chef"}); });
+})();
+</script>
 </body>
-</html>
-
 </html>
