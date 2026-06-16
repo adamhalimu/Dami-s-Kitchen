@@ -14,574 +14,678 @@
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>Dami's Kitchen | Order</title>
   <meta name="description" content="Dami's Kitchen — place your order, checkout via WhatsApp, watch the chef, and track your cart.">
- <style>
-    :root{
-      --accent:#d35400;
-      --cta:#27ae60;
-      --muted:#6b6b6b;
-      --bg:#fffaf8;
-      --card:#ffffff;
-      --shadow: 0 10px 30px rgba(0,0,0,.08);
-      --radius:12px;
-      --max-width:1100px;
-      --page-padding:16px;
-      --gold:#f5c542;
-      --font-sans:Inter,system-ui,Arial,sans-serif;
-    }
-    *{box-sizing:border-box}
-    html,body{margin:0;padding:0;font-family:var(--font-sans);background:var(--bg);color:#222;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+ <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=DM+Sans:wght@400;500;700&display=swap" rel="stylesheet"/>
+  <style>
+    :root{--accent:#bf4e0f;--accent-dark:#922f06;--accent-lite:#fff4ee;--cta:#27ae60;--cta-dark:#1e8449;--cta-lite:#e8f8ef;--bg:#faf7f4;--surface:#fff;--muted:#7a6e68;--text:#1a1007;--border:#ede7e3;--r-sm:8px;--r-md:14px;--r-lg:20px;--sh-md:0 8px 24px rgba(0,0,0,.09);--sh-lg:0 20px 56px rgba(0,0,0,.12);--max:1200px;--pad:clamp(16px,5vw,40px);--fd:'Playfair Display',Georgia,serif;--fb:'DM Sans',system-ui,sans-serif;--ease:.22s cubic-bezier(.4,0,.2,1)}
+    *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+    html{scroll-behavior:smooth;overflow-x:hidden}
+    body{font-family:var(--fb);background:var(--bg);color:var(--text);-webkit-font-smoothing:antialiased;overflow-x:hidden}
     a{color:inherit;text-decoration:none}
-    button{font-family:inherit;cursor:pointer}
+    button{font-family:inherit;cursor:pointer;border:none;background:none}
+    img{display:block;max-width:100%}
 
     /* NAV */
-    .nav-wrap{background:#fff;border-bottom:1px solid #f0e6e3;position:sticky;top:0;z-index:1000}
-    .nav{max-width:var(--max-width);margin:0 auto;display:flex;align-items:center;justify-content:space-between;padding:12px var(--page-padding);gap:12px}
+    .site-nav{position:sticky;top:0;background:rgba(250,247,244,.93);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);border-bottom:1px solid var(--border);z-index:1000}
+    .nav-inner{max-width:var(--max);margin:0 auto;display:flex;align-items:center;justify-content:space-between;padding:14px var(--pad);gap:16px}
     .brand{display:flex;align-items:center;gap:12px}
-    .logo{width:48px;height:48px;border-radius:10px;background:linear-gradient(135deg,var(--accent),#f39c12);display:flex;align-items:center;justify-content:center;color:#fff;font-weight:800}
-    .brand h1{margin:0;font-size:18px;color:var(--accent)}
-    .nav-links{display:flex;gap:12px;align-items:center}
-    .nav-links a{padding:8px 12px;border-radius:8px;font-weight:600;color:#333}
-    .cta-order{background:var(--cta);color:#fff;padding:8px 12px;border-radius:8px;font-weight:800}
-    .hamburger{display:none;width:44px;height:44px;border-radius:8px;border:1px solid #f0e6e3;background:#fff;align-items:center;justify-content:center}
+    .logo-mark{width:44px;height:44px;border-radius:var(--r-sm);background:linear-gradient(135deg,var(--accent),#f39c12);display:flex;align-items:center;justify-content:center;color:#fff;font-family:var(--fd);font-size:16px;flex-shrink:0}
+    .brand-name{font-family:var(--fd);font-size:19px;color:var(--accent);line-height:1.1}
+    .brand-sub{font-size:11px;color:var(--muted);margin-top:2px}
+    .nav-links{display:flex;align-items:center;gap:4px}
+    .nav-links a{padding:8px 14px;border-radius:var(--r-sm);font-size:15px;font-weight:500;color:var(--text);transition:background var(--ease)}
+    .nav-links a:hover{background:var(--border)}
+    .nav-links a.active{background:var(--accent-lite);color:var(--accent);font-weight:700}
+    .nav-cta{background:var(--cta)!important;color:#fff!important;font-weight:700!important;padding:8px 18px!important}
+    .nav-cta:hover{background:var(--cta-dark)!important}
+    .hamburger{display:none;width:40px;height:40px;border-radius:var(--r-sm);border:1px solid var(--border);background:var(--surface);align-items:center;justify-content:center;font-size:18px}
+    .mobile-menu{display:none;flex-direction:column;gap:4px;padding:12px var(--pad) 16px;border-top:1px solid var(--border);background:var(--bg)}
+    .mobile-menu a{padding:12px 14px;border-radius:var(--r-sm);font-size:16px;font-weight:500;transition:background var(--ease)}
+    .mobile-menu a:hover{background:var(--border)}
+    .mobile-menu .nav-cta{background:var(--cta);color:#fff;text-align:center;margin-top:8px;display:block}
 
-    .mobile-menu{display:none;flex-direction:column;gap:8px;padding:12px var(--page-padding);border-top:1px solid #f0e6e3;background:#fff}
+    /* BANNER */
+    .page-banner{max-width:var(--max);margin:28px auto 0;padding:0 var(--pad)}
+    .banner-inner{background:linear-gradient(135deg,var(--accent),#e67e22);border-radius:var(--r-lg);padding:32px 36px;color:#fff;display:flex;align-items:center;justify-content:space-between;gap:24px;flex-wrap:wrap}
+    .banner-text h1{font-family:var(--fd);font-size:clamp(26px,4vw,40px);line-height:1.15}
+    .banner-text p{font-size:15px;opacity:.85;margin-top:8px;line-height:1.65;max-width:500px}
+    .banner-steps{display:flex;align-items:center;gap:6px;flex-shrink:0;flex-wrap:wrap}
+    .bstep{display:flex;align-items:center;gap:7px;font-size:13px;font-weight:600}
+    .bstep-num{width:26px;height:26px;border-radius:50%;background:rgba(255,255,255,.25);display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700}
+    .bsep{opacity:.4;font-size:16px;margin:0 4px}
 
-    /* PAGE LAYOUT */
-    .container{max-width:var(--max-width);margin:18px auto;padding:0 var(--page-padding)}
-    .layout{display:grid;grid-template-columns:1fr 380px;gap:20px;align-items:start}
-    .panel{background:var(--card);border-radius:var(--radius);padding:14px;box-shadow:var(--shadow)}
-    .section-title{display:flex;justify-content:space-between;align-items:center;margin-bottom:12px}
-    .section-title h2{margin:0;font-size:18px;color:var(--accent)}
+    /* LAYOUT */
+    .order-layout{max-width:var(--max);margin:28px auto 60px;padding:0 var(--pad);display:grid;grid-template-columns:1fr 400px;gap:24px;align-items:start}
+    .right-col{display:flex;flex-direction:column;gap:20px}
 
-    /* ITEMS */
-    .items-list{display:flex;flex-direction:column;gap:12px}
-    .item{display:flex;gap:12px;align-items:center;padding:10px;border-radius:10px;background:linear-gradient(180deg,#fff,#fff);border:1px solid #f0e9e6}
-    .item img{width:88px;height:68px;object-fit:cover;border-radius:8px;flex-shrink:0}
-    .item-info{flex:1}
-    .item-info h3{margin:0;font-size:16px}
-    .item-info p{margin:6px 0 0;color:var(--muted);font-size:13px}
-    .controls{display:flex;flex-direction:column;align-items:flex-end;gap:8px}
-    .qty{display:flex;align-items:center;gap:8px}
-    .qty button{width:34px;height:34px;border-radius:8px;border:1px solid #eee;background:#fff;cursor:pointer;font-weight:700}
-    .qty .count{min-width:28px;text-align:center}
-    .remove{background:transparent;border:none;color:#999;cursor:pointer;font-size:13px}
+    /* CARD */
+    .card{background:var(--surface);border:1px solid var(--border);border-radius:var(--r-lg);overflow:hidden}
+    .card-head{padding:18px 22px;border-bottom:1px solid var(--border);display:flex;align-items:center;gap:12px}
+    .card-ico{width:40px;height:40px;border-radius:var(--r-sm);display:flex;align-items:center;justify-content:center;font-size:20px;flex-shrink:0}
+    .ico-orange{background:var(--accent-lite)}
+    .ico-green{background:var(--cta-lite)}
+    .ico-blue{background:#e8f0fe}
+    .card-title{font-family:var(--fd);font-size:18px;color:var(--text)}
+    .card-sub{font-size:12px;color:var(--muted);margin-top:2px}
 
-    /* SUMMARY */
-    .summary h3{margin:0 0 8px 0;color:var(--accent)}
-    .summary-row{display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px dashed #eee}
-    .total{font-size:20px;font-weight:800;padding-top:8px}
-    .checkout-btn{display:inline-block;width:100%;text-align:center;padding:12px;border-radius:10px;background:var(--cta);color:#fff;border:none;font-weight:800}
-    .checkout-btn:disabled{opacity:.6;cursor:not-allowed}
+    /* FORM */
+    .form-body{padding:22px}
+    .sec-label{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.09em;color:var(--muted);margin-bottom:12px;display:block}
 
-    /* PAYMENT / FORM */
-    .field{display:flex;flex-direction:column;gap:6px;margin-top:8px}
-    input[type="text"], input[type="tel"], input[type="email"], textarea, select{padding:10px;border-radius:8px;border:1px solid #e6e0dd;font-size:14px}
-    textarea{min-height:72px;resize:vertical}
+    /* Dish picker */
+    .dish-picker{display:grid;grid-template-columns:1fr 1fr;gap:9px;margin-bottom:22px}
+    .dish-chk{display:none}
+    .dish-lbl{display:flex;flex-direction:column;gap:3px;padding:10px 12px;border-radius:var(--r-sm);border:1.5px solid var(--border);cursor:pointer;transition:all var(--ease);user-select:none}
+    .dish-lbl:hover{border-color:var(--accent);background:var(--accent-lite)}
+    .dish-chk:checked+.dish-lbl{border-color:var(--cta);background:var(--cta-lite)}
+    .d-top{display:flex;justify-content:space-between;align-items:flex-start;gap:4px}
+    .d-name{font-size:13px;font-weight:700;color:var(--text);line-height:1.3;flex:1}
+    .d-chkico{font-size:13px;flex-shrink:0;color:var(--border);transition:color var(--ease)}
+    .dish-chk:checked+.dish-lbl .d-chkico{color:var(--cta)}
+    .d-price{font-size:12px;font-weight:700;color:var(--accent)}
+    .d-qty{display:none;align-items:center;gap:8px;margin-top:7px}
+    .qty-b{width:22px;height:22px;border-radius:50%;border:1px solid var(--border);background:var(--surface);font-size:15px;line-height:1;display:flex;align-items:center;justify-content:center;cursor:pointer;transition:all var(--ease)}
+    .qty-b:hover{background:var(--accent);color:#fff;border-color:var(--accent)}
+    .qty-v{font-size:14px;font-weight:700;min-width:18px;text-align:center}
 
-    /* PROMO */
-    .promo{display:flex;gap:8px;margin-top:12px}
-    .promo input{flex:1}
-    .promo button{padding:10px 12px;border-radius:8px;border:none;background:var(--accent);color:#fff;cursor:pointer}
+    /* Fields */
+    .form-row{display:grid;grid-template-columns:1fr 1fr;gap:13px;margin-bottom:14px}
+    .form-row.full{grid-template-columns:1fr}
+    .field{display:flex;flex-direction:column;gap:5px}
+    .field label{font-size:13px;font-weight:600;color:var(--text)}
+    .field label em{color:var(--accent);font-style:normal}
+    .field input,.field select,.field textarea{padding:11px 13px;border-radius:var(--r-sm);border:1.5px solid var(--border);background:var(--bg);font-family:var(--fb);font-size:14px;color:var(--text);outline:none;transition:border-color var(--ease),box-shadow var(--ease);width:100%}
+    .field input:focus,.field select:focus,.field textarea:focus{border-color:var(--accent);box-shadow:0 0 0 3px rgba(191,78,15,.08);background:var(--surface)}
+    .field textarea{resize:vertical;min-height:76px}
+    .field select{-webkit-appearance:none;appearance:none;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='7'%3E%3Cpath d='M1 1l4 4 4-4' stroke='%237a6e68' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 13px center}
 
-    /* EMPTY */
-    .empty{padding:40px;text-align:center;color:var(--muted)}
+    /* Summary */
+    .summary-box{background:var(--bg);border:1px solid var(--border);border-radius:var(--r-md);padding:14px;margin-bottom:18px}
+    .summary-ttl{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.07em;color:var(--muted);margin-bottom:10px}
+    .summary-empty{font-size:13px;color:var(--muted);font-style:italic}
+    .summary-items{display:flex;flex-direction:column;gap:6px}
+    .s-item{display:flex;justify-content:space-between;gap:8px;font-size:14px}
+    .s-item-name{color:var(--text);font-weight:500;flex:1}
+    .s-item-price{color:var(--accent);font-weight:700}
+    .s-div{height:1px;background:var(--border);margin:10px 0}
+    .s-total{display:flex;justify-content:space-between;align-items:center}
+    .s-total-lbl{font-size:14px;font-weight:700}
+    .s-total-amt{font-size:18px;font-weight:700;color:var(--accent)}
 
-    /* CHEF VIDEO SECTION */
-    .chef-video{margin-top:16px;border-radius:12px;overflow:hidden;box-shadow:var(--shadow);background:var(--card)}
-    .chef-video video{width:100%;height:auto;display:block;object-fit:cover}
-    .chef-caption{padding:10px;background:#fff;display:flex;justify-content:space-between;align-items:center}
+    /* Submit */
+    .btn-submit{width:100%;padding:15px;background:var(--cta);color:#fff;border-radius:var(--r-md);font-size:16px;font-weight:700;display:flex;align-items:center;justify-content:center;gap:10px;transition:all var(--ease);border:none;cursor:pointer}
+    .btn-submit:hover{background:var(--cta-dark);transform:translateY(-1px);box-shadow:0 6px 20px rgba(39,174,96,.35)}
+    .btn-submit:active{transform:none}
+    .btn-submit svg{width:20px;height:20px;fill:currentColor;flex-shrink:0}
+    .form-note{font-size:12px;color:var(--muted);text-align:center;margin-top:10px;line-height:1.5}
 
-    /* ICONS */
-    .icon{width:18px;height:18px;display:inline-block;vertical-align:middle}
+    /* TRACKER */
+    .tracker-body{padding:18px 22px}
+    .track-row{display:flex;gap:9px;margin-bottom:18px}
+    .track-input{flex:1;padding:10px 13px;border-radius:var(--r-sm);border:1.5px solid var(--border);background:var(--bg);font-family:var(--fb);font-size:14px;color:var(--text);outline:none;transition:border-color var(--ease)}
+    .track-input:focus{border-color:var(--accent);background:var(--surface)}
+    .track-input::placeholder{color:var(--muted)}
+    .track-btn{padding:10px 17px;background:var(--accent);color:#fff;border-radius:var(--r-sm);font-size:14px;font-weight:700;transition:background var(--ease);white-space:nowrap}
+    .track-btn:hover{background:var(--accent-dark)}
 
-    /* STICKY ORDER BAR */
-    .sticky-order{position:fixed;left:12px;right:12px;bottom:12px;background:var(--cta);color:#fff;padding:12px;border-radius:12px;display:flex;justify-content:space-between;align-items:center;gap:12px;z-index:999;box-shadow:0 10px 30px rgba(0,0,0,.12)}
-    .sticky-inner{display:flex;gap:12px;align-items:center}
-    .sticky-btn{background:#fff;color:var(--cta);padding:8px 12px;border-radius:8px;text-decoration:none;font-weight:800}
+    /* Result banner */
+    .track-result{display:none;background:var(--bg);border:1px solid var(--border);border-radius:var(--r-md);padding:14px;margin-bottom:16px}
+    .track-result.show{display:block}
+    .tr-id{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.07em;color:var(--muted);margin-bottom:4px}
+    .tr-status{font-size:15px;font-weight:700;color:var(--accent)}
+    .tr-eta{font-size:13px;color:var(--muted);margin-top:3px}
+
+    /* Steps */
+    .steps{display:flex;flex-direction:column}
+    .step{display:flex;gap:13px;position:relative;padding-bottom:18px}
+    .step:last-child{padding-bottom:0}
+    .step-line{position:absolute;left:17px;top:36px;bottom:0;width:2px;background:var(--border);transition:background .4s}
+    .step.done .step-line{background:var(--cta)}
+    .step-dot{width:36px;height:36px;border-radius:50%;border:2px solid var(--border);background:var(--surface);display:flex;align-items:center;justify-content:center;font-size:15px;flex-shrink:0;position:relative;z-index:1;transition:all var(--ease)}
+    .step.done .step-dot{background:var(--cta);border-color:var(--cta)}
+    .step.active .step-dot{background:var(--accent);border-color:var(--accent);box-shadow:0 0 0 4px var(--accent-lite)}
+    .step-body{padding-top:7px}
+    .step-lbl{font-size:14px;font-weight:700;color:var(--text)}
+    .step.pending .step-lbl{color:var(--muted)}
+    .step-desc{font-size:12px;color:var(--muted);margin-top:2px;line-height:1.5}
+    .step-time{font-size:11px;font-weight:700;color:var(--cta);margin-top:3px}
+    .tracker-note{font-size:12px;color:var(--muted);margin-top:16px;line-height:1.6;padding:12px;background:var(--bg);border-radius:var(--r-sm);border:1px solid var(--border)}
+
+    /* HOW IT WORKS */
+    .hiw{max-width:var(--max);margin:0 auto 28px;padding:0 var(--pad)}
+    .hiw-inner{background:var(--surface);border:1px solid var(--border);border-radius:var(--r-lg);padding:28px 32px}
+    .hiw-inner h2{font-family:var(--fd);font-size:22px;color:var(--text);margin-bottom:20px}
+    .hiw-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:14px}
+    .hiw-card{text-align:center;padding:18px 12px;border-radius:var(--r-md);background:var(--bg);border:1px solid var(--border)}
+    .hiw-ico{font-size:30px;margin-bottom:10px}
+    .hiw-num{display:inline-flex;align-items:center;justify-content:center;width:22px;height:22px;border-radius:50%;background:var(--accent);color:#fff;font-size:11px;font-weight:700;margin-bottom:8px}
+    .hiw-ttl{font-size:14px;font-weight:700;color:var(--text);margin-bottom:4px}
+    .hiw-dsc{font-size:12px;color:var(--muted);line-height:1.5}
+
+    /* MAP */
+    .map-frame{border-radius:0 0 var(--r-lg) var(--r-lg);overflow:hidden}
+    .map-frame iframe{width:100%;height:270px;display:block;border:none}
+    .map-info{padding:14px 20px;display:flex;align-items:center;gap:10px;border-top:1px solid var(--border)}
+    .map-pin{font-size:18px}
+    .map-address{font-size:13px;color:var(--muted);line-height:1.5}
+    .map-address strong{color:var(--text);display:block;margin-bottom:1px}
 
     /* FOOTER */
-    footer{padding:18px;text-align:center;background:#f7f3ef;color:#333;margin-top:18px}
+    footer{max-width:var(--max);margin:0 auto;padding:24px var(--pad) 40px;border-top:1px solid var(--border);display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px}
+    .foot-brand{font-family:var(--fd);font-size:16px;color:var(--accent)}
+    .foot-copy{font-size:13px;color:var(--muted)}
 
-    /* RESPONSIVE FIXES */
-    @media(max-width:980px){ .layout{grid-template-columns:1fr 320px} .item img{height:60px} }
-    @media(max-width:720px){
+    /* TOAST */
+    .toast{position:fixed;bottom:24px;left:50%;transform:translateX(-50%) translateY(70px);background:var(--text);color:#fff;padding:12px 22px;border-radius:100px;font-size:14px;font-weight:600;z-index:9000;opacity:0;transition:all .3s ease;white-space:nowrap;pointer-events:none}
+    .toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
+
+    /* FOCUS */
+    a:focus-visible,button:focus-visible,input:focus-visible,select:focus-visible,textarea:focus-visible{outline:3px solid rgba(191,78,15,.25);outline-offset:2px;border-radius:4px}
+
+    /* RESPONSIVE */
+    @media(max-width:940px){
+      .order-layout{grid-template-columns:1fr}
+      .right-col{order:-1}
       .nav-links{display:none}
       .hamburger{display:flex}
-      .mobile-menu{display:none}
-      .layout{grid-template-columns:1fr;gap:14px}
-      .panel{padding:12px}
-      .checkout-btn{padding:14px;font-size:16px}
-      .sticky-order{flex-direction:column;gap:10px;align-items:stretch;padding-bottom:calc(12px + env(safe-area-inset-bottom))}
-      .sticky-btn{width:100%;display:block}
-      .items-list .item{padding:8px}
-      .item img{width:84px;height:64px}
-      .chef-caption{flex-direction:column;align-items:flex-start;gap:8px}
+      .hiw-grid{grid-template-columns:repeat(2,1fr)}
     }
-    @media(max-width:480px){
-      .item img{width:72px;height:56px}
+    @media(max-width:600px){
+      .dish-picker{grid-template-columns:1fr}
+      .form-row{grid-template-columns:1fr}
+      .banner-steps{display:none}
+      .banner-inner{padding:22px 18px}
+      .hiw-inner{padding:20px}
     }
-
-    /* Accessibility focus */
-    a:focus, button:focus, input:focus, textarea:focus{outline:3px solid rgba(39,174,96,.12);outline-offset:2px}
+    @media(max-width:400px){
+      .hiw-grid{grid-template-columns:1fr}
+    }
   </style>
 </head>
 <body>
- 
-  <!-- NAV -->
-  <div class="nav-wrap" role="navigation" aria-label="Main navigation">
-    <div class="nav">
-      <div class="brand">
-        <div class="logo" aria-hidden="true">DK</div>
-        <div>
-          <h1>Dami's Kitchen</h1>
-          <div style="font-size:12px;color:var(--muted)">Fresh meals • Abuja</div>
+<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-5R3454LQ" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+
+<!-- NAV -->
+<header class="site-nav" role="banner">
+  <div class="nav-inner">
+    <a href="index.html" class="brand" aria-label="Dami's Kitchen home">
+      <div class="logo-mark" aria-hidden="true">DK</div>
+      <div>
+        <div class="brand-name">Dami's Kitchen</div>
+        <div class="brand-sub">Fresh meals · Abuja</div>
+      </div>
+    </a>
+    <nav class="nav-links" aria-label="Primary navigation">
+      <a href="index.html">Home</a>
+      <a href="menu.html">Menu</a>
+      <a href="order.html" class="active" aria-current="page">Order</a>
+      <a href="contact.html">Contact</a>
+      <a href="order.html" class="nav-cta">Order Now</a>
+    </nav>
+    <button id="hamburger" class="hamburger" aria-expanded="false" aria-controls="mobileMenu" aria-label="Open navigation menu">&#9776;</button>
+  </div>
+  <div id="mobileMenu" class="mobile-menu" role="navigation" aria-hidden="true">
+    <a href="index.html">Home</a>
+    <a href="menu.html">Menu</a>
+    <a href="order.html">Order</a>
+    <a href="contact.html">Contact</a>
+    <a href="order.html" class="nav-cta">Order Now</a>
+  </div>
+</header>
+
+<!-- BANNER -->
+<div class="page-banner">
+  <div class="banner-inner">
+    <div class="banner-text">
+      <h1>Place Your Order</h1>
+      <p>Choose your dishes, fill in your details, and we'll open WhatsApp to finalise your order and payment directly with us.</p>
+    </div>
+    <div class="banner-steps" aria-label="How to order">
+      <div class="bstep"><div class="bstep-num">1</div> Pick dishes</div>
+      <span class="bsep">&#8250;</span>
+      <div class="bstep"><div class="bstep-num">2</div> Add details</div>
+      <span class="bsep">&#8250;</span>
+      <div class="bstep"><div class="bstep-num">3</div> Chat on WhatsApp</div>
+      <span class="bsep">&#8250;</span>
+      <div class="bstep"><div class="bstep-num">4</div> Enjoy!</div>
+    </div>
+  </div>
+</div>
+
+<!-- MAIN LAYOUT -->
+<div class="order-layout">
+
+  <!-- LEFT: ORDER FORM -->
+  <div class="card" id="orderForm">
+    <div class="card-head">
+      <div class="card-ico ico-orange" aria-hidden="true">&#128722;</div>
+      <div>
+        <div class="card-title">Build Your Order</div>
+        <div class="card-sub">Select dishes then fill in your delivery details</div>
+      </div>
+    </div>
+    <div class="form-body">
+
+      <span class="sec-label">Step 1 &#8212; Choose your dishes</span>
+      <div class="dish-picker" id="dishPicker" role="group" aria-label="Dish selection"></div>
+
+      <!-- Live summary -->
+      <div class="summary-box" aria-live="polite" aria-label="Order summary">
+        <div class="summary-ttl">Your order</div>
+        <div class="summary-empty" id="sEmpty">No dishes selected yet.</div>
+        <div class="summary-items" id="sItems" style="display:none"></div>
+        <div class="s-div" id="sDiv" style="display:none"></div>
+        <div class="s-total" id="sTotal" style="display:none">
+          <span class="s-total-lbl">Total</span>
+          <span class="s-total-amt" id="sAmt">&#8358;0</span>
         </div>
       </div>
 
-      <nav class="nav-links" aria-label="Primary">
-        <a href="index.html">Home</a>
-        <a href="menu.html">Menu</a>
-        <a href="order.html" class="active" aria-current="page">Order</a>
-        <a href="contact.html">Contact</a>
-        <a href="order.html" class="cta-order">Order Now</a>
-      </nav>
-
-      <button id="hamburger" class="hamburger" aria-expanded="false" aria-controls="mobileMenu" aria-label="Open menu">☰</button>
-    </div>
-
-    <div id="mobileMenu" class="mobile-menu" aria-hidden="true">
-      <a href="index.html">Home</a>
-      <a href="menu.html">Menu</a>
-      <a href="order.html">Order</a>
-      <a href="contact.html">Contact</a>
-      <a href="order.html" class="cta-order" style="display:inline-block;text-align:center">Order Now</a>
-    </div>
-  </div>
-
-  <!-- MAIN -->
-  <main class="container" id="main">
-    <div class="layout" role="main">
-      <!-- Left: Items and delivery form -->
-      <section class="panel" aria-labelledby="cartHeading">
-        <div class="section-title">
-          <h2 id="cartHeading">Your Cart</h2>
-          <div style="font-size:13px;color:var(--muted)">Items saved locally</div>
+      <span class="sec-label">Step 2 &#8212; Your details</span>
+      <div class="form-row">
+        <div class="field">
+          <label for="custName">Full name <em>*</em></label>
+          <input type="text" id="custName" placeholder="e.g. Amina Usman" autocomplete="name"/>
         </div>
-
-        <div id="itemsContainer" class="items-list" aria-live="polite"></div>
-        <div id="emptyState" class="empty" style="display:none">
-          <p>Your cart is empty. Browse the <a href="menu.html">menu</a> to add delicious meals.</p>
+        <div class="field">
+          <label for="custPhone">WhatsApp number <em>*</em></label>
+          <input type="tel" id="custPhone" placeholder="e.g. 08012345678" autocomplete="tel"/>
         </div>
-
-        <div style="margin-top:16px">
-          <h3 style="margin:0 0 8px 0;color:var(--accent)">Delivery details</h3>
-          <div class="field">
-            <label for="customerName">Full name</label>
-            <input id="customerName" type="text" placeholder="Ada Example" />
-          </div>
-          <div class="field">
-            <label for="customerPhone">Phone number</label>
-            <input id="customerPhone" type="tel" placeholder="+234 80 0000 0000" />
-          </div>
-          <div class="field">
-            <label for="customerAddress">Delivery address</label>
-            <input id="customerAddress" type="text" placeholder="House number, street, area" />
-          </div>
+      </div>
+      <div class="form-row full">
+        <div class="field">
+          <label for="custAddr">Delivery address <em>*</em></label>
+          <input type="text" id="custAddr" placeholder="e.g. Plot 14, Phase 2, Gwagwalada, Abuja" autocomplete="street-address"/>
         </div>
-
-        <div style="margin-top:12px">
-          <label for="promo">Promo code</label>
-          <div class="promo">
-            <input id="promo" type="text" placeholder="Enter code" />
-            <button id="applyPromo">Apply</button>
-          </div>
-          <div id="promoMsg" style="margin-top:8px;color:var(--muted);font-size:13px"></div>
+      </div>
+      <div class="form-row">
+        <div class="field">
+          <label for="delivTime">Delivery preference</label>
+          <select id="delivTime">
+            <option value="ASAP">As soon as possible</option>
+            <option value="Within 30 minutes">Within 30 minutes</option>
+            <option value="Within 1 hour">Within 1 hour</option>
+            <option value="I will specify in chat">I'll specify in chat</option>
+          </select>
         </div>
-
-        <!-- Chef video section -->
-        <div class="chef-video" aria-labelledby="chefTitle" style="margin-top:14px">
-          <div class="chef-caption" id="chefTitle">
-            <div style="font-weight:700">Meet the Chef</div>
-            <div style="font-size:13px;color:var(--muted)">Watch Dami prepare a signature dish</div>
-          </div>
-          <video id="chefVideo" poster="images/chef-poster.jpg" controls preload="none" playsinline>
-            <source src="Download (1).mp4" type="video/mp4">
-            Your browser does not support the video tag.
-          </video>
+        <div class="field">
+          <label for="payMethod">Payment method</label>
+          <select id="payMethod">
+            <option value="Bank transfer">Bank transfer</option>
+            <option value="Cash on delivery">Cash on delivery</option>
+            <option value="POS on delivery">POS on delivery</option>
+          </select>
         </div>
-      </section>
-
-      <!-- Right: Summary -->
-      <aside class="panel summary" aria-labelledby="summaryHeading">
-        <h3 id="summaryHeading">Order Summary</h3>
-
-        <div id="summaryItems" aria-hidden="false"></div>
-
-        <div class="summary-row" style="border:none;padding-top:8px">
-          <div style="font-weight:700">Subtotal</div>
-          <div id="subtotal" class="price">₦0</div>
+      </div>
+      <div class="form-row full">
+        <div class="field">
+          <label for="custNotes">Special instructions (optional)</label>
+          <textarea id="custNotes" placeholder="e.g. Extra pepper, no onions, call on arrival..."></textarea>
         </div>
+      </div>
 
-        <div class="summary-row">
-          <div>Delivery</div>
-          <div id="deliveryFee">₦1,000</div>
-        </div>
+      <button class="btn-submit" id="submitBtn" onclick="submitOrder()" aria-label="Open WhatsApp to complete your order">
+        <svg viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 0C5.373 0 0 5.373 0 12c0 2.124.558 4.115 1.534 5.837L.057 23.797l6.064-1.52A11.94 11.94 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 22c-1.894 0-3.665-.523-5.176-1.434l-.371-.221-3.598.902.917-3.544-.242-.378A9.963 9.963 0 012 12C2 6.477 6.477 2 12 2s10 4.477 10 10-4.477 10-10 10z"/></svg>
+        Continue on WhatsApp
+      </button>
+      <p class="form-note">WhatsApp will open with your full order pre-filled. Confirm details and payment with us in the chat.</p>
 
-        <div class="summary-row">
-          <div>Discount</div>
-          <div id="discount">₦0</div>
-        </div>
-
-        <div class="total">
-          <div style="display:flex;justify-content:space-between;align-items:center">
-            <div>Total</div>
-            <div id="totalAmount">₦0</div>
-          </div>
-        </div>
-
-        <div style="margin-top:12px">
-          <button id="checkoutBtn" class="checkout-btn" aria-label="Checkout via WhatsApp">Checkout via WhatsApp</button>
-        </div>
-
-        <div style="margin-top:12px;font-size:13px;color:var(--muted)">
-          <div>Secure WhatsApp checkout • Confirm payment in chat</div>
-        </div>
-      </aside>
-    </div>
-  </main>
-
-  <!-- Sticky Order Bar -->
-  <div class="sticky-order" role="region" aria-label="Place order">
-    <div class="sticky-inner">
-      <svg class="icon" viewBox="0 0 24 24" fill="#fff" aria-hidden="true"><path d="M7 4h10l1.6 8H5.4L7 4zM6 20a2 2 0 100-4 2 2 0 000 4zm10 0a2 2 0 100-4 2 2 0 000 4z"/></svg>
-      <div style="font-weight:800">Ready to eat? Place your order</div>
-    </div>
-    <div style="display:flex;gap:8px">
-      <button class="sticky-btn" id="stickyOrder">Order Now</button>
-      <a class="sticky-btn" id="stickyMenu" href="menu.html">Menu</a>
     </div>
   </div>
 
-  <footer>
-    © 2026 Dami's Kitchen • Delivery across Abuja
-  </footer>
+  <!-- RIGHT COLUMN -->
+  <div class="right-col">
 
-  <script>
-    /* ---------- Analytics helper ---------- */
-    function pushEvent(name, payload){
-      try{
-        window.dataLayer = window.dataLayer || [];
-        window.dataLayer.push(Object.assign({event: name}, payload || {}));
-        if(window.gtag) gtag('event', name, payload || {});
-      }catch(e){}
-    }
+    <!-- TRACKER -->
+    <div class="card">
+      <div class="card-head">
+        <div class="card-ico ico-green" aria-hidden="true">&#128230;</div>
+        <div>
+          <div class="card-title">Track Your Order</div>
+          <div class="card-sub">Enter the order ID from your WhatsApp confirmation</div>
+        </div>
+      </div>
+      <div class="tracker-body">
+        <div class="track-row">
+          <input type="text" class="track-input" id="trackInput"
+            placeholder="e.g. DK-2418" maxlength="10" aria-label="Order ID"
+            oninput="this.value=this.value.toUpperCase()"/>
+          <button class="track-btn" onclick="trackOrder()">Track</button>
+        </div>
 
-    /* ---------- Mobile menu toggle ---------- */
-    (function(){
-      const hamburger = document.getElementById('hamburger');
-      const mobileMenu = document.getElementById('mobileMenu');
-      if(hamburger && mobileMenu){
-        hamburger.addEventListener('click', () => {
-          const expanded = hamburger.getAttribute('aria-expanded') === 'true';
-          hamburger.setAttribute('aria-expanded', String(!expanded));
-          mobileMenu.style.display = expanded ? 'none' : 'flex';
-          mobileMenu.setAttribute('aria-hidden', String(expanded));
-          if(!expanded) mobileMenu.scrollIntoView({behavior:'smooth', block:'start'});
-        });
-        document.addEventListener('click', (e) => {
-          if(window.innerWidth <= 720 && !mobileMenu.contains(e.target) && !hamburger.contains(e.target)){
-            mobileMenu.style.display = 'none';
-            hamburger.setAttribute('aria-expanded','false');
-            mobileMenu.setAttribute('aria-hidden','true');
-          }
-        });
-      }
-    })();
+        <div class="track-result" id="trackResult" role="status" aria-live="polite">
+          <div class="tr-id" id="trId"></div>
+          <div class="tr-status" id="trStatus"></div>
+          <div class="tr-eta" id="trEta"></div>
+        </div>
 
-    /* ---------- Cart management (localStorage) ---------- */
-    const CART_KEY = 'dami_cart_v1';
-    const PRODUCTS = [
-      { id: 'jollof', name: 'Fried Rice & Chicken', price: 3500, img: 'fried rice wih chicken.jpeg' },
-      { id: 'grilledfish', name: 'Fried Rice With Turkey', price: 4000, img: 'fried rice and turkey.jpeg' },
-      { id: 'smoothie', name: 'Fruit Smoothie', price: 1800, img: 'smoothie.jpg' },
-      { id: 'familycombo', name: 'Family Combo', price: 12000, img: 'images/family_combo.jpg' }
-    ];
-
-    function loadCart(){ try{ return JSON.parse(localStorage.getItem(CART_KEY)) || {}; }catch(e){ return {}; } }
-    function saveCart(cart){ localStorage.setItem(CART_KEY, JSON.stringify(cart)); renderCart(); }
-
-    function addToCart(productId, qty=1){
-      const cart = loadCart();
-      cart[productId] = (cart[productId] || 0) + qty;
-      saveCart(cart);
-      pushEvent('cart_add', {item: productId, quantity: qty});
-      showToast('Added to cart');
-    }
-    function updateCart(productId, qty){
-      const cart = loadCart();
-      if(qty <= 0){ delete cart[productId]; pushEvent('cart_remove', {item: productId}); }
-      else { cart[productId] = qty; pushEvent('cart_update', {item: productId, quantity: qty}); }
-      saveCart(cart);
-    }
-
-    /* ---------- Render cart & summary ---------- */
-    const itemsContainer = document.getElementById('itemsContainer');
-    const summaryItems = document.getElementById('summaryItems');
-    const emptyState = document.getElementById('emptyState');
-    const subtotalEl = document.getElementById('subtotal');
-    const deliveryFeeEl = document.getElementById('deliveryFee');
-    const discountEl = document.getElementById('discount');
-    const totalAmountEl = document.getElementById('totalAmount');
-    const checkoutBtn = document.getElementById('checkoutBtn');
-
-    const DELIVERY_FEE = 1000;
-    let appliedDiscount = 0;
-
-    function renderCart(){
-      const cart = loadCart();
-      const keys = Object.keys(cart);
-      itemsContainer.innerHTML = '';
-      summaryItems.innerHTML = '';
-      if(keys.length === 0){
-        emptyState.style.display = '';
-        checkoutBtn.disabled = true;
-        subtotalEl.textContent = '₦0';
-        totalAmountEl.textContent = '₦0';
-        discountEl.textContent = '₦0';
-        return;
-      } else {
-        emptyState.style.display = 'none';
-        checkoutBtn.disabled = false;
-      }
-
-      let subtotal = 0;
-      keys.forEach(id => {
-        const qty = cart[id];
-        const product = PRODUCTS.find(p => p.id === id);
-        if(!product) return;
-        subtotal += product.price * qty;
-
-        // Item row
-        const itemEl = document.createElement('div');
-        itemEl.className = 'item';
-        itemEl.innerHTML = `
-          <img src="${product.img}" alt="${product.name}">
-          <div class="item-info">
-            <h3>${product.name}</h3>
-            <p class="desc">₦${product.price.toLocaleString()}</p>
-            <div style="margin-top:8px;color:var(--muted);font-size:13px">Qty: ${qty}</div>
-          </div>
-          <div class="controls">
-            <div class="qty" role="group" aria-label="Quantity controls for ${product.name}">
-              <button class="dec" data-id="${id}" aria-label="Decrease">−</button>
-              <div class="count">${qty}</div>
-              <button class="inc" data-id="${id}" aria-label="Increase">+</button>
+        <div class="steps" id="stepsUI" role="list" aria-label="Order stages">
+          <div class="step pending" data-step="0" role="listitem">
+            <div class="step-line"></div>
+            <div class="step-dot">&#10003;</div>
+            <div class="step-body">
+              <div class="step-lbl">Order received</div>
+              <div class="step-desc">Confirmed via WhatsApp</div>
+              <div class="step-time" id="t0"></div>
             </div>
-            <button class="remove" data-id="${id}" aria-label="Remove item">Remove</button>
           </div>
-        `;
-        itemsContainer.appendChild(itemEl);
+          <div class="step pending" data-step="1" role="listitem">
+            <div class="step-line"></div>
+            <div class="step-dot">&#127859;</div>
+            <div class="step-body">
+              <div class="step-lbl">Preparing your meal</div>
+              <div class="step-desc">Chef is cooking fresh</div>
+              <div class="step-time" id="t1"></div>
+            </div>
+          </div>
+          <div class="step pending" data-step="2" role="listitem">
+            <div class="step-line"></div>
+            <div class="step-dot">&#9989;</div>
+            <div class="step-body">
+              <div class="step-lbl">Quality check</div>
+              <div class="step-desc">Checked and packed</div>
+              <div class="step-time" id="t2"></div>
+            </div>
+          </div>
+          <div class="step pending" data-step="3" role="listitem">
+            <div class="step-line"></div>
+            <div class="step-dot">&#128757;</div>
+            <div class="step-body">
+              <div class="step-lbl">Out for delivery</div>
+              <div class="step-desc">Rider heading your way</div>
+              <div class="step-time" id="t3"></div>
+            </div>
+          </div>
+          <div class="step pending" data-step="4" role="listitem">
+            <div class="step-dot">&#127968;</div>
+            <div class="step-body">
+              <div class="step-lbl">Delivered &#8212; enjoy!</div>
+              <div class="step-desc">Your meal has arrived</div>
+              <div class="step-time" id="t4"></div>
+            </div>
+          </div>
+        </div>
 
-        // Summary row
-        const row = document.createElement('div');
-        row.className = 'summary-row';
-        row.innerHTML = `<div>${product.name} × ${qty}</div><div class="price">₦${(product.price * qty).toLocaleString()}</div>`;
-        summaryItems.appendChild(row);
-      });
+        <div class="tracker-note">
+          &#128241; Your unique order ID is sent to you on WhatsApp when we confirm your order. We also send live status updates directly in chat.
+        </div>
+      </div>
+    </div>
 
-      subtotalEl.textContent = `₦${subtotal.toLocaleString()}`;
-      deliveryFeeEl.textContent = `₦${DELIVERY_FEE.toLocaleString()}`;
-      discountEl.textContent = `₦${appliedDiscount.toLocaleString()}`;
-      totalAmountEl.textContent = `₦${(subtotal + DELIVERY_FEE - appliedDiscount).toLocaleString()}`;
+    <!-- MAP -->
+    <div class="card">
+      <div class="card-head">
+        <div class="card-ico ico-blue" aria-hidden="true">&#128205;</div>
+        <div>
+          <div class="card-title">Find Us</div>
+          <div class="card-sub">Based in Gwagwalada, Abuja</div>
+        </div>
+      </div>
+      <div class="map-frame">
+        <iframe
+          src="https://maps.google.com/maps?q=Gwagwalada,FCT,Nigeria&z=14&output=embed"
+          title="Dami's Kitchen — Gwagwalada, Abuja"
+          allowfullscreen loading="lazy"
+          referrerpolicy="no-referrer-when-downgrade">
+        </iframe>
+      </div>
+      <div class="map-info">
+        <span class="map-pin" aria-hidden="true">&#128205;</span>
+        <div class="map-address">
+          <strong>Dami's Kitchen</strong>
+          Gwagwalada Area Council, FCT, Abuja, Nigeria
+        </div>
+      </div>
+    </div>
 
-      // Attach handlers
-      itemsContainer.querySelectorAll('.inc').forEach(btn => {
-        btn.onclick = () => {
-          const id = btn.getAttribute('data-id');
-          const cart = loadCart();
-          updateCart(id, (cart[id] || 0) + 1);
-        };
-      });
-      itemsContainer.querySelectorAll('.dec').forEach(btn => {
-        btn.onclick = () => {
-          const id = btn.getAttribute('data-id');
-          const cart = loadCart();
-          updateCart(id, (cart[id] || 0) - 1);
-        };
-      });
-      itemsContainer.querySelectorAll('.remove').forEach(btn => {
-        btn.onclick = () => {
-          const id = btn.getAttribute('data-id');
-          updateCart(id, 0);
-        };
-      });
-    }
+  </div>
+</div>
 
-    /* ---------- Promo handling ---------- */
-    document.getElementById('applyPromo').addEventListener('click', function(){
-      const code = document.getElementById('promo').value.trim().toUpperCase();
-      if(!code){ document.getElementById('promoMsg').textContent = 'Enter a promo code.'; return; }
-      if(code === 'SAVE10'){ appliedDiscount = 1000; document.getElementById('promoMsg').textContent = 'Promo applied: ₦1,000 off'; }
-      else { appliedDiscount = 0; document.getElementById('promoMsg').textContent = 'Invalid code'; }
-      pushEvent('promo_applied', {code: code, discount: appliedDiscount});
-      renderCart();
-    });
+<!-- HOW IT WORKS -->
+<div class="hiw">
+  <div class="hiw-inner">
+    <h2>How ordering works</h2>
+    <div class="hiw-grid">
+      <div class="hiw-card">
+        <div class="hiw-ico">&#127869;&#65039;</div>
+        <div class="hiw-num" aria-hidden="true">1</div>
+        <div class="hiw-ttl">Pick your dishes</div>
+        <div class="hiw-dsc">Choose from 16 freshly prepared Nigerian dishes</div>
+      </div>
+      <div class="hiw-card">
+        <div class="hiw-ico">&#128203;</div>
+        <div class="hiw-num" aria-hidden="true">2</div>
+        <div class="hiw-ttl">Fill your details</div>
+        <div class="hiw-dsc">Enter your name, number and delivery address</div>
+      </div>
+      <div class="hiw-card">
+        <div class="hiw-ico">&#128172;</div>
+        <div class="hiw-num" aria-hidden="true">3</div>
+        <div class="hiw-ttl">Confirm on WhatsApp</div>
+        <div class="hiw-dsc">We confirm your order and send payment details in chat</div>
+      </div>
+      <div class="hiw-card">
+        <div class="hiw-ico">&#128757;</div>
+        <div class="hiw-num" aria-hidden="true">4</div>
+        <div class="hiw-ttl">Fast delivery</div>
+        <div class="hiw-dsc">Your hot fresh meal is delivered straight to your door</div>
+      </div>
+    </div>
+  </div>
+</div>
 
-    /* ---------- WhatsApp checkout (click-to-chat) ---------- */
-    const CHEF_PHONE = '2348034117124'; 
+<footer>
+  <div class="foot-brand">Dami's Kitchen</div>
+  <div class="foot-copy">&#169; 2026 Dami's Kitchen &middot; Abuja &middot; <a href="menu.html" style="color:var(--accent)">View full menu</a></div>
+</footer>
 
-    function formatNaira(n){ return '₦' + Number(n).toLocaleString(); }
+<div class="toast" id="toast" role="alert" aria-live="assertive"></div>
 
-    function buildWhatsAppMessage(cart, customer){
-      const PRODUCTS_MAP = {};
-      PRODUCTS.forEach(p => PRODUCTS_MAP[p.id] = p);
-      const orderId = 'DK' + Date.now().toString().slice(-8);
-      const lines = [];
-      lines.push(`Order ID: ${orderId}`);
-      lines.push(`Customer: ${customer.name || '—'}`);
-      lines.push(`Phone: ${customer.phone || '—'}`);
-      lines.push(`Address: ${customer.address || 'Pickup / Not provided'}`);
-      lines.push('');
-      lines.push('Items:');
+<script>
+var PHONE = "2348034117124"; // Replace with real WhatsApp number
 
-      let subtotal = 0;
-      for(const id in cart){
-        const qty = cart[id];
-        const p = PRODUCTS_MAP[id];
-        if(!p) continue;
-        const lineTotal = p.price * qty;
-        subtotal += lineTotal;
-        lines.push(`- ${p.name} x${qty} — ${formatNaira(lineTotal)}`);
-      }
+var dishes = [
+  {id:1, cat:"rice",    price:5000, name:"Jollof Rice + Chicken"},
+  {id:2, cat:"rice",    price:5500, name:"Jollof Rice + Turkey"},
+  {id:3, cat:"rice",    price:5000, name:"Fried Rice + Chicken"},
+  {id:4, cat:"rice",    price:5500, name:"Fried Rice + Turkey"},
+  {id:5, cat:"rice",    price:5500, name:"Ofada Rice + Ayamase"},
+  {id:6, cat:"rice",    price:4500, name:"White Rice + Stew + Chicken"},
+  {id:7, cat:"noodles", price:5000, name:"Noodles + Plantain"},
+  {id:8, cat:"noodles", price:5000, name:"Jollof Spaghetti + Chicken"},
+  {id:9, cat:"noodles", price:4000, name:"Noodles + Egg + Sausage"},
+  {id:10,cat:"soups",   price:4500, name:"Egusi Soup + Eba"},
+  {id:11,cat:"soups",   price:5000, name:"Banga Soup + Starch"},
+  {id:12,cat:"soups",   price:5500, name:"Pepper Soup (Goat Meat)"},
+  {id:13,cat:"soups",   price:4500, name:"Ogbono Soup + Fufu"},
+  {id:14,cat:"sides",   price:6000, name:"Grilled Fish (Whole Tilapia)"},
+  {id:15,cat:"sides",   price:5000, name:"Suya Platter"},
+  {id:16,cat:"sides",   price:3500, name:"Moi Moi + Fried Plantain"},
+];
 
-      const total = subtotal + DELIVERY_FEE - appliedDiscount;
-      lines.push('');
-      lines.push(`Subtotal: ${formatNaira(subtotal)}`);
-      lines.push(`Delivery: ${formatNaira(DELIVERY_FEE)}`);
-      lines.push(`Discount: ${formatNaira(appliedDiscount)}`);
-      lines.push(`Total: ${formatNaira(total)}`);
-      lines.push('');
-      lines.push('Payment method: Arrange via WhatsApp (confirm payment in chat)');
-      lines.push('');
-      lines.push('Please confirm availability and expected delivery time. Thank you!');
-      return { text: lines.join('\n'), orderId, subtotal, total };
-    }
+var qtys = {};
 
-    function openWhatsAppCheckout(){
-      const cart = loadCart();
-      if(Object.keys(cart).length === 0){ alert('Your cart is empty. Add items before checkout.'); return; }
-      const customer = {
-        name: document.getElementById('customerName').value.trim(),
-        phone: document.getElementById('customerPhone').value.trim(),
-        address: document.getElementById('customerAddress').value.trim()
-      };
-      if(!customer.name || !customer.phone){ alert('Please enter your name and phone number.'); return; }
+function fmt(n){ return "\u20A6" + n.toLocaleString("en-NG"); }
 
-      const payload = buildWhatsAppMessage(cart, customer);
-      const encoded = encodeURIComponent(payload.text);
-      const waUrl = `https://wa.me/${CHEF_PHONE}?text=${encoded}`;
-
-      pushEvent('begin_whatsapp_checkout', {order_id: payload.orderId, subtotal: payload.subtotal, total: payload.total});
-      window.open(waUrl, '_blank');
-      pushEvent('whatsapp_message_sent', {order_id: payload.orderId, total: payload.total});
-      showToast('WhatsApp opened. Send the message to confirm your order. Order ID: ' + payload.orderId);
-    }
-
-    checkoutBtn.addEventListener('click', openWhatsAppCheckout);
-    document.getElementById('stickyOrder').addEventListener('click', function(){ pushEvent('order_cta_click', {location:'sticky_bar'}); window.location.href='order.html'; });
-    document.getElementById('stickyMenu').addEventListener('click', function(e){ e.preventDefault(); window.location.href='menu.html'; });
-
-    /* ---------- Chef video analytics ---------- */
-    (function(){
-      const chef = document.getElementById('chefVideo');
-      if(!chef) return;
-      chef.addEventListener('play', ()=> pushEvent('video_play', {video:'chef_story'}));
-      chef.addEventListener('pause', ()=> pushEvent('video_pause', {video:'chef_story'}));
-      chef.addEventListener('ended', ()=> pushEvent('video_complete', {video:'chef_story'}));
-      // lazy load when visible
-      if('IntersectionObserver' in window){
-        const io = new IntersectionObserver(entries => {
-          entries.forEach(e => {
-            if(e.isIntersecting){
-              chef.preload = 'auto';
-              io.disconnect();
-            }
-          });
-        }, {threshold:0.25});
-        io.observe(chef);
+/* Build picker */
+(function(){
+  var picker = document.getElementById("dishPicker");
+  var html = "";
+  dishes.forEach(function(d){
+    html +=
+      '<input type="checkbox" class="dish-chk" id="dc'+d.id+'" data-id="'+d.id+'">' +
+      '<label class="dish-lbl" for="dc'+d.id+'" id="dl'+d.id+'">' +
+        '<div class="d-top">' +
+          '<span class="d-name">'+d.name+'</span>' +
+          '<span class="d-chkico" id="dci'+d.id+'">&#9675;</span>' +
+        '</div>' +
+        '<span class="d-price">'+fmt(d.price)+'</span>' +
+        '<div class="d-qty" id="dq'+d.id+'">' +
+          '<button class="qty-b" onclick="chQty(event,'+d.id+',-1)" aria-label="Decrease">&#8722;</button>' +
+          '<span class="qty-v" id="qv'+d.id+'">1</span>' +
+          '<button class="qty-b" onclick="chQty(event,'+d.id+',1)" aria-label="Increase">+</button>' +
+        '</div>' +
+      '</label>';
+  });
+  picker.innerHTML = html;
+  picker.querySelectorAll(".dish-chk").forEach(function(c){
+    c.addEventListener("change", function(){
+      var id = parseInt(this.dataset.id);
+      var ico = document.getElementById("dci"+id);
+      var qrow = document.getElementById("dq"+id);
+      if(this.checked){
+        qtys[id] = qtys[id] || 1;
+        document.getElementById("qv"+id).textContent = qtys[id];
+        ico.innerHTML = "&#10004;";
+        ico.style.color = "var(--cta)";
+        qrow.style.display = "flex";
       } else {
-        chef.preload = 'auto';
+        delete qtys[id];
+        ico.innerHTML = "&#9675;";
+        ico.style.color = "";
+        qrow.style.display = "none";
       }
-    })();
+      updateSummary();
+    });
+  });
+})();
 
-    /* ---------- Toast helper ---------- */
-    function showToast(msg, ms=3000){
-      let t = document.getElementById('dk_toast');
-      if(!t){
-        t = document.createElement('div');
-        t.id = 'dk_toast';
-        t.style.position = 'fixed';
-        t.style.left = '50%';
-        t.style.transform = 'translateX(-50%)';
-        t.style.bottom = '110px';
-        t.style.background = '#111';
-        t.style.color = '#fff';
-        t.style.padding = '10px 14px';
-        t.style.borderRadius = '8px';
-        t.style.zIndex = '1200';
-        t.style.opacity = '0';
-        t.style.transition = 'opacity .25s';
-        document.body.appendChild(t);
-      }
-      t.textContent = msg;
-      t.style.opacity = '1';
-      setTimeout(()=> t.style.opacity = '0', ms);
+function chQty(e,id,delta){
+  e.preventDefault(); e.stopPropagation();
+  if(!document.getElementById("dc"+id).checked) return;
+  qtys[id] = Math.max(1,(qtys[id]||1)+delta);
+  document.getElementById("qv"+id).textContent = qtys[id];
+  updateSummary();
+}
+
+function updateSummary(){
+  var ids = Object.keys(qtys).map(Number);
+  var eEl=document.getElementById("sEmpty"),
+      iEl=document.getElementById("sItems"),
+      dEl=document.getElementById("sDiv"),
+      tEl=document.getElementById("sTotal"),
+      aEl=document.getElementById("sAmt");
+  if(!ids.length){
+    eEl.style.display=""; iEl.style.display="none"; dEl.style.display="none"; tEl.style.display="none"; return;
+  }
+  eEl.style.display="none"; iEl.style.display="flex"; dEl.style.display=""; tEl.style.display="";
+  var total=0, html="";
+  ids.forEach(function(id){
+    var d=dishes.find(function(x){return x.id===id;});
+    if(!d) return;
+    var sub=d.price*qtys[id]; total+=sub;
+    html+='<div class="s-item"><span class="s-item-name">'+d.name+(qtys[id]>1?' <span style="color:var(--muted)">\xD7'+qtys[id]+'</span>':'')+'</span><span class="s-item-price">'+fmt(sub)+'</span></div>';
+  });
+  iEl.innerHTML=html; aEl.textContent=fmt(total);
+}
+
+function submitOrder(){
+  var ids = Object.keys(qtys).map(Number);
+  if(!ids.length){ showToast("Please select at least one dish \u270B"); return; }
+  var name=document.getElementById("custName").value.trim();
+  var phone=document.getElementById("custPhone").value.trim();
+  var addr=document.getElementById("custAddr").value.trim();
+  var time=document.getElementById("delivTime").value;
+  var pay=document.getElementById("payMethod").value;
+  var notes=document.getElementById("custNotes").value.trim();
+  if(!name){ showToast("Please enter your name"); document.getElementById("custName").focus(); return; }
+  if(!phone){ showToast("Please enter your WhatsApp number"); document.getElementById("custPhone").focus(); return; }
+  if(!addr){ showToast("Please enter your delivery address"); document.getElementById("custAddr").focus(); return; }
+  var lines="", total=0;
+  ids.forEach(function(id,i){
+    var d=dishes.find(function(x){return x.id===id;});
+    if(!d) return;
+    var sub=d.price*qtys[id]; total+=sub;
+    lines+=(i+1)+". *"+d.name+"*"+(qtys[id]>1?" (\xD7"+qtys[id]+")":"")+"\u2014 "+fmt(sub)+"\n";
+  });
+  var msg=
+    "Hello Dami's Kitchen! \uD83D\uDC4B\n\nI'd like to place an order:\n\n"+lines+
+    "\n\uD83D\uDCB0 *Total: "+fmt(total)+"*\n\n"+
+    "\uD83D\uDCCB *My Details:*\n"+
+    "Name: "+name+"\nPhone: "+phone+"\nAddress: "+addr+"\nDelivery: "+time+"\nPayment: "+pay+
+    (notes?"\n\n\uD83D\uDCDD Notes: "+notes:"")+
+    "\n\nPlease confirm and send payment details. Thank you! \uD83D\uDE4F";
+  try{
+    window.dataLayer=window.dataLayer||[];
+    window.dataLayer.push({event:"order_submit",total:total,items:ids.length});
+    if(window.fbq) fbq("track","InitiateCheckout",{value:total/100,currency:"NGN"});
+  }catch(e){}
+  window.open("https://wa.me/"+PHONE+"?text="+encodeURIComponent(msg),"_blank","noopener,noreferrer");
+}
+
+/* Tracker demo data */
+var demo={
+  "DK-2401":{status:"Out for delivery",stage:3,eta:"Arriving in ~15 min"},
+  "DK-2402":{status:"Delivered",stage:4,eta:"Delivered at 2:45 PM"},
+  "DK-2403":{status:"Being prepared",stage:1,eta:"Ready in ~25 min"},
+  "DK-2404":{status:"Quality check",stage:2,eta:"Dispatching shortly"},
+  "DK-2418":{status:"Order received",stage:0,eta:"Chef starting now"},
+};
+
+function trackOrder(){
+  var val=document.getElementById("trackInput").value.trim().toUpperCase();
+  if(!val){ showToast("Please enter your order ID first"); return; }
+  var res=document.getElementById("trackResult");
+  var steps=document.querySelectorAll(".step");
+  steps.forEach(function(s){s.className="step pending";});
+  for(var i=0;i<5;i++){var t=document.getElementById("t"+i);if(t)t.textContent="";}
+  var order=demo[val];
+  var trId=document.getElementById("trId"),
+      trSt=document.getElementById("trStatus"),
+      trEt=document.getElementById("trEta");
+  trId.textContent="Order: "+val;
+  if(!order){
+    trSt.textContent="Order not found";
+    trSt.style.color="var(--accent)";
+    trEt.textContent="Please check your WhatsApp for your correct order ID.";
+    res.classList.add("show"); return;
+  }
+  trSt.textContent="Status: "+order.status;
+  trSt.style.color=order.stage===4?"var(--cta)":"var(--accent)";
+  trEt.textContent=order.eta;
+  res.classList.add("show");
+  steps.forEach(function(s){
+    var idx=parseInt(s.dataset.step);
+    s.classList.remove("pending");
+    if(idx<order.stage){ s.classList.add("done"); var t=document.getElementById("t"+idx); if(t)t.textContent="\u2713 Done"; }
+    else if(idx===order.stage){ s.classList.add("active"); var t=document.getElementById("t"+idx); if(t)t.textContent="\u2190 Current"; }
+    else { s.classList.add("pending"); }
+  });
+  document.getElementById("trackResult").scrollIntoView({behavior:"smooth",block:"nearest"});
+}
+document.getElementById("trackInput").addEventListener("keydown",function(e){if(e.key==="Enter")trackOrder();});
+
+/* Toast */
+var toastT;
+function showToast(msg){
+  var t=document.getElementById("toast");
+  t.textContent=msg; t.classList.add("show");
+  clearTimeout(toastT); toastT=setTimeout(function(){t.classList.remove("show");},3200);
+}
+
+/* Mobile menu */
+(function(){
+  var btn=document.getElementById("hamburger"),menu=document.getElementById("mobileMenu");
+  if(!btn||!menu)return;
+  btn.addEventListener("click",function(){
+    var open=btn.getAttribute("aria-expanded")==="true";
+    btn.setAttribute("aria-expanded",String(!open));
+    menu.style.display=open?"none":"flex";
+    menu.setAttribute("aria-hidden",String(open));
+  });
+  document.addEventListener("click",function(e){
+    if(!menu.contains(e.target)&&!btn.contains(e.target)){
+      menu.style.display="none";btn.setAttribute("aria-expanded","false");menu.setAttribute("aria-hidden","true");
     }
+  });
+})();
 
-    /* ---------- Demo prefill (remove in production) ---------- */
-    (function prefillDemo(){
-      const cart = loadCart();
-      if(Object.keys(cart).length === 0){
-        const demo = {};
-        demo['jollof'] = 1;
-        demo['grilledfish'] = 1;
-        localStorage.setItem(CART_KEY, JSON.stringify(demo));
-      }
-      renderCart();
-    })();
-
-    /* ---------- Expose addToCart for menu pages ---------- */
-    window.addToCartFromMenu = function(productId){
-      addToCart(productId, 1);
-      showToast('Added to cart');
-    };
-
-    /* ---------- Initial render ---------- */
-    renderCart();
-
-    /* ---------- Mobile JS (prevent overflow, ensure CTAs visible) ---------- */
-    (function(){
-      // Ensure sticky bar adjusts on small heights
-      const sticky = document.querySelector('.sticky-order');
-      function adjustSticky(){
-        if(!sticky) return;
-        if(window.innerHeight < 600){
-          sticky.style.padding = '10px';
-          sticky.style.fontSize = '14px';
-        } else {
-          sticky.style.padding = '';
-          sticky.style.fontSize = '';
-        }
-      }
-      window.addEventListener('resize', adjustSticky);
-      adjustSticky();
-
-      // Prevent horizontal scroll
-      document.documentElement.style.overflowX = 'hidden';
-      document.body.style.overflowX = 'hidden';
-    })();
-  </script>
+/* URL pre-select: order.html?dish=7 */
+(function(){
+  var p=new URLSearchParams(window.location.search),id=parseInt(p.get("dish"));
+  if(id){var c=document.getElementById("dc"+id);if(c){c.checked=true;c.dispatchEvent(new Event("change"));setTimeout(function(){document.getElementById("orderForm").scrollIntoView({behavior:"smooth"});},300);}}
+})();
+</script>
 </body>
 </html>
-
-
